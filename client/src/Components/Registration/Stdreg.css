@@ -1,0 +1,64 @@
+/* Styling for the registration form */
+.form-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  background-color: #155724;
+}
+
+form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* Styling for the success and error messages */
+.message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
