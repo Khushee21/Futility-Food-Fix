@@ -1,14 +1,12 @@
-import { useState } from 'react'
-import './App.css'
-import Student from './Components/StudentDashBoard/Student'
+import React from 'react';
+import Stdreg from './Components/Registration/Stdreg'; // Import the Registration form
 
 function App() {
-
   return (
-    <>
-     <Student/>
-    </>
-  )
+    <div className="App">
+      <Stdreg />
+    </div>
+  );
 }
 
-export default App
+export default App;
