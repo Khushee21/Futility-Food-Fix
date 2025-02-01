@@ -1,41 +1,43 @@
-// In server.js
+require("dotenv").config(); // Load environment variables
 
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const authRoutes = require("./routes/authRoutes"); // ✅ Import routes for auth (login, reset password, etc.)
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/yourdbname"; // Replace with your DB name
 
 // Middleware
-app.use(express.json());  // Parse incoming JSON requests
-app.use(cors());  // Enable Cross-Origin Resource Sharing (CORS)
+app.use(express.json()); // Parse incoming JSON requests
+app.use(cors()); // Enable CORS
 
-// Root route for the server
-app.get('/', (req, res) => {
-  res.send('Welcome to the Server!');
+// Root route for testing
+app.get("/", (req, res) => {
+  res.send("Welcome to the Server!");
 });
 
-// Use the authentication routes for "/api/students"
-app.use("/api/students", authRoutes);
+// Use authentication routes
+app.use("/api/auth", authRoutes);
 
 // Handle 404 errors for undefined routes
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);  // Log the error stack trace
+  console.error("❌ Server Error:", err.stack);
   res.status(500).json({ success: false, message: "Something went wrong" });
 });
 
-// MongoDB connection
+// MongoDB Connection
 mongoose
-  .connect("mongodb+srv://juhi:12345@cluster0.pmhwc.mongodb.net/registeration2")
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("Database connection error:", err));
+  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ Database connection error:", err));
 
 // Start the server
-app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));

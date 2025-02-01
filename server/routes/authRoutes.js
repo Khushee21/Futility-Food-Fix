@@ -1,13 +1,14 @@
-// In authRoutes.js
-
 const express = require("express");
 const router = express.Router();
-const { login, resetPassword } = require("../controllers/authController"); // ✅ Importing correctly
+const { login, resetPassword, registerStudent } = require("../controllers/authController");
+
+// Route for student registration
+router.post("/register", registerStudent);
 
 // Route for login
 router.post("/login", login);
 
-// Route for reset password
-router.post("/reset-password", resetPassword);  // ✅ Correct usage of resetPassword
+// Route for password reset
+router.post("/reset-password", resetPassword);
 
 module.exports = router;
