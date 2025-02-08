@@ -29,7 +29,7 @@ const ResetPass = () => {
     // Proceed with password reset logic
     try {
       // Send reset request to backend with the student ID and new password
-      const response = await axios.post("http://localhost:5000/api/students/reset-password", {
+      const response = await axios.post("http://localhost:5066/api/auth/students/reset-password", {
         id: studentId, // Send the ID from the form field
         newPassword,
       });

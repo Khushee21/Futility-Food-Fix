@@ -7,24 +7,33 @@ const SignInStu = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(""); // Clear previous errors
+
     try {
-      const response = await axios.post("http://localhost:5000/api/students/login", {
-        id,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:5066/api/auth/students/login",
+        { id, password },
+        { withCredentials: true } // Ensure cookies are sent if needed
+      );
+
       if (response.data.success) {
-        alert("Login successful!");
+        alert("✅ Login successful!");
         navigate("/student-dashboard");
       } else {
-        setError("Invalid ID or Password");
+        setError(response.data.message || "❌ Invalid ID or Password");
       }
     } catch (err) {
-      setError("Error logging in. Please try again.");
+      console.error("❌ Login Error:", err);
+      if (err.response) {
+        setError(`❌ ${err.response.data.message || "Server error"}`);
+      } else {
+        setError("❌ Network error. Please check your connection.");
+      }
     }
   };
 
@@ -42,31 +51,37 @@ const SignInStu = () => {
               onChange={(e) => setId(e.target.value)}
               className="auth-input"
               required
+              autoComplete="username" // Helps with autofill for the username
             />
           </div>
+
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-700 mb-2">Password</label>
             <div className="password-container">
               <input
-                type={showPassword ? "text" : "password"}  // Toggle password visibility
+                type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="auth-input"
                 required
+                autoComplete="current-password" // Ensures browser autofill works for password
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}  // Toggle the visibility state
+                onClick={() => setShowPassword(!showPassword)}
                 className="show-password-toggle"
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
           </div>
+
           {error && <p className="auth-error">{error}</p>}
+
           <button type="submit" className="auth-button">Login</button>
         </form>
+
         <div className="auth-link" onClick={() => navigate("/reset-password")}>
           Forgot Password?
         </div>
@@ -82,4 +97,3 @@ const SignInStu = () => {
 };
 
 export default SignInStu;
-
