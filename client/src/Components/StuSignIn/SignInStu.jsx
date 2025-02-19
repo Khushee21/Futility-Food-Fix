@@ -14,11 +14,14 @@ const SignInStu = () => {
     e.preventDefault();
     setError(""); // Clear previous errors
 
+    // Log the input values to verify they're being sent correctly
+    console.log("Logging in with:", { id, password });
+
     try {
       const response = await axios.post(
-        "http://localhost:5066/api/auth/students/login",
-        { id, password },
-        { withCredentials: true } // Ensure cookies are sent if needed
+        "http://localhost:5066/api/auth/login",
+        { id, password }, // Send 'id' and 'password' to backend
+        { withCredentials: true } // Include cookies or session data if needed
       );
 
       if (response.data.success) {

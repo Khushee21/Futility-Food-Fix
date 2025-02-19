@@ -7,12 +7,18 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5066;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/yourdbname"; // Replace with your DB name
+
+// CORS configuration
+const corsOptions = {
+  origin: 'http://localhost:5173', // Allow frontend on port 5173
+  credentials: true,  // Allow credentials like cookies
+};
 
 // Middleware
 app.use(express.json()); // Parse incoming JSON requests
-app.use(cors()); // Enable CORS
+app.use(cors(corsOptions)); // Apply the CORS middleware with the specific options
 
 // Root route for testing
 app.get("/", (req, res) => {
@@ -37,7 +43,8 @@ app.use((err, req, res, next) => {
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error("❌ Database connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Start the server
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});

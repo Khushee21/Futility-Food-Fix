@@ -5,8 +5,8 @@ const { login, resetPassword, registerStudent } = require("../controllers/authCo
 // Route for student registration
 router.post("/register", registerStudent);
 
-// Route for login
-router.post("/login", login);
+// Route for login (updated to /students/login)
+router.post("/login", login); // Updated to /students/login
 
 // Route for password reset
 router.post("/reset-password", resetPassword);
