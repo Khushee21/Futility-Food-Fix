@@ -11,7 +11,44 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Student Registration
+// Student Login
+exports.login = async (req, res) => {
+  console.log("🟢 Login API Hit");
+  console.log("Received login data:", req.body);
+
+  const { id, password } = req.body;
+
+  if (!id || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "ID and Password are required" });
+  }
+
+  try {
+    const student = await Student.findOne({ id });
+    if (!student) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Student not found" });
+    }
+
+    // Compare plain text password (no bcrypt)
+    if (student.password !== password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials" });
+    }
+
+    // Successful login
+    res.json({ success: true, message: "Login successful" });
+  } catch (err) {
+    console.error("❌ Error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
 exports.registerStudent = async (req, res) => {
   try {
     const { id, name, degree, email, parentEmail, password } = req.body;
@@ -54,58 +91,18 @@ exports.registerStudent = async (req, res) => {
   }
 };
 
-// Student Login
-exports.login = async (req, res) => {
-  console.log("🟢 Login API Hit");
-  console.log("Received login data:", req.body);
+// Request OTP for Password Reset
+exports.requestOtp = async (req, res) => {
+  const { id } = req.body;
 
-  const { id, password } = req.body;
-
-  if (!id || !password) {
-    return res
-      .status(400)
-      .json({ success: false, message: "ID and Password are required" });
+  if (!id) {
+    return res.status(400).json({ success: false, message: "Student ID is required" });
   }
 
   try {
     const student = await Student.findOne({ id });
     if (!student) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Student not found" });
-    }
-
-    // Compare plain text password (no bcrypt)
-    if (student.password !== password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid credentials" });
-    }
-
-    // Successful login
-    res.json({ success: true, message: "Login successful" });
-  } catch (err) {
-    console.error("❌ Error:", err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-};
-
-// Request OTP for Password Reset
-exports.requestOtp = async (req, res) => {
-  const { email } = req.body;
-
-  if (!email) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Email is required" });
-  }
-
-  try {
-    const student = await Student.findOne({ email });
-    if (!student) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Student not found" });
+      return res.status(404).json({ success: false, message: "Student not found" });
     }
 
     // Generate OTP
@@ -120,7 +117,7 @@ exports.requestOtp = async (req, res) => {
     // Send OTP via email
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: email,
+      to: student.email,
       subject: "Password Reset OTP",
       text: `Your OTP for password reset is: ${otp}. It will expire in 10 minutes.`,
     };
@@ -128,15 +125,10 @@ exports.requestOtp = async (req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error("❌ Error sending email:", error);
-        return res
-          .status(500)
-          .json({ success: false, message: "Error sending OTP email" });
+        return res.status(500).json({ success: false, message: "Error sending OTP email" });
       } else {
         console.log("✅ Email sent:", info.response);
-        return res.json({
-          success: true,
-          message: "OTP sent to your email",
-        });
+        return res.json({ success: true, message: "OTP sent to your registered email" });
       }
     });
   } catch (err) {
@@ -145,30 +137,50 @@ exports.requestOtp = async (req, res) => {
   }
 };
 
-// Verify OTP and Reset Password
-exports.verifyOtpAndResetPassword = async (req, res) => {
-  const { email, otp, newPassword } = req.body;
+// Verify OTP
+exports.verifyOtp = async (req, res) => {
+  const { id, otp } = req.body;
 
-  if (!email || !otp || !newPassword) {
-    return res.status(400).json({
-      success: false,
-      message: "Email, OTP, and new password are required",
-    });
+  if (!id || !otp) {
+    return res.status(400).json({ success: false, message: "Student ID and OTP are required" });
   }
 
   try {
-    const student = await Student.findOne({ email });
+    const student = await Student.findOne({ id });
     if (!student) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Student not found" });
+      return res.status(404).json({ success: false, message: "Student not found" });
     }
 
     // Check OTP and expiration
     if (student.otp !== otp || student.otpExpires < Date.now()) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid or expired OTP" });
+      return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+    }
+
+    // OTP verified successfully
+    return res.json({ success: true, message: "OTP verified successfully" });
+  } catch (err) {
+    console.error("❌ Error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  const { id, otp, newPassword } = req.body;
+
+  if (!id || !otp || !newPassword) {
+    return res.status(400).json({ success: false, message: "ID, OTP, and new password are required" });
+  }
+
+  try {
+    const student = await Student.findOne({ id });
+    if (!student) {
+      return res.status(404).json({ success: false, message: "Student not found" });
+    }
+
+    // Check OTP and expiration
+    if (student.otp !== otp || student.otpExpires < Date.now()) {
+      return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
     }
 
     // Store the new password as plain text
