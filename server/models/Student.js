@@ -16,11 +16,11 @@ const studentSchema = new mongoose.Schema(
       required: true,
       match: [/.+@.+\..+/, "Please enter a valid email address"],
     },
-    password: { type: String, required: true, minlength: 6 }, // Store password as plain text
+    password: { type: String, required: true, minlength: 6 },
+    otp: { type: String }, // Store OTP for password reset
+    otpExpires: { type: Date }, // Expiration time for OTP
   },
   { timestamps: true }
 );
-
-// No need for the password hashing pre-save hook anymore
 
 module.exports = mongoose.model("Student", studentSchema);
