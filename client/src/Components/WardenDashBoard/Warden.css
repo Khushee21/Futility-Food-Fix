@@ -1,0 +1,19 @@
+.warden-dashboard {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .warden-dashboard h1 {
+    color: #fbf8f8;
+  }
+  
+  .warden-dashboard p {
+    font-size: 18px;
+    color: #f7f2f2;
+  }
+  
+  .warden-dashboard .welcome-msg {
+    font-size: 20px;
+    color: green;
+  }
+  
