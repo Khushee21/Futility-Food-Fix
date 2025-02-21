@@ -87,6 +87,7 @@ exports.adminLogin = (req, res) => {
 };
 
 // Request OTP for Password Reset
+// Request OTP for Password Reset
 exports.requestOtp = async (req, res) => {
   const { id } = req.body;
 
@@ -95,10 +96,19 @@ exports.requestOtp = async (req, res) => {
   }
 
   try {
+    // Find student by ID
     const student = await Student.findOne({ id });
+    console.log("🟢 Student Found:", student); // Debugging
+
     if (!student) {
       return res.status(404).json({ success: false, message: "Student not found" });
     }
+
+    // Check if the email exists
+    if (!student.email) {
+      return res.status(400).json({ success: false, message: "No email associated with this student" });
+    }
+    console.log("🟢 Email to Send OTP:", student.email); // Debugging
 
     // Generate OTP
     const otp = crypto.randomInt(100000, 999999).toString();
@@ -117,6 +127,7 @@ exports.requestOtp = async (req, res) => {
       text: `Your OTP for password reset is: ${otp}. It will expire in 10 minutes.`,
     };
 
+    // Send Email
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error("❌ Error sending email:", error);
@@ -131,6 +142,7 @@ exports.requestOtp = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 // Verify OTP
 exports.verifyOtp = async (req, res) => {
