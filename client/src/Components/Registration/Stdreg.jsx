@@ -43,7 +43,7 @@ const Stdreg = () => {
         setFormData({ id: '', name: '', degree: '', email: '', parentEmail: '', password: '' }); // Reset form data
       }
     } catch (error) {
-      setMessage(error.response ? error.response.data.error : 'Something went wrong. Please try again.');
+      setMessage(error.response ? error.response.data.message : 'Something went wrong. Please try again.');
       setMessageType('error');
     } finally {
       setIsSubmitting(false);  // Reset loading state after the request is done
