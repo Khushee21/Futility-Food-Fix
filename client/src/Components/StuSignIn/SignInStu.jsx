@@ -91,7 +91,7 @@ const SignInStu = () => {
         <div className="auth-link" onClick={() => navigate("/register")}>
           New User? Register here
         </div>
-        <div className="auth-link" onClick={() => navigate("/admin-login")}>
+        <div className="auth-link" onClick={() => navigate("/signin-admin")}> {/* Update the link path here */}
           Login as an Admin
         </div>
       </div>

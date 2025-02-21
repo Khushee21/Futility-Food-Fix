@@ -35,6 +35,7 @@ exports.login = async (req, res) => {
   console.log("🟢 Login API Hit");
   console.log("Received login data:", req.body); // Log the received body
 
+
   const { id, password } = req.body;
 
   if (!id || !password) {
@@ -60,9 +61,25 @@ exports.login = async (req, res) => {
   }
 };
 
+// Admin Login (Static data for warden)
+exports.adminLogin = (req, res) => {
+  const { username, password } = req.body;
+
+  // Static data for admin (warden)
+  const validUsername = "wardensangam";
+  const validPassword = "123456";
+
+  if (username === validUsername && password === validPassword) {
+    return res.json({ success: true, message: "Admin login successful" });
+  } else {
+    return res.status(401).json({ success: false, message: "Invalid admin credentials" });
+  }
+};
+
 // Reset Password
 exports.resetPassword = async (req, res) => {
-  console.log("🟢 Reset Password API Hit");
+  // console.log("🟢 Reset Password API Hit");
+
 
   const { id, newPassword } = req.body;
 
