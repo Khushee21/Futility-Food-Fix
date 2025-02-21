@@ -1,13 +1,15 @@
+// routes/authRoutes.js
+
 const express = require("express");
 const router = express.Router();
-const { 
-  registerStudent, 
-  login, 
-  resetPassword, 
-  requestOtp, 
-  verifyOtp, 
-  adminLogin 
-} = require("../controllers/authController"); 
+const {
+  registerStudent,
+  login,
+  resetPassword,
+  requestOtp,
+  verifyOtp,
+  adminLogin,
+} = require("../controllers/authController");
 
 // Route for student registration
 router.post("/register", registerStudent);
