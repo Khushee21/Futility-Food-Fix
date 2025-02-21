@@ -11,25 +11,33 @@ const ResetPass = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [otpSent, setOtpSent] = useState(false);
-  const [isOtpVerified, setIsOtpVerified] = useState(false); // OTP verified state
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
   // Handle sending OTP
   const handleSendOtp = async (e) => {
     e.preventDefault();
 
-    if (!studentId) {
+    if (!studentId.trim()) {
       setError("Please enter your Student ID.");
       return;
     }
 
     setError("");
     setSuccess("");
+    setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5066/api/auth/send-otp", {
-        id: studentId,
-      });
+      const response = await axios.post(
+        "http://localhost:5066/api/auth/request-otp",
+        { id: studentId.trim() }, // Trim whitespace
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.data.success) {
         setSuccess("OTP sent to your registered email.");
@@ -38,7 +46,11 @@ const ResetPass = () => {
         setError(response.data.message);
       }
     } catch (err) {
-      setError("Error sending OTP. Please try again.");
+      setError(
+        err.response?.data?.message || "Error sending OTP. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,12 +65,16 @@ const ResetPass = () => {
   const verifyOtp = async (enteredOtp) => {
     setError("");
     setSuccess("");
+    setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5066/api/auth/verify-otp", {
-        id: studentId,
-        otp: enteredOtp,
-      });
+      const response = await axios.post(
+        "http://localhost:5066/api/auth/verify-otp",
+        {
+          id: studentId.trim(),
+          otp: enteredOtp.trim(),
+        }
+      );
 
       if (response.data.success) {
         setSuccess("OTP verified successfully.");
@@ -67,7 +83,11 @@ const ResetPass = () => {
         setError("Invalid OTP. Please try again.");
       }
     } catch (err) {
-      setError("Error verifying OTP. Please try again.");
+      setError(
+        err.response?.data?.message || "Error verifying OTP. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,13 +102,17 @@ const ResetPass = () => {
 
     setError("");
     setSuccess("");
+    setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5066/api/auth/reset-password", {
-        id: studentId,
-        otp: otp.join(""),
-        newPassword,
-      });
+      const response = await axios.post(
+        "http://localhost:5066/api/auth/reset-password",
+        {
+          id: studentId.trim(),
+          otp: otp.join(""),
+          newPassword,
+        }
+      );
 
       if (response.data.success) {
         setSuccess("Password reset successful! Redirecting to login...");
@@ -97,7 +121,12 @@ const ResetPass = () => {
         setError(response.data.message);
       }
     } catch (err) {
-      setError("Error resetting password. Please try again.");
+      setError(
+        err.response?.data?.message ||
+          "Error resetting password. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -105,11 +134,18 @@ const ResetPass = () => {
   const handleOtpChange = (element, index) => {
     if (isNaN(element.value)) return;
 
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+    const updatedOtp = [...otp];
+    updatedOtp[index] = element.value;
+    setOtp(updatedOtp);
 
-    // Focus on next input box
-    if (element.nextSibling) {
+    // Auto-focus to the next field
+    if (element.value !== "" && index < 5) {
       element.nextSibling.focus();
+    }
+
+    // Auto-focus to the previous field on backspace
+    if (element.value === "" && index > 0) {
+      element.previousSibling.focus();
     }
   };
 
@@ -117,11 +153,13 @@ const ResetPass = () => {
     <div className="reset-container">
       <div className="reset-box">
         <h1 className="reset-heading">Reset Password</h1>
-        
+
         {!otpSent ? (
           <form onSubmit={handleSendOtp}>
             <div className="mb-4">
-              <label htmlFor="studentId" className="reset-label">Student ID</label>
+              <label htmlFor="studentId" className="reset-label">
+                Student ID
+              </label>
               <input
                 type="text"
                 id="studentId"
@@ -133,7 +171,9 @@ const ResetPass = () => {
             </div>
             {error && <p className="reset-error">{error}</p>}
             {success && <p className="reset-success">{success}</p>}
-            <button type="submit" className="reset-button">Send OTP</button>
+            <button type="submit" className="reset-button" disabled={loading}>
+              {loading ? "Sending OTP..." : "Send OTP"}
+            </button>
           </form>
         ) : (
           <>
@@ -147,7 +187,7 @@ const ResetPass = () => {
                   value={data}
                   onChange={(e) => handleOtpChange(e.target, index)}
                   onFocus={(e) => e.target.select()}
-                  className="otp-input"
+                  className="reset-otp"
                   disabled={isOtpVerified}
                 />
               ))}
@@ -158,7 +198,9 @@ const ResetPass = () => {
             {isOtpVerified && (
               <form onSubmit={handleReset}>
                 <div className="mb-4">
-                  <label htmlFor="newPassword" className="reset-label">New Password</label>
+                  <label htmlFor="newPassword" className="reset-label">
+                    New Password
+                  </label>
                   <input
                     type="password"
                     id="newPassword"
@@ -169,7 +211,9 @@ const ResetPass = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="confirmPassword" className="reset-label">Confirm Password</label>
+                  <label htmlFor="confirmPassword" className="reset-label">
+                    Confirm Password
+                  </label>
                   <input
                     type="password"
                     id="confirmPassword"
@@ -179,7 +223,13 @@ const ResetPass = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="reset-button">Reset Password</button>
+                <button
+                  type="submit"
+                  className="reset-button"
+                  disabled={loading}
+                >
+                  {loading ? "Resetting..." : "Reset Password"}
+                </button>
               </form>
             )}
           </>
