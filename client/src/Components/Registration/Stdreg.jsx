@@ -23,6 +23,15 @@ const Stdreg = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');  // Reset the message before making the request
+
+    // Email validation: Only allow banasthali.in emails
+    const emailDomain = formData.email.split('@')[1];
+    if (emailDomain !== 'banasthali.in') {
+      setMessage('Only banasthali.in email addresses are allowed.');
+      setMessageType('error');
+      return;
+    }
+
     setIsSubmitting(true);  // Set loading state
 
     try {
