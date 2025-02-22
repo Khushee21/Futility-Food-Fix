@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';  // Updated to use Routes
-import SignInAdmin from './Components/WardenSignIn/SignInAdmin';  // Import the SignInAdmin component
-import Warden from './components/WardenDashBoard/Warden';  // Import the Warden component (Warden.jsx)
-import SignInStu from './Components/StuSignIn/SignInStu';  // Import the SignInStu component
-import Student from './Components/StudentDashBoard/Student';  // Import the Student Dashboard component
-import ResetPass from './Components/ResetPassword/ResetPass';  // Import the Reset Password component
-import Stdreg from './Components/Registration/Stdreg';  // Import the Registration form
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
+import Warden from './components/WardenDashBoard/Warden';
+import SignInStu from './Components/StuSignIn/SignInStu';
+import Student from './Components/StudentDashBoard/Student';
+import ResetPass from './Components/ResetPassword/ResetPass';
+import Stdreg from './Components/Registration/Stdreg';
+import OccasionForm from './Components/OccasionForm/tempOccasion';  // Keep OccasionForm
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Handle admin login state
   const handleAdminLogin = () => {
-    setIsAdmin(true);  // Set isAdmin to true when admin logs in
+    setIsAdmin(true);
   };
 
   return (
@@ -22,7 +23,7 @@ function App() {
           <Routes>
             {/* Student Routes */}
             <Route path="/register" element={<Stdreg />} />
-            <Route path="/signin" element={<SignInStu />} />  {/* Student Login Page (First page) */}
+            <Route path="/signin" element={<SignInStu />} />
             <Route path="/student-dashboard" element={<Student />} />
             <Route path="/reset-password" element={<ResetPass />} />
             <Route path="/reset-password/:id" element={<ResetPass />} />
@@ -38,6 +39,9 @@ function App() {
               path="/warden-dashboard" 
               element={isAdmin ? <Warden /> : <Navigate to="/signin-admin" />} 
             />
+
+            {/* Occasion Form Route */}
+            <Route path="/occasion-form" element={<OccasionForm />} />
 
             {/* Default Route (Fallback to Sign In as Student) */}
             <Route path="*" element={<Navigate to="/signin" />} />
