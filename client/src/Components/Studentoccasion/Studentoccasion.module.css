@@ -1,0 +1,212 @@
+/* Background Image for the Page */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('./bg4.jpg');
+    /* Replace with actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 20px;
+}
+/* Animation for "Shree Shanta Sangam" (One-time Bounce) */
+@keyframes bounceOnce {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.animatedTitle {
+    animation: bounceOnce 1.2s ease-out;
+}
+
+/* Animation for the Form (Fade-in + Scale-Up) */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Transparent White Form */
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.176);
+    /* White with transparency */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeInScale 1s ease-out;
+    background-image: url('/holi.jpg');
+        /* Add your image path here */
+        background-size: cover;
+        background-position: center;
+}
+
+/* Heading Styles */
+h1 {
+    color: #151515;
+    font-size: 32px;
+}
+
+h2 {
+    color: #86471c;
+    font-size: 28px;
+    animation: pulse 1.5s infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Forms Layout */
+.forms {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.subForm {
+    text-align: center;
+}
+
+/* Transparent Black Circle */
+.bulgingCircle {
+    width: 230px;
+    height: 230px;
+    background-color: rgba(30, 29, 27, 0.566);
+    /* Black with transparency */
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(238, 185, 38, 0.674);;
+    position: relative;
+    padding: 10px;
+}
+
+/* Checkbox inside circle */
+.checkContainer {
+    position: absolute;
+    bottom: 5px;
+}
+
+.checkContainer input[type="checkbox"] {
+    width: 22px;
+    height: 14px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Oval Buttons */
+.oval {
+    width: 130px;
+    height: 45px;
+    background-color:rgba(238, 185, 38, 0.82);
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(23, 22, 22);
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, background 0.3s;
+    margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px;
+}
+
+/* Hover Effect on Oval */
+.oval:hover {
+    background-color: #804e11;
+    transform: scale(1.1);
+    color: rgb(244, 238, 238);
+}
+
+/* Food item inside oval */
+.foodItem {
+    font-size: 14px;
+    color: white;
+    margin-left: 5px;
+}
+
+/* Close Button */
+.closeButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.closeButton:hover {
+    background-color: darkred;
+}
+
+/* Submit Button */
+button.submit {
+    background-color:#1d692f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button.submit:hover {
+    background-color: #309646;
+}
+.errorMessage {
+    background-color: #100f0f;
+    /* Light red background */
+    color:#ffcccc;
+    /* Dark red text */
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 10px auto;
+    width: fit-content;
+}
+.highlightText {
+    background-color: #ffdd99;
+    /* Light orange background */
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+}
