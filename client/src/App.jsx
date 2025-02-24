@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
-import Warden from './components/WardenDashBoard/Warden';
-import SignInStu from './Components/StuSignIn/SignInStu';
-import Student from './Components/StudentDashBoard/Student';
-import ResetPass from './Components/ResetPassword/ResetPass';
-import Stdreg from './Components/Registration/Stdreg';
-import OccasionForm from './Components/OccasionForm/tempOccasion';  // Keep OccasionForm
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+import Student from "./Components/StudentDashBoard/Student";
+import OccasionForm from "./Components/OccasionForm/tempOccasion"; 
+import Studentoccasion from "./Components/Studentoccasion/Studentoccasion";
+import SignInAdmin from "./Components/WardenSignIn/SignInAdmin";
+import Warden from "./components/WardenDashBoard/Warden";
+import SignInStu from "./Components/StuSignIn/SignInStu";
+import ResetPass from "./Components/ResetPassword/ResetPass";
+import Stdreg from "./Components/Registration/Stdreg";
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -42,6 +44,9 @@ function App() {
 
             {/* Occasion Form Route */}
             <Route path="/occasion-form" element={<OccasionForm />} />
+
+            {/* Additional Route for Student Occasion */}
+            <Route path="/student-occasion" element={<Studentoccasion />} />
 
             {/* Default Route (Fallback to Sign In as Student) */}
             <Route path="*" element={<Navigate to="/signin" />} />
