@@ -7,8 +7,7 @@ import Student from './Components/StudentDashBoard/Student';
 import ResetPass from './Components/ResetPassword/ResetPass';
 import Stdreg from './Components/Registration/Stdreg';
 import OccasionForm from './Components/OccasionForm/tempOccasion';  // Keep OccasionForm
-import Stud from './Components/Daily_Warden/Daily_Warden/Stud';
-import Ward from './Components/Daily_Warden/Daily_Meal/Ward' ;
+
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -43,6 +42,9 @@ function App() {
 
             {/* Occasion Form Route */}
             <Route path="/occasion-form" element={<OccasionForm />} />
+
+            {/* Additional Route for Student Occasion */}
+            <Route path="/student-occasion" element={<Studentoccasion />} />
 
             {/* Default Route (Fallback to Sign In as Student) */}
             <Route path="*" element={<Navigate to="/signin" />} />
