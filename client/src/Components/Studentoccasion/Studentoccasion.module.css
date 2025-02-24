@@ -1,7 +1,7 @@
 /* Background Image for the Page */
 body {
     font-family: Arial, sans-serif;
-    background-image: url('./bg4.jpg');
+    background-image: url('./bg4.png');
     /* Replace with actual image path */
     background-size: cover;
     background-position: center;

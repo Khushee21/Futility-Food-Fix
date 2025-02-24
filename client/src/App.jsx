@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import './App.css';
+import Student from './Components/StudentDashBoard/Student';
+import OccasionForm from './Components/OccasionForm/tempOccasion';
+import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
 import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
 import Warden from './components/WardenDashBoard/Warden';
 import SignInStu from './Components/StuSignIn/SignInStu';
-import Student from './Components/StudentDashBoard/Student';
 import ResetPass from './Components/ResetPassword/ResetPass';
 import Stdreg from './Components/Registration/Stdreg';
-import OccasionForm from './Components/OccasionForm/tempOccasion';  // Keep OccasionForm
+import Stud from './Components/Daily_Warden/Daily_Warden/Stud';
+import Ward from './Components/Daily_Warden/Daily_Meal/Ward';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -46,12 +50,12 @@ function App() {
             {/* Additional Route for Student Occasion */}
             <Route path="/student-occasion" element={<Studentoccasion />} />
 
+            {/* Routes for Daily Warden and Daily Meal */}
+            <Route path="/Daily-warden" element={<Stud />} />
+            <Route path="/Daily-meal" element={<Ward />} />
+
             {/* Default Route (Fallback to Sign In as Student) */}
             <Route path="*" element={<Navigate to="/signin" />} />
-
-            <Route path="/Daily-warden" element={<Stud/> } />
-
-            <Route path="/Daily-meal" element={<Ward/>} />
           </Routes>
         </main>
       </div>

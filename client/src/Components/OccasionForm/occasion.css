@@ -30,7 +30,7 @@
 
 /* 📌 Background Image Applied */
 body {
-    background-image: url("./bg4.jpg");
+    background-image: url("./bg4.png");
     /* 🖼️ Replace with actual image path */
     background-size: cover;
     background-position: center;
