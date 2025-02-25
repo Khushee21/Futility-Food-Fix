@@ -20,6 +20,7 @@ const SignInStu = () => {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const navigate = useNavigate();
 
+  // Cycle through food quotes every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
@@ -27,25 +28,16 @@ const SignInStu = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-  const interval = setInterval(() => {
-    setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
-  }, 2000); // Faster transition (2s instead of 3s)
-  return () => clearInterval(interval);
-}, []);
-
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
+    console.log("Logging in with:", { id, password });
     try {
       const response = await axios.post(
         "http://localhost:5066/api/auth/login",
         { id, password },
         { withCredentials: true }
       );
-
       if (response.data.success) {
         alert("✅ Login successful!");
         navigate("/student-dashboard");
@@ -53,7 +45,12 @@ const SignInStu = () => {
         setError(response.data.message || "❌ Invalid ID or Password");
       }
     } catch (err) {
-      setError(`❌ ${err.response?.data?.message || "Server error"}`);
+      console.error("❌ Login Error:", err);
+      if (err.response) {
+        setError(`❌ ${err.response.data.message || "Server error"}`);
+      } else {
+        setError("❌ Network error. Please check your connection.");
+      }
     }
   };
 
@@ -94,7 +91,9 @@ const SignInStu = () => {
 
       <div className={styles.authLinks}>
         <p onClick={() => navigate("/reset-password")}>Forgot Password?</p>
-        <p onClick={() => navigate("/register")}>New User? <span>Register here</span></p>
+        <p onClick={() => navigate("/register")}>
+          New User? <span>Register here</span>
+        </p>
         <p onClick={() => navigate("/signin-admin")}>Login as an Admin</p>
       </div>
 
