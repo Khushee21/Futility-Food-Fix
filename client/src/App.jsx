@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
@@ -11,6 +12,7 @@ import ResetPass from './Components/ResetPassword/ResetPass';
 import Stdreg from './Components/Registration/Stdreg';
 import Stud from './Components/Daily_Warden/Daily_Warden/Stud';
 import Ward from './Components/Daily_Meal/Ward';
+
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -46,6 +48,9 @@ function App() {
 
            
             <Route path="/occasion-form" element={<OccasionForm />} />
+
+
+            
 
             
             <Route path="/student-occasion" element={<Studentoccasion />} />

@@ -63,7 +63,7 @@ body {
 }
 
 /* Close Button */
-.close-button {
+.closeButton {
     background-color: red;
     color: white;
     border: none;
@@ -82,7 +82,7 @@ body {
 }
 
 /* Labels */
-.form-group label {
+.formGroup label {
     font-size: 20px;
     font-weight: bold;
 }
@@ -102,7 +102,7 @@ input[type="text"] {
 }
 
 /* "Other" Occasion Input */
-.other-occasion-input {
+.otherOccasionInput {
     background-color: black;
     color: white;
     border: 1px solid white;
@@ -113,31 +113,31 @@ input[type="text"] {
 }
 
 /* File Upload */
-.upload-container {
+.uploadContainer {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.upload-container input[type="file"] {
+.uploadContainer input[type="file"] {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
 /* Choices */
-.choice-container {
+.choiceContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-        /* 📏 Space them evenly */
-        align-items: flex-start;
+    /* 📏 Space them evenly */
+    align-items: flex-start;
     gap: 10px;
     margin: 10px 0;
 }
 
-.choice-box {
-    background-color:rgba(61, 60, 60, 0.352);
+.choiceBox {
+    background-color: rgba(61, 60, 60, 0.352);
     color: rgb(224, 214, 214);
     padding: 10px;
     border-radius: 8px;
@@ -146,7 +146,7 @@ input[type="text"] {
     font-size: 16px;
 }
 
-.choice-box input {
+.choiceBox input {
     width: 95%;
     padding: 4px;
     border-radius: 4px;
@@ -156,7 +156,7 @@ input[type="text"] {
 }
 
 /* Buttons */
-.button-group {
+.buttonGroup {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;

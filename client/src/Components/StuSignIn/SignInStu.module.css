@@ -1,0 +1,138 @@
+body {
+  background-color: #141515ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Auth box styling - directly on the page */
+.authBox {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+}
+
+/* Logo styling */
+.authLogo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+/* Heading */
+.authHeading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Input fields with floating labels */
+.inputContainer {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.inputContainer input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+  background: white;
+}
+
+.inputContainer input:focus {
+  border-color: #007bff;
+}
+
+.inputContainer label {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #888;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  background: white;
+  padding: 0 5px;
+}
+
+.inputContainer input:focus+label,
+.inputContainer input:not(:placeholder-shown)+label {
+  top: 8px;
+  font-size: 12px;
+  color: #007bff;
+}
+
+.inputContainer input:not(:placeholder-shown)+label {
+  top: 8px;
+  font-size: 12px;
+  color: #2290c0;
+}
+
+/* Login button */
+.authButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #0e0e0e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.authButton:hover {
+  background-color: #0056b3;
+}
+
+/* Links */
+.authLinks {
+  margin-top: 15px;
+}
+
+.authLinks p {
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.authLinks p:hover {
+  text-decoration: underline;
+}
+
+.authLinks span {
+  font-weight: bold;
+}
+
+/* Animated food quotes */
+.foodQuote {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+

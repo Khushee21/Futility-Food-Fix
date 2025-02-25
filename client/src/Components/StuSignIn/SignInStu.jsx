@@ -1,29 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './SignInStu.css';
+import styles from "./SignInStu.module.css";
+import logo from "./logo.png"; 
+
+const foodQuotes = [
+  "Happiness is homemade!",
+  "Good food, good mood!",
+  "You are what you eat, so eat something sweet!",
+  "Food is the ingredient that binds us together.",
+  "Savor the flavor of life!",
+];
 
 const SignInStu = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [quoteIndex, setQuoteIndex] = useState(0);
   const navigate = useNavigate();
+
+  // Cycle through food quotes every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
-
-    // Log the input values to verify they're being sent correctly
+    setError("");
     console.log("Logging in with:", { id, password });
-
     try {
       const response = await axios.post(
         "http://localhost:5066/api/auth/login",
-        { id, password }, // Send 'id' and 'password' to backend
-        { withCredentials: true } // Include cookies or session data if needed
+        { id, password },
+        { withCredentials: true }
       );
-
       if (response.data.success) {
         alert("✅ Login successful!");
         navigate("/student-dashboard");
@@ -41,60 +55,49 @@ const SignInStu = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <h1 className="auth-heading">Student Sign In</h1>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label htmlFor="id" className="block text-gray-700 mb-2">Student ID</label>
-            <input
-              type="text"
-              id="id"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-              className="auth-input"
-              required
-              autoComplete="username" // Helps with autofill for the username
-            />
-          </div>
+    <div className={styles.authBox}>
+      <img src={logo} alt="Logo" className={styles.authLogo} />
+      <h1 className={styles.authHeading}>Futility Food Fix</h1>
 
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 mb-2">Password</label>
-            <div className="password-container">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="auth-input"
-                required
-                autoComplete="current-password" // Ensures browser autofill works for password
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="show-password-toggle"
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-            </div>
-          </div>
-
-          {error && <p className="auth-error">{error}</p>}
-
-          <button type="submit" className="auth-button">Login</button>
-        </form>
-
-        <div className="auth-link" onClick={() => navigate("/reset-password")}>
-          Forgot Password?
+      <form onSubmit={handleLogin}>
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            id="id"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            required
+            autoComplete="username"
+          />
+          <label className={id ? "filled" : ""}>Student ID</label>
         </div>
-        <div className="auth-link" onClick={() => navigate("/register")}>
-          New User? Register here
+
+        <div className={styles.inputContainer}>
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="current-password"
+          />
+          <label className={password ? "filled" : ""}>Password</label>
         </div>
-        <div className="auth-link" onClick={() => navigate("/signin-admin")}> {/* Update the link path here */}
-          Login as an Admin
-        </div>
+
+        {error && <p className={styles.authError}>{error}</p>}
+
+        <button type="submit" className={styles.authButton}>Login</button>
+      </form>
+
+      <div className={styles.authLinks}>
+        <p onClick={() => navigate("/reset-password")}>Forgot Password?</p>
+        <p onClick={() => navigate("/register")}>
+          New User? <span>Register here</span>
+        </p>
+        <p onClick={() => navigate("/signin-admin")}>Login as an Admin</p>
       </div>
+
+      <p className={styles.foodQuote}>{foodQuotes[quoteIndex]}</p>
     </div>
   );
 };
