@@ -2,31 +2,35 @@
 
 const express = require("express");
 const router = express.Router();
+
 const {
   registerStudent,
   login,
-  resetPassword,
+  adminLogin,
   requestOtp,
   verifyOtp,
-  adminLogin,
+  resetPassword
 } = require("../controllers/authController");
 
-// Route for student registration
+// ----- AUTH ROUTES -----
+// Removed validateRegistration route since it's not used
+
+// Register Student
 router.post("/register", registerStudent);
 
-// Route for login
+// Login (for Students and Wardens)
 router.post("/login", login);
 
-// Route for admin login
+// Admin Login (for Head Warden)
 router.post("/admin/login", adminLogin);
 
-// Route for requesting OTP
+// Request OTP for Password Reset
 router.post("/request-otp", requestOtp);
 
-// Route for verifying OTP
+// Verify OTP for Password Reset
 router.post("/verify-otp", verifyOtp);
 
-// Route for password reset
+// Reset Password
 router.post("/reset-password", resetPassword);
 
 module.exports = router;

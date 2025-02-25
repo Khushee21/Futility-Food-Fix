@@ -5,12 +5,12 @@ import Student from './Components/StudentDashBoard/Student';
 import OccasionForm from './Components/OccasionForm/tempOccasion';
 import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
 import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
-import Warden from './components/WardenDashBoard/Warden';
+import WardenDashboard from './Components/WardenDashBoard/Warden';
 import SignInStu from './Components/StuSignIn/SignInStu';
 import ResetPass from './Components/ResetPassword/ResetPass';
 import Stdreg from './Components/Registration/Stdreg';
 import Stud from './Components/Daily_Warden/Daily_Warden/Stud';
-import Ward from './Components/Daily_Warden/Daily_Meal/Ward';
+import Ward from './Components/Daily_Meal/Ward';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -32,29 +32,29 @@ function App() {
             <Route path="/reset-password" element={<ResetPass />} />
             <Route path="/reset-password/:id" element={<ResetPass />} />
 
-            {/* Admin Sign In Route */}
+            
             <Route 
               path="/signin-admin" 
               element={<SignInAdmin onLogin={handleAdminLogin} />} 
             />
 
-            {/* Warden Dashboard Route (Protected for Admin) */}
+           
             <Route 
               path="/warden-dashboard" 
-              element={isAdmin ? <Warden /> : <Navigate to="/signin-admin" />} 
+              element={isAdmin ? <WardenDashboard /> : <Navigate to="/signin-admin" />} 
             />
 
-            {/* Occasion Form Route */}
+           
             <Route path="/occasion-form" element={<OccasionForm />} />
 
-            {/* Additional Route for Student Occasion */}
+            
             <Route path="/student-occasion" element={<Studentoccasion />} />
 
-            {/* Routes for Daily Warden and Daily Meal */}
-            <Route path="/Daily-warden" element={<Stud />} />
-            <Route path="/Daily-meal" element={<Ward />} />
+            
+            <Route path="/Daily-warden" element={<Ward />} />
+            <Route path="/Daily-meal" element={<Stud />} />
 
-            {/* Default Route (Fallback to Sign In as Student) */}
+            
             <Route path="*" element={<Navigate to="/signin" />} />
           </Routes>
         </main>
