@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./occasion.css";
+import styles from "./occasion.module.css";
 
 const OccasionForm = () => {
     const [occasion, setOccasion] = useState("");
@@ -60,12 +60,12 @@ const OccasionForm = () => {
 
     return (
         isVisible && (
-            <div className="container">
-                <button className="close-button" onClick={() => setIsVisible(false)}>×</button>
-                <h1 className="title">SHREE SHANTA SANGAM</h1>
-                <form id="occasion-form" onSubmit={handleSubmit}>
+            <div className={styles.container}>
+                <button className={styles.closeButton} onClick={() => setIsVisible(false)}>×</button>
+                <h1 className={styles.title}>SHREE SHANTA SANGAM</h1>
+                <form id={styles.occasionForm} onSubmit={handleSubmit}>
                     {/* Occasion Dropdown */}
-                    <div className="form-group">
+                    <div className={styles.formGroup}>
                         <label htmlFor="occasion"><strong>Occasion:</strong></label>
                         <select id="occasion" name="occasion" value={occasion} onChange={handleOccasionChange} required>
                             <option value="">Select Occasion</option>
@@ -79,36 +79,36 @@ const OccasionForm = () => {
                             <option value="eid">Eid</option>
                             <option value="other">Other</option>
                         </select>
-                        {formErrors.occasion && <span className="error">{formErrors.occasion}</span>}
+                        {formErrors.occasion && <span className={styles.error}>{formErrors.occasion}</span>}
                     </div>
 
                     {/* Specify Other Occasion - Appears if "Other" is selected */}
                     {occasion === "other" && (
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="otherOccasion"><strong>Specify Occasion:</strong></label>
                             <input 
                                 type="text" 
                                 id="otherOccasion" 
                                 value={otherOccasion} 
                                 onChange={(e) => setOtherOccasion(e.target.value)} 
-                                className="other-occasion-input"
+                                className={styles.otherOccasionInput}
                                 required 
                             />
-                            {formErrors.otherOccasion && <span className="error">{formErrors.otherOccasion}</span>}
+                            {formErrors.otherOccasion && <span className={styles.error}>{formErrors.otherOccasion}</span>}
                         </div>
                     )}
 
                     {/* Upload Custom Image */}
-                    <div className="upload-container">
+                    <div className={styles.uploadContainer}>
                         <label htmlFor="image"><strong>Upload Custom Image:</strong></label>
                         <input type="file" id="image" onChange={handleImageUpload} required />
-                        {formErrors.image && <span className="error">{formErrors.image}</span>}
+                        {formErrors.image && <span className={styles.error}>{formErrors.image}</span>}
                     </div>
 
                     {/* Choices for Meals */}
-                    <div className="choice-container">
+                    <div className={styles.choiceContainer}>
                         {[1, 2].map((num) => (
-                            <div className="choice-box" key={num}>
+                            <div className={styles.choiceBox} key={num}>
                                 <h3>Choice {num}</h3>
                                 {["Daal", "Vegetable", "Sweet"].map((item) => (
                                     <div key={item}>
@@ -122,14 +122,14 @@ const OccasionForm = () => {
                     </div>
 
                     {/* Date Selection */}
-                    <div className="form-group">
+                    <div className={styles.formGroup}>
                         <label htmlFor="date"><strong>Date:</strong></label>
                         <input type="date" id="date" required />
                         {formErrors.date && <span className="error">{formErrors.date}</span>}
                     </div>
 
                     {/* Submit and Reset Buttons */}
-                    <div className="button-group">
+                    <div className={styles.buttonGroup}>
                         <button type="submit">Submit</button>
                         <button type="button" onClick={handleReset}>Reset</button>
                     </div>
