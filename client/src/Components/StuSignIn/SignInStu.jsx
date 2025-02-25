@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./SignInStu.css";
+import styles from "./SignInStu.module.css";
 import logo from "./logo.png"; 
 
 const foodQuotes = [
@@ -26,7 +26,7 @@ const SignInStu = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-  
+
   useEffect(() => {
   const interval = setInterval(() => {
     setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
@@ -58,12 +58,12 @@ const SignInStu = () => {
   };
 
   return (
-    <div className="auth-box">
-      <img src={logo} alt="Logo" className="auth-logo" />
-      <h1 className="auth-heading">Futility Food Fix</h1>
+    <div className={styles.authBox}>
+      <img src={logo} alt="Logo" className={styles.authLogo} />
+      <h1 className={styles.authHeading}>Futility Food Fix</h1>
 
       <form onSubmit={handleLogin}>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="text"
             id="id"
@@ -75,7 +75,7 @@ const SignInStu = () => {
           <label className={id ? "filled" : ""}>Student ID</label>
         </div>
 
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type={showPassword ? "text" : "password"}
             id="password"
@@ -87,18 +87,18 @@ const SignInStu = () => {
           <label className={password ? "filled" : ""}>Password</label>
         </div>
 
-        {error && <p className="auth-error">{error}</p>}
+        {error && <p className={styles.authError}>{error}</p>}
 
-        <button type="submit" className="auth-button">Login</button>
+        <button type="submit" className={styles.authButton}>Login</button>
       </form>
 
-      <div className="auth-links">
+      <div className={styles.authLinks}>
         <p onClick={() => navigate("/reset-password")}>Forgot Password?</p>
         <p onClick={() => navigate("/register")}>New User? <span>Register here</span></p>
         <p onClick={() => navigate("/signin-admin")}>Login as an Admin</p>
       </div>
 
-      <p className="food-quote">{foodQuotes[quoteIndex]}</p>
+      <p className={styles.foodQuote}>{foodQuotes[quoteIndex]}</p>
     </div>
   );
 };
