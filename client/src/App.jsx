@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
+
+// Component Imports
 import Student from "./Components/StudentDashBoard/Student";
 import OccasionForm from "./Components/OccasionForm/tempOccasion"; 
 import Studentoccasion from "./Components/Studentoccasion/Studentoccasion";
@@ -45,7 +47,7 @@ function App() {
             {/* Occasion Form Route */}
             <Route path="/occasion-form" element={<OccasionForm />} />
 
-            {/* Additional Route for Student Occasion */}
+            {/* Student Occasion Route */}
             <Route path="/student-occasion" element={<Studentoccasion />} />
 
             {/* Default Route (Fallback to Sign In as Student) */}
