@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react"; // Importing Eye icons
 import styles from "./SignInStu.module.css";
-import logo from "./logo.png"; 
+import logo from "./logo.png";
 
 const foodQuotes = [
   "Happiness is homemade!",
@@ -24,7 +25,7 @@ const SignInStu = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
-    }, 3000);
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
@@ -82,6 +83,12 @@ const SignInStu = () => {
             autoComplete="current-password"
           />
           <label className={password ? "filled" : ""}>Password</label>
+          <span
+            className={styles.eyeIcon}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
         </div>
 
         {error && <p className={styles.authError}>{error}</p>}
