@@ -128,27 +128,32 @@ const notifyStudents = async (req, res) => {
 
 // New Controller function to get the current occasion
 const getOccasion = async (req, res) => {
-    try {
-        // Get the start and end of today
-        const startOfDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
-        const endOfDay = new Date();
-        endOfDay.setHours(23, 59, 59, 999);
+  try {
+    // Get the current date and create separate date objects for start and end of day
+    const now = new Date();
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(now);
+    endOfDay.setHours(23, 59, 59, 999);
 
-        // Find an occasion whose date is within today's range
-        const occasion = await Occasional.findOne({
-            date: { $gte: startOfDay, $lte: endOfDay }
-        });
-        
-        if (!occasion) {
-            return res.status(404).json({ success: false, message: "No occasion found for today" });
-        }
-        res.status(200).json({ success: true, data: occasion });
-    } catch (error) {
-        console.error("Error fetching occasion data:", error.message);
-        res.status(500).json({ success: false, error: "Failed to fetch occasion data" });
+    // Query for an occasion with a date within today's range
+    const occasion = await Occasional.findOne({
+      date: { $gte: startOfDay, $lte: endOfDay }
+    });
+
+    // If no occasion is found, return a 404 response
+    if (!occasion) {
+      return res.status(404).json({ success: false, message: "No occasion found for today" });
     }
+
+    // If an occasion is found, return it with a success response
+    return res.status(200).json({ success: true, data: occasion });
+  } catch (error) {
+    console.error("Error fetching occasion data:", error.message);
+    return res.status(500).json({ success: false, error: "Failed to fetch occasion data" });
+  }
 };
+
 
 
 // Exporting all controller functions, including getOccasion

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./occasion.css";
+import "./occasion.module.css";
 
 const OccasionForm = () => {
   const [occasion, setOccasion] = useState("");

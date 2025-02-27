@@ -32,7 +32,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background: url("Background.jpg") no-repeat center center;
+  background: url("bg.jpg") no-repeat center center;
   background-size: cover;
   margin: 0;
   padding: 0;

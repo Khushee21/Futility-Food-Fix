@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react"; // Importing Eye icons
 import styles from "./SignInStu.module.css";
-import logo from "./logo.png"; 
+import logo from "./logo.png";
 
 const foodQuotes = [
   "Happiness is homemade!",
@@ -20,24 +21,24 @@ const SignInStu = () => {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const navigate = useNavigate();
 
-  // Cycle through food quotes every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
-    }, 3000);
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    console.log("Logging in with:", { id, password });
+
     try {
       const response = await axios.post(
         "http://localhost:5066/api/auth/login",
         { id, password },
         { withCredentials: true }
       );
+
       if (response.data.success) {
         alert("✅ Login successful!");
         navigate("/student-dashboard");
@@ -45,12 +46,7 @@ const SignInStu = () => {
         setError(response.data.message || "❌ Invalid ID or Password");
       }
     } catch (err) {
-      console.error("❌ Login Error:", err);
-      if (err.response) {
-        setError(`❌ ${err.response.data.message || "Server error"}`);
-      } else {
-        setError("❌ Network error. Please check your connection.");
-      }
+      setError(`❌ ${err.response?.data?.message || "Server error"}`);
     }
   };
 
@@ -82,6 +78,12 @@ const SignInStu = () => {
             autoComplete="current-password"
           />
           <label className={password ? "filled" : ""}>Password</label>
+          <span
+            className={styles.eyeIcon}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
         </div>
 
         {error && <p className={styles.authError}>{error}</p>}
@@ -91,9 +93,7 @@ const SignInStu = () => {
 
       <div className={styles.authLinks}>
         <p onClick={() => navigate("/reset-password")}>Forgot Password?</p>
-        <p onClick={() => navigate("/register")}>
-          New User? <span>Register here</span>
-        </p>
+        <p onClick={() => navigate("/register")}>New User? <span>Register here</span></p>
         <p onClick={() => navigate("/signin-admin")}>Login as an Admin</p>
       </div>
 
