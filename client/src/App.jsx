@@ -3,11 +3,11 @@ import "./App.css";
 //import Student from './Components/StudentDashBoard/Student'
 //import OccasionForm from "./Components/OccasionForm/tempOccasion"; // Correct import
 //import Studentoccasion from "./Components/Studentoccasion/Studentoccasion";
-import SignInStu from "./Components/StuSignIn/SignInStu";
+import Stdreg from "./Components/Registration/Stdreg";
 function App() {
   return (
     <>
-      <SignInStu/>
+      <Stdreg/>
     </>
   );
 }
