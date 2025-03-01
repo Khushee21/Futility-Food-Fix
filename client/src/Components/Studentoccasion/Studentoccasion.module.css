@@ -54,7 +54,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
     animation: fadeInScale 1s ease-out;
-    background-image: url('/holi.jpg');
+    background-image: url('/loop2.gif');
         /* Add your image path here */
         background-size: cover;
         background-position: center;
