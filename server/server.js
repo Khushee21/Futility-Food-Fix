@@ -1,68 +1,27 @@
-require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const http = require("http");
+const router = express.Router();
+const Occasion = require("../models/Occasion");
 
-const authRoutes = require("./routes/authRoutes");
-const occasionRoutes = require("./routes/occasionRoutes");
+router.post("/create", async (req, res) => {
+  try {
+    const { menuName, items } = req.body;
 
-const app = express();
-const PORT = process.env.PORT || 5066;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/femine-food-fix";
+    const newOccasion = new Occasion({ menuName, items });
+    await newOccasion.save();
 
-// Increase payload size limit
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+    const io = req.app.locals.io;
+    if (io) {
+      io.emit("newOccasionMenu", newOccasion); 
+    } else {
+      console.error("⚠️ io is undefined");
+    }
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the Server!");
+    res.status(201).json({ success: true, message: "Occasion menu created!", data: newOccasion });
+  } catch (error) {
+    console.error("❌ Error creating occasional menu:", error);
+    res.status(500).json({ success: false, message: "Server error." });
+  }
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/occasional", occasionRoutes);
-
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Route not found" });
-});
-
-app.use((err, req, res, next) => {
-  console.error("❌ Server Error:", err.stack);
-  res.status(500).json({ success: false, message: "Something went wrong" });
-});
-
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
-  },
-});
-
-app.locals.io = io;
-
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-  });
-});
-
-mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("✅ MongoDB connected");
-    server.listen(PORT, () => {
-      console.log(`🚀 Server is running on http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
-    process.exit(1);
-  });
+module.exports = router;

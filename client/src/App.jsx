@@ -9,7 +9,7 @@ import WardenDashboard from './Components/WardenDashBoard/Warden';
 import SignInStu from './Components/StuSignIn/SignInStu';
 import ResetPass from './Components/ResetPassword/ResetPass';
 import Stdreg from './Components/Registration/Stdreg';
-import Stud from './Components/Daily_Warden/Daily_Warden/Stud';
+import Stud from './Components/Daily_Warden/Stud'
 import Ward from './Components/Daily_Meal/Ward';
 
 function App() {
