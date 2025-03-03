@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
-import Student from './Components/StudentDashBoard/Student';
-import OccasionForm from './Components/OccasionForm/tempOccasion';
-import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
-import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
-import WardenDashboard from './Components/WardenDashBoard/Warden';
-import SignInStu from './Components/StuSignIn/SignInStu';
-import ResetPass from './Components/ResetPassword/ResetPass';
-import Stdreg from './Components/Registration/Stdreg';
-import Stud from './Components/Daily_Warden/Stud';
-import Ward from './Components/Daily_Meal/Ward';
-import SDash from './Components/Student_Dashboard/SDash';
+import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+import Student from "./Components/StudentDashBoard/Student";
+import OccasionForm from "./Components/OccasionForm/tempOccasion";
+import Studentoccasion from "./Components/Studentoccasion/Studentoccasion";
+import SignInAdmin from "./Components/WardenSignIn/SignInAdmin";
+import WardenDashboard from "./Components/WardenDashBoard/Warden";
+import SignInStu from "./Components/StuSignIn/SignInStu";
+import ResetPass from "./Components/ResetPassword/ResetPass";
+import Stdreg from "./Components/Registration/Stdreg";
+import Stud from "./Components/Daily_Warden/Stud";
+import Ward from "./Components/Daily_Meal/Ward";
+import SDash from "./Components/Student_Dashboard/SDash";
+import MonthlyReport from "./Components/MonthlyReport/MonthlyReport"; // Added MonthlyReport from report branch
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Daily-warden" element={<Ward />} />
           <Route path="/Daily-meal" element={<Stud />} />
           <Route path="/SDash" element={<SDash />} />
+          <Route path="/monthly-report" element={<MonthlyReport />} /> {/* Added this route */}
           <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
       </main>
