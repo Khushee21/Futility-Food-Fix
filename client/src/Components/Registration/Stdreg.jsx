@@ -12,6 +12,15 @@ const foodQuotes = [
   "Happiness is homemade.",
 ];
 
+// Define fields with state key and label
+const fields = [
+  { key: "id", label: "Student ID" },
+  { key: "name", label: "Student Name" },
+  { key: "degree", label: "Degree" },
+  { key: "email", label: "Email (banasthali.in)" },
+  { key: "parentEmail", label: "Parent Email" },
+];
+
 const Stdreg = () => {
   const [formData, setFormData] = useState({
     id: "",
@@ -21,7 +30,6 @@ const Stdreg = () => {
     parentEmail: "",
     password: "",
   });
-
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,6 +37,7 @@ const Stdreg = () => {
   const [fade, setFade] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
+  // Cycle through food quotes every 5 seconds (with fade transition)
   useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
@@ -48,6 +57,7 @@ const Stdreg = () => {
     e.preventDefault();
     setMessage("");
 
+    // Validate that email ends with @banasthali.in
     if (!formData.email.endsWith("@banasthali.in")) {
       setMessage("Only banasthali.in email addresses are allowed.");
       setMessageType("error");
@@ -74,21 +84,19 @@ const Stdreg = () => {
     <div className={styles.registerContainer}>
       <form onSubmit={handleSubmit} className={styles.registerForm}>
         <img src={logo} alt="FFF Logo" className={styles.logo} />
-        <h2>Futility Food Fix</h2>
+        <h2>Femine Food Fix</h2>
 
-        {["StudentId", "StudentName", "degree", "email", "parentEmail"].map((field, index) => (
+        {fields.map((field, index) => (
           <div className={styles.inputGroup} key={index}>
             <input
               type="text"
-              name={field}
-              value={formData[field]}
+              name={field.key}
+              value={formData[field.key]}
               onChange={handleChange}
-              placeholder=" " /* Required for floating label effect */
+              placeholder=" "
               required
             />
-            <label className={styles.floatingLabel}>
-              {field === "email" ? "Email (banasthali.in)" : field.replace(/([A-Z])/g, " $1").trim()}
-            </label>
+            <label className={styles.floatingLabel}>{field.label}</label>
           </div>
         ))}
 
@@ -107,17 +115,18 @@ const Stdreg = () => {
           </span>
         </div>
 
-        <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Registering..." : "Register"}</button>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Registering..." : "Register"}
+        </button>
 
         {message && <p className={`${styles.message} ${styles[messageType]}`}>{message}</p>}
 
-        <p className={`${styles.foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>{foodQuotes[currentQuoteIndex]}</p>
+        <p className={`${styles.foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>
+          {foodQuotes[currentQuoteIndex]}
+        </p>
       </form>
     </div>
   );
 };
 
 export default Stdreg;
-
-
-

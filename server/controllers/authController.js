@@ -3,6 +3,7 @@ const User = require('../models/User');
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const bcrypt = require('bcrypt');
+const Occasional = require('../models/Occasional');
 
 // Nodemailer transporter configuration
 const transporter = nodemailer.createTransport({
@@ -231,5 +232,74 @@ exports.resetPassword = async (req, res) => {
   } catch (err) {
     console.error("❌ Error:", err);
     res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// Create Occasional Data
+exports.createOccasional = async (req, res) => {
+  try {
+    const newOccasion = new Occasional(req.body);
+    await newOccasion.save();
+    console.log("✅ Occasion created successfully");
+    res.status(201).json({ message: 'Occasion created successfully' });
+  } catch (error) {
+    console.error("❌ Failed to create occasion:", error);
+    res.status(500).json({ error: 'Failed to create occasion' });
+  }
+};
+
+// Vote for Menu
+exports.voteMenu = async (req, res) => {
+  const { occasionId, menuNumber } = req.body;
+  try {
+    const occasion = await Occasional.findById(occasionId);
+    if (menuNumber === 1) {
+      occasion.menu1.votes += 1;
+    } else if (menuNumber === 2) {
+      occasion.menu2.votes += 1;
+    }
+    await occasion.save();
+    console.log("✅ Vote recorded successfully");
+    res.status(200).json({ message: 'Vote recorded successfully' });
+  } catch (error) {
+    console.error("❌ Failed to record vote:", error);
+    res.status(500).json({ error: 'Failed to record vote' });
+  }
+};
+
+// Get Winning Meal
+exports.getResults = async (req, res) => {
+  try {
+    const occasion = await Occasional.find().sort({ date: -1 }).limit(1);
+    const menu1Votes = occasion[0].menu1.votes;
+    const menu2Votes = occasion[0].menu2.votes;
+    const winner = menu1Votes > menu2Votes ? 'Menu 1' : 'Menu 2';
+    console.log("🏆 Winning Menu:", winner);
+    res.status(200).json({ winner });
+  } catch (error) {
+    console.error("❌ Failed to fetch results:", error);
+    res.status(500).json({ error: 'Failed to fetch results' });
+  }
+};
+
+// Notify Students
+exports.notifyStudents = async (req, res) => {
+  try {
+    const students = await Student.find();
+    const studentEmails = students.map(student => student.email);
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: studentEmails,
+      subject: 'Special Occasion Meal Voting',
+      text: 'Please participate in voting for the special occasion meal!',
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log("✅ Notification emails sent successfully");
+    res.status(200).json({ message: 'Notification emails sent successfully' });
+  } catch (error) {
+    console.error("❌ Failed to send notifications:", error);
+    res.status(500).json({ error: 'Failed to send notifications' });
   }
 };
