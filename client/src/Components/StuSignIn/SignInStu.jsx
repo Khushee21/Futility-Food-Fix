@@ -33,23 +33,31 @@ const SignInStu = () => {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5066/api/auth/login",
-        { id, password },
-        { withCredentials: true }
-      );
+        const response = await axios.post(
+            "http://localhost:5066/api/auth/login",
+            { id, password },
+            { withCredentials: true }
+        );
 
-      if (response.data.success) {
-        alert("✅ Login successful!");
-        navigate("/student-dashboard");
-      } else {
-        setError(response.data.message || "❌ Invalid ID or Password");
-      }
+        if (response.data.success) {
+            alert("✅ Login successful!");
+            
+            // Store the student ID returned by the backend
+            const { studentId } = response.data;
+            localStorage.setItem("studentId", studentId);
+            console.log(studentId);
+
+
+            // Redirect to the dashboard
+            navigate("/SDash");
+        } else {
+            setError(response.data.message || "❌ Invalid ID or Password");
+        }
     } catch (err) {
-      setError(`❌ ${err.response?.data?.message || "Server error"}`);
+        setError(`❌ ${err.response?.data?.message || "Server error"}`);
     }
-  };
-
+};
+  
   return (
     <div className={styles.authBox}>
       <img src={logo} alt="Logo" className={styles.authLogo} />
