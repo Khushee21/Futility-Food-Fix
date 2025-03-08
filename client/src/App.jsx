@@ -13,6 +13,7 @@ import Stdreg from './Components/Registration/Stdreg';
 // import Stud from './Components/Daily_Warden/Daily_Warden/Stud';
 // import Ward from './Components/Daily_Meal/Ward';
 import SDash from './Components/Student_Dashboard/SDash';
+import AboutFFF from './Components/AboutFFF/About_Us' // Importing AboutFFF component
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           {/* <Route path="/Daily-warden" element={<Ward />} />
           <Route path="/Daily-meal" element={<Stud />} /> */}
           <Route path="/my-profile" element={<StudentProfile />} />
+          <Route path="/about-us" element={<AboutFFF />} /> {/* Uncommented this route */}
           
           {/* Student Dashboard */}
           {/*<Route path="/student-dashboard" element={<Student />} />  Uncommented this route */}

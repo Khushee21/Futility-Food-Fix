@@ -84,6 +84,11 @@ const SDash = () => {
         navigate("/Studentoccasion");
     };
 
+    const goToAbout = () => {
+        setIsMenuOpen(false);
+        navigate("/about-us");
+    };
+
     // Handle logout
     const handleLogout = () => {
         const confirmLogout = window.confirm("Are you sure you want to logout?");
@@ -166,7 +171,8 @@ const SDash = () => {
                 <button onClick={goToDashboard}>Dashboard</button>
                 <button onClick={goToOccupationalMeal}>Occupational Meal</button>
                 <button onClick={goToMyProfile}>My Profile</button>
-                {["monthly_report.html", "form.html", "why_fff.html"].map((page, i) => (
+                <button onClick={goToAbout}>Why FFF?</button>
+                {["monthly_report.html", "form.html"].map((page, i) => (
                     <button key={i} onClick={() => window.location.href = page}>
                         {page.replace(".html", "").replace("_", " ")}
                     </button>
