@@ -84,7 +84,7 @@ const Stdreg = () => {
     <div className={styles.registerContainer}>
       <form onSubmit={handleSubmit} className={styles.registerForm}>
         <img src={logo} alt="FFF Logo" className={styles.logo} />
-        <h2>Futility Food Fix</h2>
+        <h2>Femine Food Fix</h2>
 
         {fields.map((field, index) => (
           <div className={styles.inputGroup} key={index}>
@@ -93,7 +93,7 @@ const Stdreg = () => {
               name={field.key}
               value={formData[field.key]}
               onChange={handleChange}
-              placeholder=" " /* Required for floating label effect */
+              placeholder=" "
               required
             />
             <label className={styles.floatingLabel}>{field.label}</label>
