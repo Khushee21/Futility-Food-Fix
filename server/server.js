@@ -3,27 +3,57 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const http = require("http");
-// const helmet = require("helmet"); // For security headers
-// const morgan = require("morgan"); // For request logging
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
-// Import routes
+// Route imports
 const authRoutes = require("./routes/authRoutes");
 const voteRoutes = require("./routes/voteRoutes"); // Vote routes
 const occasionRoutes = require("./routes/occasionRoutes");
+const dailyRoutes = require("./routes/DailyRoutes"); // Ensure correct file name
 const studentRoutes = require("./routes/studentRoutes");
 
-// Initialize Express app
+// Create express app
 const app = express();
 const PORT = process.env.PORT || 5066;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/femine-food-fix";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
-// Middleware
-// app.use(helmet()); // Security headers
-// app.use(morgan("dev")); // Request logging
-app.use(express.json({ limit: "50mb" })); // Parse JSON requests
-app.use(express.urlencoded({ limit: "50mb", extended: true })); // Parse URL-encoded requests
-app.use(cors({ origin: CORS_ORIGIN, credentials: true })); // CORS configuration
+// Increase payload size limit
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+// CORS configuration
+app.use(
+  cors({
+    origin: CORS_ORIGIN,
+    credentials: true,
+  })
+);
+
+// Middleware to log all API requests
+app.use((req, res, next) => {
+  console.log(`📡 ${req.method} request to ${req.url}`);
+  next();
+});
+
+// Ensure uploads directory exists
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });
 
 // Welcome route
 app.get("/", (req, res) => {
@@ -34,9 +64,10 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes); // Authentication routes
 app.use("/api", voteRoutes); // Voting routes
 app.use("/api/occasional", occasionRoutes); // Occasion routes
-app.use("/api/student", studentRoutes);  //profile
+app.use("/api/student", studentRoutes);  // Profile routes
+app.use("/api/daily", dailyRoutes); // Daily routes
 
-// 404 handler for undefined routes
+// 404 Route - Handles invalid routes
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
@@ -47,7 +78,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: "Something went wrong" });
 });
 
-// Create HTTP server
+// Create HTTP server and integrate Socket.IO
 const server = http.createServer(app);
 
 // Socket.io setup
@@ -59,21 +90,80 @@ const io = new Server(server, {
   },
 });
 
-// Attach Socket.io to app locals
+// Attach socket.io instance to app
 app.locals.io = io;
 
-// Socket.io connection handler
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
+// Import models
+const MealForm = require("./models/MealForm");
+const StudentSubmission = require("./models/StudentSubmission");
 
-  // Example: Handle custom events
-  socket.on("customEvent", (data) => {
-    console.log("Received data:", data);
-    io.emit("broadcastEvent", { message: "Hello from server!" });
+// Socket.IO event listeners
+io.on("connection", (socket) => {
+  console.log("🔗 User connected:", socket.id);
+
+  // Event for student meal form submission
+  socket.on("submitStudentForm", async (submissionData, callback) => {
+    try {
+      console.log("Received student submission data:", submissionData);
+
+      const { studentId, studentName, mealSelections, myDate } = submissionData;
+
+      if (!studentId || !studentName || !mealSelections || mealSelections.length === 0 || !myDate) {
+        console.error("⚠️ Missing required fields");
+        return callback({ success: false, message: "Missing required fields" });
+      }
+
+      const existingSubmission = await StudentSubmission.findOne({ studentId, myDate });
+      if (existingSubmission) {
+        console.error("⚠️ Duplicate submission detected");
+        return callback({ success: false, message: "You have already submitted your meal selection for today." });
+      }
+
+      const submission = new StudentSubmission({
+        studentId,
+        studentName,
+        mealSelections,
+        myDate,
+        submissionDate: new Date(),
+      });
+
+      await submission.save();
+      console.log("✅ Student submission saved:", submission);
+
+      callback({ success: true, message: "Meal selection submitted successfully!", data: submission });
+
+      io.emit("formSubmitted", { success: true, message: "Form submitted successfully!" });
+    } catch (error) {
+      console.error("❌ Error saving student submission:", error);
+      callback({ success: false, message: "Server error.", error: error.message });
+    }
+  });
+
+  // Event for daily meal form submission from the warden
+  socket.on("submitMeal", async (data) => {
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      const existingForm = await MealForm.findOne({ myDate: today });
+
+      if (existingForm) {
+        socket.emit("submissionStatus", { success: false, message: "A meal form has already been submitted for today." });
+        return;
+      }
+
+      const newForm = new MealForm({ ...data, myDate: today });
+      await newForm.save();
+
+      io.emit("newMealForm", newForm);
+      socket.emit("submissionStatus", { success: true, message: "Form submitted successfully!" });
+      console.log("✅ Meal form submitted:", data);
+    } catch (error) {
+      console.error("❌ Error saving form:", error);
+      socket.emit("submissionStatus", { success: false, message: "Failed to submit form. Try again." });
+    }
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+    console.log("❌ User disconnected:", socket.id);
   });
 });
 

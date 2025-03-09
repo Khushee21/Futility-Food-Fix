@@ -89,6 +89,21 @@ const SDash = () => {
         navigate("/about-us");
     };
 
+    const goToOccForm = () => {
+        setIsMenuOpen(false);
+        navigate("/student-occasion");
+    };
+
+    const goToDailyForm = () => {
+        setIsMenuOpen(false);
+        navigate("/stud-daily");
+    };
+
+    const goToMonthlyReport = () => {
+        setIsMenuOpen(false);
+        navigate("/monthly-report");
+    };
+
     // Handle logout
     const handleLogout = () => {
         const confirmLogout = window.confirm("Are you sure you want to logout?");
@@ -169,14 +184,11 @@ const SDash = () => {
             {/* Menu Overlay */}
             <div className={`menu-overlay ${isMenuOpen ? 'active' : ''}`} id="menuOverlay">
                 <button onClick={goToDashboard}>Dashboard</button>
-                <button onClick={goToOccupationalMeal}>Occupational Meal</button>
                 <button onClick={goToMyProfile}>My Profile</button>
                 <button onClick={goToAbout}>Why FFF?</button>
-                {["monthly_report.html", "form.html"].map((page, i) => (
-                    <button key={i} onClick={() => window.location.href = page}>
-                        {page.replace(".html", "").replace("_", " ")}
-                    </button>
-                ))}
+                <button onClick={goToOccForm}>Occasion Form</button>
+                <button onClick={goToDailyForm}>Daily Form</button>
+                <button onClick={goToMonthlyReport}>Monthly Report</button>
                 <button onClick={handleLogout}>Logout</button>
             </div>
 
