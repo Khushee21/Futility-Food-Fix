@@ -19,9 +19,7 @@ const studentSchema = new mongoose.Schema(
     password: { type: String, required: true, minlength: 6 },
     otp: { type: String }, // Store OTP for password reset
     otpExpires: { type: Date }, // Expiration time for OTP
-
-    // New field to track voting status
-    hasVoted: { type: Boolean, default: false } 
+    hasVoted: { type: Boolean, default: false }, // New field to track voting status
   },
   { timestamps: true }
 );

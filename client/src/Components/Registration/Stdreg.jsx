@@ -1,20 +1,53 @@
-import { useState } from 'react';
-import axios from 'axios';
-import './Stdreg.css';  // Import CSS for styling
+import { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "./Stdreg.module.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import logo from "./logo.png";
+
+const foodQuotes = [
+  "Food is the ingredient that binds us together.",
+  "Good food is the foundation of genuine happiness.",
+  "Eat well, live well, be well.",
+  "Cooking is love made visible.",
+  "Happiness is homemade.",
+];
+
+// Define fields with state key and label
+const fields = [
+  { key: "id", label: "Student ID" },
+  { key: "name", label: "Student Name" },
+  { key: "degree", label: "Degree" },
+  { key: "email", label: "Email (banasthali.in)" },
+  { key: "parentEmail", label: "Parent Email" },
+];
 
 const Stdreg = () => {
   const [formData, setFormData] = useState({
-    id: '',
-    name: '',
-    degree: '',
-    email: '',
-    parentEmail: '',
-    password: '',
+    id: "",
+    name: "",
+    degree: "",
+    email: "",
+    parentEmail: "",
+    password: "",
   });
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+  const [fade, setFade] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // to differentiate success and error styles
-  const [isSubmitting, setIsSubmitting] = useState(false);  // to manage the loading state
+  // Cycle through food quotes every 5 seconds (with fade transition)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
+        setFade(true);
+      }, 500);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,115 +55,76 @@ const Stdreg = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');  // Reset the message before making the request
+    setMessage("");
 
-    // Email validation: Only allow banasthali.in emails
-    const emailDomain = formData.email.split('@')[1];
-    if (emailDomain !== 'banasthali.in') {
-      setMessage('Only banasthali.in email addresses are allowed.');
-      setMessageType('error');
+    // Validate that email ends with @banasthali.in
+    if (!formData.email.endsWith("@banasthali.in")) {
+      setMessage("Only banasthali.in email addresses are allowed.");
+      setMessageType("error");
       return;
     }
 
-    setIsSubmitting(true);  // Set loading state
-
+    setIsSubmitting(true);
     try {
-      const response = await axios.post('http://localhost:5066/api/auth/register', formData);
-
+      const response = await axios.post("http://localhost:5066/api/auth/register", formData);
       if (response.status === 201) {
-        setMessage('Registration successful!');
-        setMessageType('success');
-        setFormData({ id: '', name: '', degree: '', email: '', parentEmail: '', password: '' }); // Reset form data
+        setMessage("Registration successful!");
+        setMessageType("success");
+        setFormData({ id: "", name: "", degree: "", email: "", parentEmail: "", password: "" });
       }
     } catch (error) {
-      setMessage(error.response ? error.response.data.message : 'Something went wrong. Please try again.');
-      setMessageType('error');
+      setMessage(error.response ? error.response.data.message : "Something went wrong. Please try again.");
+      setMessageType("error");
     } finally {
-      setIsSubmitting(false);  // Reset loading state after the request is done
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>Student Registration Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="id">Student ID</label>
+    <div className={styles.registerContainer}>
+      <form onSubmit={handleSubmit} className={styles.registerForm}>
+        <img src={logo} alt="FFF Logo" className={styles.logo} />
+        <h2>Femine Food Fix</h2>
+
+        {fields.map((field, index) => (
+          <div className={styles.inputGroup} key={index}>
+            <input
+              type="text"
+              name={field.key}
+              value={formData[field.key]}
+              onChange={handleChange}
+              placeholder=" "
+              required
+            />
+            <label className={styles.floatingLabel}>{field.label}</label>
+          </div>
+        ))}
+
+        <div className={styles.inputGroup}>
           <input
-            type="text"
-            id="id"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="name">Student Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="degree">Degree</label>
-          <input
-            type="text"
-            id="degree"
-            name="degree"
-            value={formData.degree}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email ID</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="parentEmail">Parent's Email ID</label>
-          <input
-            type="email"
-            id="parent-email"
-            name="parentEmail"
-            value={formData.parentEmail}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             value={formData.password}
             onChange={handleChange}
+            placeholder=" "
             required
-            minLength="6"
           />
+          <label className={styles.floatingLabel}>Password</label>
+          <span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
         </div>
-        <button type="submit" className="submit-btn" disabled={isSubmitting}>
-          {isSubmitting ? 'Registering...' : 'Register'}
-        </button>
-      </form>
 
-      {message && (
-        <p className={`message ${messageType}`}>
-          {message}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Registering..." : "Register"}
+        </button>
+
+        {message && <p className={`${styles.message} ${styles[messageType]}`}>{message}</p>}
+
+        <p className={`${styles.foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>
+          {foodQuotes[currentQuoteIndex]}
         </p>
-      )}
+      </form>
     </div>
   );
 };
