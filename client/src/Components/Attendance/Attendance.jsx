@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Attendance.css";
-import Logo from "./logo.png"; // Ensure the logo path is correct
+import Logo from "./logo.png";
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
@@ -67,44 +67,41 @@ const Attendance = () => {
         student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.id.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  
+
     if (index !== -1) {
       rowRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
-  
+
       setTimeout(() => {
-        rowRefs.current[index]?.classList.add("highlight");
+        rowRefs.current[index]?.classList.add("Att_highlight");
         setTimeout(() => {
-          rowRefs.current[index]?.classList.remove("highlight");
+          rowRefs.current[index]?.classList.remove("Att_highlight");
         }, 2000);
       }, 200);
     } else {
       alert("No matching student found!");
     }
-  
-    // Clear the search bar
+
     setSearchTerm("");
   };
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
-
   };
 
   const navigateTo = (path) => {
     navigate(path);
-    setMenuOpen(false); // Close menu after navigation
+    setMenuOpen(false);
   };
 
   return (
-    <div className="container">
-      {/* Menu Section */}
-      <div className="menu-container">
-        <button className="menu-button" onClick={toggleMenu}>
+    <div className="Att_container">
+      <div className="Att_menu-container">
+        <button className="Att_menu-button" onClick={toggleMenu}>
           &#9776;
         </button>
       </div>
 
-      <div className={`menu-overlay ${menuOpen ? "open" : ""}`}>
+      <div className={`Att_menu-overlay ${menuOpen ? "open" : ""}`}>
         <button onClick={() => navigateTo("/dashboard")}>Dashboard</button>
         <button onClick={() => navigateTo("/monthly_report")}>Monthly Report</button>
         <button onClick={() => navigateTo("/occupational_meal")}>Occupational Meal</button>
@@ -114,43 +111,42 @@ const Attendance = () => {
         <button onClick={() => navigateTo("/why_fff")}>Why FFF</button>
       </div>
 
-
-      {/* Header Section */}
-      <div className="Main_Header">
-        <div className={`fixed-header ${menuOpen ? "hidden" : ""}`}>
-          <div className="shape">
+      <div className="Att_Main_Header">
+        <div className={`Att_fixed-header ${menuOpen ? "hidden" : ""}`}>
+          <div className="Att_shape">
             <svg viewBox="0 0 100 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0,0 H100 V35 L50,50 L0,35 Z" fill="rgba(26,25,25,1)" />
             </svg>
           </div>
-          <div className="header-content">
-            <img src={Logo} alt="FFF Logo" className="logo" />
-            <h1 className="header-text">Futility Food Fix</h1>
+          <div className="Att_header-content">
+            <img src={Logo} alt="FFF Logo" className="Att_logo" />
+            <h1 className="Att_header-text">Futility Food Fix</h1>
           </div>
         </div>
       </div>
 
-      <div className="header-container">
-        <div className="header-content-column">
-          <h2>Hostel Meal Attendance</h2>
-          <div className="edit-search-container">
-            <button className="edit-btn" onClick={() => setIsEditing(!isEditing)}>
+      <div className="Att_header-container">
+        <div className="Att_header-content-column">
+          <h2 className="Att_h2">Hostel Meal Attendance</h2>
+          <div className="Att_edit-search-container">
+            <button className="Att_edit-btn" onClick={() => setIsEditing(!isEditing)}>
               {isEditing ? "Save" : "Edit"}
             </button>
             <input
               type="text"
+              style={{fontSize:"14px" ,width:"190px"}}
               placeholder="Search by Name or ID"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              className="search-input"
+              className="Att_search-input"
             />
           </div>
         </div>
       </div>
 
-      <div className="table-container">
-        <table>
+      <div className="Att_table-container">
+        <table className="Att_table">
           <thead>
             <tr>
               <th>Room No</th>
@@ -169,7 +165,7 @@ const Attendance = () => {
               return (
                 <tr key={student.id} ref={(el) => (rowRefs.current[index] = el)}>
                   {isFirstInRoom && (
-                    <td rowSpan={4} className="room-cell">
+                    <td rowSpan={4} className="Att_room-cell">
                       {student.roomNo}
                     </td>
                   )}
@@ -178,7 +174,7 @@ const Attendance = () => {
                   {student.meals.map((meal, mealIndex) => (
                     <td
                       key={mealIndex}
-                      className="meal-cell"
+                      className="Att_meal-cell"
                       onClick={() => toggleMeal(index, mealIndex)}
                     >
                       {meal === true ? "✅" : meal === false ? "❌" : meal === "late" ? "🔴" : ""}
