@@ -7,13 +7,10 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
 // import WardenDashboard from './Components/WardenDashBoard/Warden';
 
-// import ResetPass from './Components/ResetPassword/ResetPass';
-// import Stdreg from './Components/Registration/Stdreg';
-// import SDash from './Components/Student_Dashboard/SDash';
 
 // import StudentProfile from "./Components/myProfile/studentProfile";
 
-
+import ResetPass from './Components/ResetPassword/ResetPass';
 import OccasionForm from './Components/OccasionForm/tempOccasion';
 import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
 import SignInStu from './Components/StuSignIn/SignInStu';
@@ -23,6 +20,8 @@ import Ward from './Components/Daily_Meal/Ward';
 import MonthlyReport from './Components/MonthlyReport/MonthlyReport'
 import AboutFFF from './Components/AboutFFF/About_Us';
 import Profile from './Components/Profile/Profile';
+import SDash from './Components/Student_Dashboard/SDash';
+import Stdreg from './Components/Registration/Stdreg';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -35,30 +34,22 @@ function App() {
     <div className="App">
       <main>
         <Routes>
-          {/* Student Routes */}
-          {/* <Route path="/register" element={<Stdreg />} />
+        
        
-          <Route path="/reset-password" element={<ResetPass />} />
-          <Route path="/reset-password/:id" element={<ResetPass />} /> */}
+          {/* <Route path="/reset-password" element={<ResetPass />} />
+          <Route path="/reset-password/:id" element={<ResetPass />} />  */}
 
           {/* Admin Routes */}
           {/* <Route path="/signin-admin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
           <Route path="/warden-dashboard" element={isAdmin ? <WardenDashboard /> : <Navigate to="/signin-admin" />} /> */}
 
-          {/* Other Routes */}
-
-
-          {/* Student Dashboard */}
-          {/* <Route path="/SDash" element={<SDash />} /> */}
-
-          {/* New Routes */}
-          
-          {/* Default Route */}
           {/* <Route path="*" element={<Navigate to="/signin" />} /> */}
 
           {/* <Route path="/my-profile" element={<StudentProfile />} /> */}
 
         
+      
+
           <Route path="/occasion-form" element={<OccasionForm />} />
           <Route path="/student-occasion" element={<Studentoccasion />} /> 
           <Route path="/signin" element={<SignInStu />} />
@@ -68,7 +59,9 @@ function App() {
           <Route path="/monthly-report" element={<MonthlyReport />} />
           <Route path="/about-us" element={<AboutFFF />} />      
           <Route path="/Profile" element={<Profile />} /> 
-
+          <Route path="/SDash" element={<SDash />} />
+          <Route path="/register" element={<Stdreg />} />
+          <Route path="/reset-password" element={<ResetPass />} />
         </Routes>
       </main>
     </div>

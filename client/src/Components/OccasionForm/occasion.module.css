@@ -107,8 +107,12 @@ input[type="text"] {
     width: 100%;
     cursor: pointer;
     margin-top: 1%;
-    text-align: center; /* Ensures text inside select box is left-aligned */
+    text-align: center; 
     text-align-last: center;
+}
+.occ_t input[type="text"]
+{
+    background-color: rgb(3, 0, 0);
 }
 .occ_formGroup option{
     text-align: center; /* Ensures text inside select box is left-aligned */

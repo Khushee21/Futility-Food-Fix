@@ -202,14 +202,14 @@ const OccasionForm = () => {
           <div className={styles.occ_choiceContainer}>
             <div className={styles.occ_choiceBox}>
               <h3>Choice 1</h3>
-              <div>
+              <div className="occ_t">
                 <label  style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="daal1">
                   {/* <strong >Daal:</strong> */}
                   <strong >Daal:</strong>
 
                   {/* <strong style="text-align: left; display: block;">Daal:</strong> */}
                 </label>
-                <input
+                <input 
                   type="text"
                   id="daal1"
                   value={meal1.dal}
@@ -220,11 +220,11 @@ const OccasionForm = () => {
                   <span className={styles.occ_error}>{formErrors.daal1}</span>
                 )}
               </div>
-              <div>
+              <div className="occ_t">
                 <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="vegetable1">
                   <strong>Vegetable:</strong>
                 </label>
-                <input
+                <input 
                   type="text"
                   id="vegetable1"
                   value={meal1.vegetable}
@@ -235,7 +235,7 @@ const OccasionForm = () => {
                   <span className={styles.occ_error}>{formErrors.vegetable1}</span>
                 )}
               </div>
-              <div>
+              <div className="occ_t">
                 <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="sweet1">
                   <strong>Sweet:</strong>
                 </label>
@@ -254,11 +254,11 @@ const OccasionForm = () => {
 
             <div className={styles.occ_choiceBox}>
               <h3>Choice 2</h3>
-              <div>
+              <div className="occ_t">
                 <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="daal2">
                   <strong>Daal:</strong>
                 </label>
-                <input
+                <input 
                   type="text"
                   id="daal2"
                   value={meal2.dal}
@@ -269,11 +269,11 @@ const OccasionForm = () => {
                   <span className={styles.occ_error}>{formErrors.daal2}</span>
                 )}
               </div>
-              <div>
+              <div className="occ_t">
                 <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="vegetable2">
                   <strong>Vegetable:</strong>
                 </label>
-                <input
+                <input 
                   type="text"
                   id="vegetable2"
                   value={meal2.vegetable}
@@ -284,7 +284,7 @@ const OccasionForm = () => {
                   <span className={styles.occ_error}>{formErrors.vegetable2}</span>
                 )}
               </div>
-              <div>
+              <div className="occ_t">
                 <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="sweet2">
                   <strong>Sweet:</strong>
                 </label>
@@ -293,6 +293,7 @@ const OccasionForm = () => {
                   id="sweet2"
                   value={meal2.sweet}
                   onChange={(e) => handleMealChange(e, 2, "sweet")}
+                  // style={{ backgroundColor: "rgb(0, 0, 0)"}}
                   required
                 />
                 {formErrors.sweet2 && (

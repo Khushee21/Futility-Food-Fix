@@ -1,12 +1,12 @@
 /* Reset & Global Styles */
- * {
-    /* margin: 0; */
+ /* * {
+ 
     box-sizing: border-box;
     padding: 0;
     margin:0;
     color: #ececec;
     font-family: 'Montserrat', sans-serif;
-}
+} */
 
  body {
     /* min-height: 100vh; */
@@ -143,7 +143,11 @@
     cursor: pointer;
     /* Remove display: none; */
 }
-
+.Pro
+{
+  background-color: #042d05;
+  border:1px solid rgb(141, 134, 134);
+}
 .Pro:hover {
     background-color: #4d8950;
 }
