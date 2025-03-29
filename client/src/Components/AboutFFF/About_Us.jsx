@@ -3,17 +3,17 @@ import styles from "./S.module.css"; // Importing CSS Module
 
 const About_Us = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.serviceWrapper}>
-        <div className={styles.service}>
+    <div className={styles.Abt_container}>
+      <div className={styles.Abt_serviceWrapper}>
+        <div className={styles.Abt_service}>
           <h1>Why FFF?</h1>
           <p>
             Our FFF (Futility Food Fix) system is designed to minimize food
             wastage, enhance meal planning, and ensure better student engagement
             in hostel mess management.
           </p>
-          <div className={styles.cards}>
-            <div className={styles.card}>
+          <div className={styles.Abt_cards}>
+            <div className={styles.Abt_card}>
               <i className="fa-brands fa-chromecast"></i>
               <h2>Planning & Notifications</h2>
               <p>
@@ -26,7 +26,7 @@ const About_Us = () => {
                 will eat in the mess.
               </p>
             </div>
-            <div className={styles.card}>
+            <div className={styles.Abt_card}>
               <i className="fa-solid fa-layer-group"></i>
               <h2>Waste Reduction</h2>
               <p>
@@ -39,7 +39,7 @@ const About_Us = () => {
                 than going to waste.
               </p>
             </div>
-            <div className={styles.card}>
+            <div className={styles.Abt_card}>
               <i className="fa-solid fa-gear"></i>
               <h2>Attendance Tracking</h2>
               <p>
@@ -51,7 +51,7 @@ const About_Us = () => {
                 three times, they receive a notification.
               </p>
             </div>
-            <div className={styles.card}>
+            <div className={styles.Abt_card}>
               <i className="fa-brands fa-chromecast"></i>
               <h2>Feedback System</h2>
               <p>
@@ -62,7 +62,7 @@ const About_Us = () => {
                 quality, menu planning, and portion control.
               </p>
             </div>
-            <div className={styles.card}>
+            <div className={styles.Abt_card}>
               <i className="fa-solid fa-layer-group"></i>
               <h2>Reports & Insights</h2>
               <p>
@@ -75,7 +75,7 @@ const About_Us = () => {
                 improve budgeting, and enhance overall mess efficiency.
               </p>
             </div>
-            <div className={styles.card}>
+            <div className={styles.Abt_card}>
               <i className="fa-solid fa-gear"></i>
               <h2>User-Friendly System</h2>
               <p>

@@ -115,12 +115,12 @@ const MonthlyReport = () => {
   };
 
   return (
-    <div className={styles.reportContainer}>
-      <h2 className={styles.reportTitle}>Monthly Report</h2>
+    <div className={styles.month_reportContainer}>
+      <h2 className={styles.month_reportTitle}>Monthly Report</h2>
 
-      <div className={styles.dropdownContainer}>
+      <div className={styles.month_dropdownContainer}>
         <label>Select Month:</label>
-        <select value={selectedMonth} onChange={handleMonthChange}>
+        <select value={selectedMonth} onChange={handleMonthChange}   style={{ fontSize:"15px" ,width: "150px",height:"50px" }} >
           {["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
           ].map((month) => (
@@ -129,11 +129,11 @@ const MonthlyReport = () => {
         </select>
       </div>
 
-      <div className={styles.chartContainer}>
-        {viewType === "bar" && <div className={styles.barChartWrapper}><Bar data={pieChartData} options={chartOptionsBar} /></div>}
-        {viewType === "pie" && <div className={styles.pieChartWrapper}><Pie data={pieChartData} options={chartOptionsPie} onClick={handlePieClick} /></div>}
+      <div className={styles.month_chartContainer}>
+        {viewType === "bar" && <div className={styles.month_barChartWrapper}><Bar data={pieChartData} options={chartOptionsBar} /></div>}
+        {viewType === "pie" && <div className={styles.month_pieChartWrapper}><Pie data={pieChartData} options={chartOptionsPie} onClick={handlePieClick} /></div>}
         {viewType === "data" && (
-          <table className={styles.reportTable}>
+          <table className={styles.month_reportTable}>
             <thead>
               <tr><th>Meal</th><th>Days</th></tr>
             </thead>
@@ -147,9 +147,9 @@ const MonthlyReport = () => {
         )}
       </div>
 
-      {selectedMeal && <div className={styles.mealInfo}><h3>{selectedMeal}</h3></div>}
+      {selectedMeal && <div className={styles.month_mealInfo}><h3>{selectedMeal}</h3></div>}
 
-      <div className={styles.buttonContainer}>
+      <div className={styles.month_buttonContainer}>
         <button onClick={() => setViewType("pie")}>Pie Chart</button>
         <button onClick={() => setViewType("data")}>Data Table</button>
         <button onClick={() => setViewType("bar")}>Bar Graph</button>

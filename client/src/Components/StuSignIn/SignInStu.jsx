@@ -33,38 +33,30 @@ const SignInStu = () => {
     setError("");
 
     try {
-        const response = await axios.post(
-            "http://localhost:5066/api/auth/login",
-            { id, password },
-            { withCredentials: true }
-        );
+      const response = await axios.post(
+        "http://localhost:5066/api/auth/login",
+        { id, password },
+        { withCredentials: true }
+      );
 
-        if (response.data.success) {
-            alert("✅ Login successful!");
-            
-            // Store the student ID returned by the backend
-            const { studentId } = response.data;
-            localStorage.setItem("studentId", studentId);
-            console.log(studentId);
-
-
-            // Redirect to the dashboard
-            navigate("/SDash");
-        } else {
-            setError(response.data.message || "❌ Invalid ID or Password");
-        }
+      if (response.data.success) {
+        alert("✅ Login successful!");
+        navigate("/student-dashboard");
+      } else {
+        setError(response.data.message || "❌ Invalid ID or Password");
+      }
     } catch (err) {
-        setError(`❌ ${err.response?.data?.message || "Server error"}`);
+      setError(`❌ ${err.response?.data?.message || "Server error"}`);
     }
-};
-  
+  };
+
   return (
-    <div className={styles.authBox}>
-      <img src={logo} alt="Logo" className={styles.authLogo} />
-      <h1 className={styles.authHeading}>Futility Food Fix</h1>
+    <div className={styles.sstu_authBox}>
+      <img src={logo} alt="Logo" className={styles.sstu_authLogo} />
+      <h1 className={styles.sstu_authHeading}>Futility Food Fix</h1>
 
       <form onSubmit={handleLogin}>
-        <div className={styles.inputContainer}>
+        <div className={styles.sstu_inputContainer}>
           <input
             type="text"
             id="id"
@@ -76,7 +68,7 @@ const SignInStu = () => {
           <label className={id ? "filled" : ""}>Student ID</label>
         </div>
 
-        <div className={styles.inputContainer}>
+        <div className={styles.sstu_inputContainer}>
           <input
             type={showPassword ? "text" : "password"}
             id="password"
@@ -87,25 +79,25 @@ const SignInStu = () => {
           />
           <label className={password ? "filled" : ""}>Password</label>
           <span
-            className={styles.eyeIcon}
+            className={styles.sstu_eyeIcon}
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
         </div>
 
-        {error && <p className={styles.authError}>{error}</p>}
+        {error && <p className={styles.sstu_authError}>{error}</p>}
 
-        <button type="submit" className={styles.authButton}>Login</button>
+        <button type="submit" className={styles.sstu_authButton}>Login</button>
       </form>
 
-      <div className={styles.authLinks}>
+      <div className={styles.sstu_authLinks}>
         <p onClick={() => navigate("/reset-password")}>Forgot Password?</p>
         <p onClick={() => navigate("/register")}>New User? <span>Register here</span></p>
         <p onClick={() => navigate("/signin-admin")}>Login as an Admin</p>
       </div>
 
-      <p className={styles.foodQuote}>{foodQuotes[quoteIndex]}</p>
+      <p className={styles.sstu_foodQuote}>{foodQuotes[quoteIndex]}</p>
     </div>
   );
 };

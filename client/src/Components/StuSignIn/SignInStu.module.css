@@ -3,33 +3,37 @@
 
 /* Global Styles */
 body {
-  background-color: #141515ea;
-  display: flex;
+  /*background-color: #141515ea;*/
+  /*display: flex;*/
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: 'Poppins', sans-serif;
-}
+  /*align-items: center;
+  
+  font-family: 'Poppins', sans-serif;*/
 
+}
+.sstu_eyeIcon svg {
+  /* fill: black; */
+  stroke: black;
+}
 /* Auth Box */
-.authBox {
+.sstu_authBox {
   background: white;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 350px;
+  width: 400px;
 }
 
 /* Logo */
-.authLogo {
+.sstu_authLogo {
   width: 80px;
   height: 80px;
   margin-bottom: 10px;
 }
 
 /* Heading */
-.authHeading {
+.sstu_authHeading {
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -38,12 +42,12 @@ body {
 }
 
 /* Input Fields */
-.inputContainer {
+.sstu_inputContainer {
   position: relative;
   margin-bottom: 20px;
 }
 
-.inputContainer input {
+.sstu_inputContainer input {
   width: 100%;
   padding: 12px 10px;
   border: 1px solid #ccc;
@@ -54,11 +58,11 @@ body {
   background: white;
 }
 
-.inputContainer input:focus {
+.sstu_inputContainer input:focus {
   border-color: #007bff;
 }
 
-.inputContainer label {
+.sstu_inputContainer label {
   position: absolute;
   left: 14px;
   top: 50%;
@@ -71,15 +75,15 @@ body {
   padding: 0 5px;
 }
 
-.inputContainer input:focus+label,
-.inputContainer input:not(:placeholder-shown)+label {
+.sstu_inputContainer input:focus+label,
+.sstu_inputContainer input:not(:placeholder-shown)+label {
   top: 8px;
   font-size: 12px;
   color: #275586d5;
 }
 
 /* Password Eye Icon */
-.eyeIcon {
+.sstu_eyeIcon {
   position: absolute;
   right: 12px;
   top: 50%;
@@ -88,17 +92,15 @@ body {
   color: #666;
 }
 
-.eyeIcon:hover {
+.sstu_eyeIcon:hover {
   color: #007bff;
 }
 
 /* Buttons - Reset Global Styles */
-button {
-  all: unset;
-}
+
 
 /* Auth Button */
-.authButton {
+.sstu_authButton {
   width: 100%;
   padding: 12px;
   background-color: #007bff;
@@ -114,12 +116,12 @@ button {
   margin-top: 10px;
 }
 
-.authButton:hover {
+.sstu_authButton:hover {
   background-color: #1f067a;
 }
 
 /* General Buttons - Not Auth Button */
-button:not(.authButton) {
+.sstu_button:not(.sstu_authButton) {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -130,32 +132,33 @@ button:not(.authButton) {
   transition: border-color 0.25s;
 }
 
-button:not(.authButton):hover {
+.sstu_button:not(.sstu_authButton):hover {
   border-color: #646cff;
 }
 
 /* Links */
-.authLinks {
+.sstu_authLinks {
   margin-top: 15px;
 }
 
-.authLinks p {
+.sstu_authLinks p {
   color: #007bff;
   cursor: pointer;
   font-size: 14px;
   margin-top: 8px;
 }
 
-.authLinks p:hover {
+.sstu_authLinks p:hover {
   text-decoration: underline;
 }
 
-.authLinks span {
+.sstu_authLinks span {
   font-weight: bold;
+  color: #007bff; ;
 }
 
 /* Animated Food Quotes */
-.foodQuote {
+.sstu_foodQuote {
   margin-top: 20px;
   font-size: 14px;
   font-weight: bold;
