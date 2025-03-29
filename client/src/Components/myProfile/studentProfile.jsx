@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  import React, { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> 73320cea2ac5a8f62bddc9736b75e39298181087
 import "./StudentProfile.css";
 
 

@@ -4,7 +4,7 @@ body {
   background-color: black;
 }
 
-.resetBox {
+.re_resetBox {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -16,16 +16,18 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 60%;
+  width:27vw;
 }
 
-.resetLogo {
+.re_resetLogo {
   display: block;
   margin: 0 auto 10px;
   width: 80px;
   height: auto;
 }
 
-.resetTitle {
+.re_resetTitle {
   font-family: 'Playfair Display', serif;
   color: black;
   font-size: 20px;
@@ -33,14 +35,14 @@ body {
   margin-bottom: 15px;
 }
 
-.resetHeading {
+.re_resetHeading {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
   color: blue;
 }
 
-.resetLabel {
+.re_resetLabel {
   display: block;
   text-align: left;
   font-size: 14px;
@@ -48,24 +50,25 @@ body {
   margin-bottom: 5px;
 }
 
-.resetInput {
+.re_resetInput {
   width: 100%;
   padding: 8px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #3a3636;
   border-radius: 5px;
   font-size: 16px;
   box-sizing: border-box;
   transition: border-color 0.3s;
+  background-color: white;
 }
 
-.resetInput:focus {
+.re_resetInput:focus {
   border-color: blue;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 
-.resetButton {
+.re_resetButton {
   width: 100%;
   padding: 10px;
   background-color: rgb(64, 64, 255);
@@ -77,30 +80,30 @@ body {
   transition: background-color 0.3s;
 }
 
-.resetButton:hover {
+.re_resetButton:hover {
   background-color: darkblue;
 }
 
-.resetError {
+.re_resetError {
   color: red;
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.resetSuccess {
+.re_resetSuccess {
   color: green;
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.otpContainer {
+.re_otpContainer {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-bottom: 15px;
 }
 
-.resetOtp {
+.re_resetOtp {
   width: 40px;
   height: 40px;
   text-align: center;
@@ -110,14 +113,14 @@ body {
   box-shadow: 0 2px 4px rgba(72, 129, 235, 0.1);
 }
 
-.resetOtp:focus {
+.re_resetOtp:focus {
   border-color: blue;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 
 /* Quote Container */
-.quoteContainer {
+.re_quoteContainer {
   text-align: center;
   font-size: 16px;
   color: white;
@@ -129,9 +132,12 @@ body {
   align-items: center;
   overflow: hidden;
 }
-
+.re_resetLabel
+{
+  color:black;
+}
 /* Quote Animation */
-.quoteText {
+.re_quoteText {
   animation: fadeInOut 0.5s infinite;
   color:#555;
   white-space: nowrap;

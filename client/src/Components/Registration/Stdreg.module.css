@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Playfair+Display:ital,wght@1,700&display=swap');
 
-body {
+/* body {
   font-family: 'Poppins', sans-serif;
   background-color: #222;
   color: white;
@@ -10,9 +10,9 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
-}
+} */
 
-.registerContainer {
+.reg_registerContainer {
   background: white;
   color: black;
   padding: 30px;
@@ -30,29 +30,31 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.registerForm {
+.reg_registerForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-h2 {
+.reg_h2 {
   font-family: 'Playfair Display', serif;
+  color: black;
+  border:2px 
 }
 
-.logo {
+.reg_logo {
   width: 80px;
   margin-bottom: 10px;
 }
 
-.inputGroup {
+.reg_inputGroup {
   position: relative;
   margin-bottom: 20px;
   width: 100%;
 }
 
-.inputGroup input {
+.reg_inputGroup input {
   width: 100%;
   padding: 12px;
   border: 2px solid rgba(118, 113, 113, 0.388);
@@ -66,12 +68,12 @@ h2 {
 }
 
 /* Change border to blue when focused */
-.inputGroup input:focus {
+.reg_inputGroup input:focus {
   border-color: #646cff;;
 }
 
 /* Label remains at the border at all times */
-.floatingLabel {
+.reg_floatingLabel {
   position: absolute;
   left: 12px;
   top: -10px;
@@ -91,7 +93,7 @@ h2 {
   position: relative;
 }
 
-.eyeIcon {
+.reg_eyeIcon {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -99,8 +101,12 @@ h2 {
   cursor: pointer;
   color: gray;
 }
-
-button {
+.My_Button1
+{
+  width:100%;
+  /* background-color: red; */
+}
+.My_Button1 button{
   background-color: rgb(64, 64, 255);
   color: white;
   padding: 12px;
@@ -113,11 +119,11 @@ button {
   transition: background-color 0.3s ease-in-out;
 }
 
-button:hover {
+.My_Button1 button:hover {
   background-color: rgb(0, 0, 139);
 }
 
-.foodQuote {
+.reg_foodQuote {
   text-align: center;
   font-weight: bold;
   margin-top: 20px;

@@ -34,37 +34,38 @@ const ResetPass = () => {
   }, []);
 
   return (
-    <div className={styles.resetContainer}>
-      <div className={styles.resetBox}>
-        <img src={logo} alt="Logo" className={styles.resetLogo}/>
-        <h2 className={styles.resetTitle}>Futility Food Fix</h2>
-        <h1 className={styles.resetHeading}>Reset Password</h1>
+    <div className={styles.re_resetContainer}>
+      <div className={styles.re_resetBox}>
+        <img src={logo} alt="Logo" className={styles.re_resetLogo}/>
+        <h2 className={styles.re_resetTitle}>Futility Food Fix</h2>
+        <h1 className={styles.re_resetHeading}>Reset Password</h1>
 
         {!otpSent ? (
           <form>
-            <label htmlFor="studentId" className={styles.resetLabel}>Student ID</label>
+            <label htmlFor="studentId" className={styles.re_resetLabel}>Student ID</label>
             <input
               type="text"
               id="studentId"
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
-              className={styles.resetInput}
+              className={styles.re_resetInput}
+              style={{backgroundColor:"white",border:"1px solid black"}}
               required
             />
-            {error && <p className={styles.resetError}>{error}</p>}
-            {success && <p className={styles.resetSuccess}>{success}</p>}
-            <button type="submit" className={styles.resetButton}>Send OTP</button>
+            {error && <p className={styles.re_resetError}>{error}</p>}
+            {success && <p className={styles.re_resetSuccess}>{success}</p>}
+            <button type="submit" className={styles.re_resetButton}>Send OTP</button>
           </form>
         ) : (
           <>
-            <div className={styles.otpContainer}>
+            <div className={styles.re_otpContainer}>
               {otp.map((data, index) => (
                 <input
                   type="text"
                   maxLength="1"
                   key={index}
                   value={data}
-                  className={styles.resetOtp}
+                  className={styles.re_resetOtp}
                 />
               ))}
             </div>
@@ -72,8 +73,8 @@ const ResetPass = () => {
         )}
 
         {/* ⬇️ Quotes placed below the OTP container inside reset-box */}
-        <div className={styles.quoteContainer}>
-          <p key={quoteIndex} className={styles.quoteText}>{foodQuotes[quoteIndex]}</p>
+        <div className={styles.re_quoteContainer}>
+          <p key={quoteIndex} className={styles.re_quoteText}>{foodQuotes[quoteIndex]}</p>
         </div>
       </div>
     </div>
