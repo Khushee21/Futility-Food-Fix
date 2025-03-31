@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+/* body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #222;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+} */
+
+.reg_registerContainer {
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  max-height:90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.reg_registerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.reg_h2 {
+  font-family: 'Playfair Display', serif;
+  color: black;
+  border:2px 
+}
+
+.reg_logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.reg_inputGroup {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.reg_inputGroup input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid rgba(118, 113, 113, 0.388);
+  /* Default black border */
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: white;
+  transition: border-color 0.3s ease-in-out;
+  outline: none;
+}
+
+/* Change border to blue when focused */
+.reg_inputGroup input:focus {
+  border-color: #646cff;;
+}
+
+/* Label remains at the border at all times */
+.reg_floatingLabel {
+  position: absolute;
+  left: 12px;
+  top: -10px;
+  /* Always stay at border */
+  background: white;
+  padding: 0 5px;
+  font-size: 10px;
+  color: #213547;
+  pointer-events: none;
+}
+
+/* Password field and eye icon */
+.passwordGroup {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.reg_eyeIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: gray;
+}
+.My_Button1
+{
+  width:100%;
+  /* background-color: red; */
+}
+.My_Button1 button{
+  background-color: rgb(64, 64, 255);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.My_Button1 button:hover {
+  background-color: rgb(0, 0, 139);
+}
+
+.reg_foodQuote {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+  animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  
+  /* Media Queries */
+  @media (prefers-color-scheme: light) {
+    :root {
+      color: #213547;
+      background-color: #ffffff;
+    }
+  }

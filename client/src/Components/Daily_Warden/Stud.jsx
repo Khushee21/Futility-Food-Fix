@@ -26,18 +26,18 @@ const Stud = () => {
     };
 
     return (
-        <div className="container">
+        <div className="St_container">
             <h1>Shree Shanta Sangam</h1>
             <form action="Backened.php">
-                <div className="circle-container">
-                    <div className="big-circle"></div>
-                    <div className="small-circle breakfast" onClick={() => handleMealSelection("breakfast")}>Breakfast</div>
-                    <div className="small-circle lunch" onClick={() => handleMealSelection("lunch")}>Lunch</div>
-                    <div className="small-circle high-tea" onClick={() => handleMealSelection("highTea")}>High Tea</div>
-                    <div className="small-circle dinner" onClick={() => handleMealSelection("dinner")}>Dinner</div>
+                <div className="St_circle-container">
+                    <div className="St_big-circle"></div>
+                    <div className="St_small-circle breakfast" onClick={() => handleMealSelection("breakfast")}>Breakfast</div>
+                    <div className="St_small-circle lunch" onClick={() => handleMealSelection("lunch")}>Lunch</div>
+                    <div className="St_small-circle high-tea" onClick={() => handleMealSelection("highTea")}>High Tea</div>
+                    <div className="St_small-circle dinner" onClick={() => handleMealSelection("dinner")}>Dinner</div>
                 </div>
 
-                <div className="meal-options">
+                <div className="St_meal-options">
                     {selectedMeals.map((meal) => (
                         <div key={meal} className={glowEffect[meal] ? "glow-effect" : ""}>
                             <label>
@@ -49,9 +49,16 @@ const Stud = () => {
                 </div>
             
                 <label htmlFor="da">Date: </label>
-              <input type="date" name="myDate" id="da" value={date} readOnly />
+                <input 
+  type="date" 
+  className="myDate" 
+  id="da" 
+  value={date} 
+  readOnly 
+  style={{ marginLeft:"10px", width: "125px" ,height:"24px"}} 
+/>
               <br></br>
-                <input type="submit" value="Submit" />
+                <input className="St_Button" type="submit" value="Submit" />
             </form>
         </div>
     );
