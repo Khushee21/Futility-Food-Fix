@@ -22,6 +22,7 @@ import AboutFFF from './Components/AboutFFF/About_Us';
 import Profile from './Components/Profile/Profile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
+import WardenDashboard from './Components/WardenDashBoard/Warden';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -60,6 +61,7 @@ function App() {
           <Route path="/about-us" element={<AboutFFF />} />      
           <Route path="/Profile" element={<Profile />} /> 
           <Route path="/SDash" element={<SDash />} />
+          <Route path="/Warden-dashboard" element={<WardenDashboard />} />
           <Route path="/register" element={<Stdreg />} />
           <Route path="/reset-password" element={<ResetPass />} />
         </Routes>

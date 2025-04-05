@@ -1,68 +1,71 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { io } from "socket.io-client";
 
 const WardenDashboard = () => {
-  const [result, setResult] = useState(null);
-
-  const fetchResults = async () => {
-    try {
-      const response = await axios.get("http://localhost:5066/api/occasional/results");
-      if (response.data && response.data.success && response.data.data.length > 0) {
-        setResult(response.data.data[0]);
-        console.log("📥 Initial fetch result:", response.data.data[0]);
-      }
-    } catch (error) {
-      console.error("Failed to fetch results:", error);
-    }
-  };
+  const [socket, setSocket] = useState(null);
+  const [isConnected, setIsConnected] = useState(false); // Track socket connection status
 
   useEffect(() => {
-    fetchResults();
+    // Dynamically setting socket server URL (use VITE_ prefix for Vite)
+    const socketURL = import.meta.env.VITE_SOCKET_SERVER_URL || "http://localhost:5066"; // Vite environment variable
 
-  
-    const socket = io("http://localhost:5066");
-    
-    socket.on("connect", () => {
-      console.log("🔗 Connected to Socket.IO server with ID:", socket.id);
+    const socketInstance = io(socketURL);
+
+    // Setting socket instance to state
+    setSocket(socketInstance);
+
+    // Handling socket connection
+    socketInstance.on("connect", () => {
+      console.log("🔗 Connected to Socket.IO server with ID:", socketInstance.id);
+      setIsConnected(true); // Set connection status to true
     });
 
-    socket.on("voteUpdate", (updatedOccasion) => {
-      console.log("🚨 Real-time vote update received:", updatedOccasion);
-
-  
-      const winningMenu =
-        updatedOccasion.menu1.votes > updatedOccasion.menu2.votes
-          ? "Menu 1"
-          : "Menu 2";
-
-      setResult({
-        occasion: updatedOccasion.occasion,
-        winningMenu,
-        votes: Math.max(updatedOccasion.menu1.votes, updatedOccasion.menu2.votes),
-      });
-    });
-
-    socket.on("disconnect", () => {
+    // Handling socket disconnection
+    socketInstance.on("disconnect", () => {
       console.log("❌ Disconnected from Socket.IO server");
+      setIsConnected(false); // Set connection status to false
     });
 
+    // Cleanup the socket connection on component unmount
     return () => {
-      socket.disconnect();
+      socketInstance.disconnect();
     };
   }, []);
 
-  if (!result) {
-    return <div>Loading results...</div>;
-  }
+  // Function to send the report (triggered by the button click)
+  const sendReport = () => {
+    if (socket && socket.connected) {
+      console.log("📤 Sending report to server...");
+
+      // Emitting event with report data
+      socket.emit(
+        "sendReport",
+        {
+          subject: "Report",
+          message: "Here is the report", // Adjust as necessary
+        },
+        (response) => {
+          console.log("📬 Response from server:", response); // Log the server's response
+          if (response.success) {
+            alert("Emails sent successfully!");
+          } else {
+            alert("Failed to send emails: " + response.message);
+          }
+        }
+      );
+    } else {
+      console.error("❌ Socket is not connected.");
+      alert("Unable to send report. Please try again later.");
+    }
+  };
 
   return (
     <div>
       <h1>Warden Dashboard</h1>
-      <h2>
-        Most demanding meal is:{" "}
-        {result.winningMenu} with {result.votes} votes.
-      </h2>
+      <p>Status: {isConnected ? "Connected" : "Disconnected"}</p>
+      <button onClick={sendReport} disabled={!isConnected}>
+        Send Report to Parents
+      </button>
     </div>
   );
 };

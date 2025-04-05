@@ -6,19 +6,34 @@ const http = require("http");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { Server } = require("socket.io");  // Import Server from socket.io
+const { sendMail } = require("./utils/mailer");
+
 
 // Route imports
 const authRoutes = require("./routes/authRoutes");
-const voteRoutes = require("./routes/voteRoutes"); // Vote routes
-const occasionRoutes = require("./routes/occasionRoutes");
-const dailyRoutes = require("./routes/DailyRoutes"); // Ensure correct file name
-const studentRoutes = require("./routes/studentRoutes");
+const voteRoutes = require("./routes/voteRoutes");
+// const occasionRoutes = require("./routes/occasionRoutes");
+// const studentRoutes = require("./routes/studentRoutes");
+const mailRoutes = require('./routes/mailRoutes');
 
 // Create express app
 const app = express();
+const server = http.createServer(app);  // Create HTTP server using express app
+const io = new Server(server, {         // Initialize socket.io server
+  cors: {
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Make sure the frontend URL is allowed
+    methods: ["GET", "POST"],
+  },
+});
 const PORT = process.env.PORT || 5066;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/femine-food-fix";
-const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
+
+// Middleware to log all API requests
+app.use((req, res, next) => {
+  console.log(`📡 ${req.method} request to ${req.url}`);
+  next();
+});
 
 // Increase payload size limit
 app.use(express.json({ limit: "50mb" }));
@@ -27,45 +42,16 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // CORS configuration
 app.use(
   cors({
-    origin: CORS_ORIGIN,
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     credentials: true,
   })
 );
-
-// Middleware to log all API requests
-app.use((req, res, next) => {
-  console.log(`📡 ${req.method} request to ${req.url}`);
-  next();
-});
-
-// Ensure uploads directory exists
-const uploadDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-const upload = multer({ storage });
-
-// Welcome route
-app.get("/", (req, res) => {
-  res.send("Welcome to the Server!");
-});
-
 // Mount routes
 app.use("/api/auth", authRoutes); // Authentication routes
 app.use("/api", voteRoutes); // Voting routes
-app.use("/api/occasional", occasionRoutes); // Occasion routes
-app.use("/api/student", studentRoutes);  // Profile routes
-app.use("/api/daily", dailyRoutes); // Daily routes
+// app.use("/api/occasional", occasionRoutes); // Occasion routes
+// app.use("/api/student", studentRoutes); // Student routes
+app.use('/api', mailRoutes); // Mail routes
 
 // 404 Route - Handles invalid routes
 app.use((req, res) => {
@@ -78,89 +64,40 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: "Something went wrong" });
 });
 
-// Create HTTP server and integrate Socket.IO
-const server = http.createServer(app);
-
-// Socket.io setup
-const { Server } = require("socket.io");
-const io = new Server(server, {
-  cors: {
-    origin: CORS_ORIGIN,
-    methods: ["GET", "POST"],
-  },
-});
-
-// Attach socket.io instance to app
-app.locals.io = io;
-
-// Import models
-const MealForm = require("./models/MealForm");
-const StudentSubmission = require("./models/StudentSubmission");
-
-// Socket.IO event listeners
+// Socket.IO setup
 io.on("connection", (socket) => {
   console.log("🔗 User connected:", socket.id);
 
-  // Event for student meal form submission
-  socket.on("submitStudentForm", async (submissionData, callback) => {
-    try {
-      console.log("Received student submission data:", submissionData);
+  // Handling the sendReport event
+// In your server.js (or wherever sendMail is called):
+const Student = require('./models/Student');  // Import the Student model
+const { sendMail } = require('./utils/mailer'); // Assuming sendMail is in utils/mailer.js
+console.log("juhi");
+socket.on("sendReport", async (data, callback) => {
+  console.log("📬 Received request to send report");
 
-      const { studentId, studentName, mealSelections, myDate } = submissionData;
+  try {
+    
+    // Fetch all students from the database to get their parent's email addresses
+    const students = await Student.find({}); // Fetch all students, adjust the query if needed to limit which students
+    const parentEmails = students.map(student => student.parentEmail); // Extract parent emails
+    console.log("Found students: ", students);
 
-      if (!studentId || !studentName || !mealSelections || mealSelections.length === 0 || !myDate) {
-        console.error("⚠️ Missing required fields");
-        return callback({ success: false, message: "Missing required fields" });
-      }
+    console.log("Sending email to: ", parentEmails); // Log the emails to be sent to
 
-      const existingSubmission = await StudentSubmission.findOne({ studentId, myDate });
-      if (existingSubmission) {
-        console.error("⚠️ Duplicate submission detected");
-        return callback({ success: false, message: "You have already submitted your meal selection for today." });
-      }
-
-      const submission = new StudentSubmission({
-        studentId,
-        studentName,
-        mealSelections,
-        myDate,
-        submissionDate: new Date(),
-      });
-
-      await submission.save();
-      console.log("✅ Student submission saved:", submission);
-
-      callback({ success: true, message: "Meal selection submitted successfully!", data: submission });
-
-      io.emit("formSubmitted", { success: true, message: "Form submitted successfully!" });
-    } catch (error) {
-      console.error("❌ Error saving student submission:", error);
-      callback({ success: false, message: "Server error.", error: error.message });
+    // Ensure that parentEmails is an array and send emails to all parents
+    if (parentEmails.length > 0) {
+      console.log("📧 Sending email to parents..."); // Debugging log
+      await sendMail(parentEmails, data.subject, data.message); // Send mail to all parent emails
+      callback({ success: true, message: "Emails sent successfully!" });
+    } else {
+      callback({ success: false, message: "No parent emails found." });
     }
-  });
-
-  // Event for daily meal form submission from the warden
-  socket.on("submitMeal", async (data) => {
-    try {
-      const today = new Date().toISOString().split("T")[0];
-      const existingForm = await MealForm.findOne({ myDate: today });
-
-      if (existingForm) {
-        socket.emit("submissionStatus", { success: false, message: "A meal form has already been submitted for today." });
-        return;
-      }
-
-      const newForm = new MealForm({ ...data, myDate: today });
-      await newForm.save();
-
-      io.emit("newMealForm", newForm);
-      socket.emit("submissionStatus", { success: true, message: "Form submitted successfully!" });
-      console.log("✅ Meal form submitted:", data);
-    } catch (error) {
-      console.error("❌ Error saving form:", error);
-      socket.emit("submissionStatus", { success: false, message: "Failed to submit form. Try again." });
-    }
-  });
+  } catch (error) {
+    console.error("Error in sendReport:", error);
+    callback({ success: false, message: "Failed to send emails." });
+  }
+});
 
   socket.on("disconnect", () => {
     console.log("❌ User disconnected:", socket.id);
@@ -172,13 +109,13 @@ mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("✅ MongoDB connected");
-    server.listen(PORT, () => {
+    server.listen(PORT, () => {   // Use server instance to listen for connections
       console.log(`🚀 Server is running on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
-    process.exit(1);
+    process.exit(1);  // Exit if database connection fails
   });
 
 // Graceful shutdown
