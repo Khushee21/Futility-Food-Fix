@@ -41,7 +41,7 @@ const SignInStu = () => {
 
       if (response.data.success) {
         alert("✅ Login successful!");
-        navigate("/student-dashboard");
+        navigate("/SDash");
       } else {
         setError(response.data.message || "❌ Invalid ID or Password");
       }

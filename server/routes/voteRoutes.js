@@ -10,3 +10,4 @@ router.post("/vote", submitVote);
 router.get("/vote-counts", getVoteCounts);
 
 module.exports = router;
+

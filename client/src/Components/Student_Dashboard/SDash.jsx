@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SDash.css";
+import axios from "axios";
+
 
 const SDash = () => {
     const texts = [
@@ -18,6 +20,11 @@ const SDash = () => {
 
     const [index, setIndex] = useState(0);
     const [index1, setIndex1] = useState(0);
+    const [goodVotes, setGoodVotes] = useState(0);
+  const [badVotes, setBadVotes] = useState(0);
+  const [hasVoted, setHasVoted] = useState(false);
+  const studentId = localStorage.getItem("studentId");
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -32,6 +39,91 @@ const SDash = () => {
         }, 4000);
         return () => clearInterval(interval);
     }, []);
+
+
+       // Fetch vote counts on component mount
+       useEffect(() => {
+        fetchVoteCounts();
+    }, []);
+
+    // Fetch vote counts from the server
+    const fetchVoteCounts = async () => {
+        try {
+            const response = await axios.get("/api/vote-counts");
+            setGoodVotes(response.data.goodVotes);
+            setBadVotes(response.data.badVotes);
+        } catch (error) {
+            console.error("Error fetching vote counts:", error);
+        }
+    };
+
+    // Handle vote submission
+    const handleVote = async (vote) => {
+        if (hasVoted) {
+            alert("You have already voted today.");
+            return;
+        }
+
+        try {
+            await axios.post("/api/vote", { studentId, vote });
+            setHasVoted(true);
+            fetchVoteCounts(); // Refresh vote counts
+        } catch (error) {
+            console.error("Error submitting vote:", error);
+        }
+    };
+
+    // Toggle menu visibility
+    const toggleMenu = () => {
+        setIsMenuOpen((prevState) => !prevState);
+    };
+
+    // Navigate to dashboard
+    const goToDashboard = () => {
+        setIsMenuOpen(false);
+        navigate("/SDash");
+    };
+
+    const goToMyProfile = () => {
+        setIsMenuOpen(false);
+        navigate("/my-profile");
+    };
+
+    // Navigate to occupational meal page
+    const goToOccupationalMeal = () => {
+        setIsMenuOpen(false);
+        navigate("/Studentoccasion");
+    };
+
+    const goToAbout = () => {
+        setIsMenuOpen(false);
+        navigate("/about-us");
+    };
+
+    const goToOccForm = () => {
+        setIsMenuOpen(false);
+        navigate("/student-occasion");
+    };
+
+    const goToDailyForm = () => {
+        setIsMenuOpen(false);
+        navigate("/stud-daily");
+    };
+
+    const goToMonthlyReport = () => {
+        setIsMenuOpen(false);
+        navigate("/monthly-report");
+    };
+
+    // Handle logout
+    const handleLogout = () => {
+        const confirmLogout = window.confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+            localStorage.removeItem("userData");
+            // localStorage.removeItem("studentId");
+            navigate("/signin");
+        }
+    };
 
     return (
         <div>
@@ -84,6 +176,19 @@ const SDash = () => {
                 </div>
             </div>
 
+
+
+            {/* Voting Section */}
+            <div className="voting-container">
+                <button onClick={() => handleVote("good")} disabled={hasVoted}>
+                    👍 {goodVotes}
+                </button>
+                <button onClick={() => handleVote("bad")} disabled={hasVoted}>
+                    👎 {badVotes}
+                </button>
+            </div>
+
+
             <div className="dashS_menu-container">
                 <button className="dashS_menu-button" onClick={() => document.getElementById("menuOverlay").classList.toggle("dashS_active")}>
                     &#9776;
@@ -91,9 +196,13 @@ const SDash = () => {
             </div>
 
             <div className="dashS_menu-overlay" id="menuOverlay">
-                {["dashboard.html", "monthly_report.html", "occupational_meal.html", "form.html", "logout.html", "my_profile.html", "why_fff.html"].map((page, i) => (
-                    <button key={i} onClick={() => window.location.href = page}>{page.replace(".html", "").replace("_", " ")}</button>
-                ))}
+                <button onClick={goToDashboard}>Dashboard</button>
+                <button onClick={goToMyProfile}>My Profile</button>
+                <button onClick={goToAbout}>Why FFF?</button>
+                <button onClick={goToOccForm}>Occasion Form</button>
+                <button onClick={goToDailyForm}>Daily Form</button>
+                <button onClick={goToMonthlyReport}>Monthly Report</button>
+                <button onClick={handleLogout}>Logout</button>
             </div>
         </div>
     );
