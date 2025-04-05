@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// import './App.css'; // Uncommented this if you need the CSS
-// import Student from './Components/StudentDashBoard/Student';
+ import Student from './Components/StudentDashBoard/Student';
 
 
-// import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
-// import WardenDashboard from './Components/WardenDashBoard/Warden';
+ import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
+import WardenDashboard from './Components/WardenDashBoard/Warden';
 
 
-// import StudentProfile from "./Components/myProfile/studentProfile";
+ import StudentProfile from "./Components/myProfile/studentProfile";
 
 import ResetPass from './Components/ResetPassword/ResetPass';
 import OccasionForm from './Components/OccasionForm/tempOccasion';
@@ -36,16 +35,16 @@ function App() {
         <Routes>
         
        
-          {/* <Route path="/reset-password" element={<ResetPass />} />
-          <Route path="/reset-password/:id" element={<ResetPass />} />  */}
+          <Route path="/reset-password" element={<ResetPass />} />
+          <Route path="/reset-password/:id" element={<ResetPass />} />  *
 
-          {/* Admin Routes */}
-          {/* <Route path="/signin-admin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
-          <Route path="/warden-dashboard" element={isAdmin ? <WardenDashboard /> : <Navigate to="/signin-admin" />} /> */}
+          Admin Routes
+          <Route path="/signin-admin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
+          <Route path="/warden-dashboard" element={isAdmin ? <WardenDashboard /> : <Navigate to="/signin-admin" />} />
 
-          {/* <Route path="*" element={<Navigate to="/signin" />} /> */}
+          <Route path="*" element={<Navigate to="/signin" />} />
 
-          {/* <Route path="/my-profile" element={<StudentProfile />} /> */}
+           <Route path="/my-profile" element={<StudentProfile />} />
 
         
       

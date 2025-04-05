@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-    // models/Vote.js
-=======
-// models/Vote.js
->>>>>>> 73320cea2ac5a8f62bddc9736b75e39298181087
+
+
 const mongoose = require("mongoose");
 
 const voteSchema = new mongoose.Schema({

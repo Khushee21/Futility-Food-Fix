@@ -1,47 +1,87 @@
 const MealForm = require("../models/MealForm");
 const StudentSubmission = require("../models/StudentSubmission");
+const today= new Date().toISOString().split("T")[0];
 
 const createDailyMealForm = async (req, res) => {
   try {
-    const formData = req.body;
-    const today = new Date().toISOString().split("T")[0];
+    const {
+      myDate,
+      Breakfast,
+      Lunch_Daal,
+      Lunch_Sabji,
+      Lunch_Chapati,
+      High_Tea,
+      Dinner_Daal,
+      Dinner_Sabji,
+      Dinner_Chapati,
+    } = req.body;
 
-    // Check if a meal form already exists for today
-    const existingForm = await MealForm.findOne({ myDate: today });
-    if (existingForm) {
-      return res.status(400).json({ success: false, message: "A meal form has already been created for today." });
+    console.log("🔍 Received myDate:", myDate);
+
+    // Validate inputs (also check for empty strings)
+    if (
+      !myDate?.trim() ||
+      !Breakfast?.trim() ||
+      !Lunch_Daal?.trim() ||
+      !Lunch_Sabji?.trim() ||
+      !Lunch_Chapati?.trim() ||
+      !High_Tea?.trim() ||
+      !Dinner_Daal?.trim() ||
+      !Dinner_Sabji?.trim() ||
+      !Dinner_Chapati?.trim()
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All meal fields are required!",
+      });
     }
 
-    // Assign the current date to the new form
-    formData.myDate = today;
-    const newForm = await MealForm.create(formData);
-
+    // Update existing meal form or insert a new one
+    const updatedForm = await MealForm.findOneAndUpdate(
+      { myDate }, 
+      { $set: req.body }, 
+      { new: true, upsert: true } 
+    );
+    
     // Emit event via Socket.IO to notify all clients
     const io = req.app.get("socketio");
-    io.emit("newMealForm", { data: newForm });
+    if (io) {
+      io.emit("newMealForm", { data: updatedForm });
+    } else {
+      console.warn("⚠️ Socket.IO instance not found in app");
+    }
 
-    res.status(201).json({ success: true, message: "Daily meal form created", data: newForm });
+    res.status(200).json({
+      success: true,
+      message: ` meal form for ${today} saved successfully`,
+      data: updatedForm,
+    });
   } catch (error) {
     console.error("❌ Error creating meal form:", error);
-    res.status(500).json({ success: false, message: "Failed to create meal form", error: error.message });
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to create meal form", 
+      error: error.message 
+    });
   }
 };
 
 const getDailyMealForm = async (req, res) => {
-  try {
-    const today = new Date().toISOString().split("T")[0];
-    const form = await MealForm.findOne({ myDate: today });
-
-    if (!form) {
-      return res.status(404).json({ success: false, message: "No daily meal form found for today" });
+    try {
+        const form = await MealForm.findOne({ myDate:today });
+        if(!form) {
+          return res.status(400).json({ success: true , data: form});
+        }
+        res.status(200).json({ success: true , data: form});
+      }
+    catch(error) {
+      console.error("❌ Error fetching meal form:", error);
+      res.status(500).json({success: false , message: `Failed to fetch meal form: ${error.message}`});
     }
-
-    res.status(200).json({ success: true, data: form });
-  } catch (error) {
-    console.error("❌ Error fetching meal form:", error);
-    res.status(500).json({ success: false, message: `Failed to fetch meal form: ${error.message}` });
-  }
 };
+
+
+
 
 const submitStudentForm = async (req, res) => {
   try {
@@ -49,12 +89,21 @@ const submitStudentForm = async (req, res) => {
 
     const { studentId, studentName, mealSelections, myDate } = req.body;
 
-    if (!studentId || !studentName || !mealSelections || mealSelections.length === 0 || !myDate) {
+    if (!studentId || !studentName || !mealSelections || !myDate) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
+    // Validate mealSelections to match schema fields (breakfast, lunch, highTea, dinner)
+    const validMeals = ["breakfast", "lunch", "highTea", "dinner"];
+    const meals = {
+      breakfast: mealSelections.includes("breakfast"),
+      lunch: mealSelections.includes("lunch"),
+      highTea: mealSelections.includes("highTea"),
+      dinner: mealSelections.includes("dinner"),
+    };
+
     // Check if the student has already submitted for the same date
-    const existingSubmission = await StudentSubmission.findOne({ studentId, myDate });
+    const existingSubmission = await StudentSubmission.findOne({ studentId, date: myDate });
     if (existingSubmission) {
       return res.status(400).json({ success: false, message: "You have already submitted your meal selection for today." });
     }
@@ -63,9 +112,8 @@ const submitStudentForm = async (req, res) => {
     const submission = new StudentSubmission({
       studentId,
       studentName,
-      mealSelections,
-      myDate,
-      submissionDate: new Date(), // Store the submission timestamp
+      date: myDate,
+      meals, // Store the meal selections
     });
 
     await submission.save();
@@ -78,24 +126,17 @@ const submitStudentForm = async (req, res) => {
   }
 };
 
-const getStudentSubmissions = async (req, res) => {
+
+const getStudentSubmissions =  async (req, res) => {
   try {
-    const studentId = req.query.studentId || req.params.studentId; // Support both query and URL param
+    const today = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
 
-    if (!studentId) {
-      return res.status(400).json({ success: false, message: "Student ID is required" });
-    }
+    const submissions = await StudentSubmission.find({ date: today });
 
-    const submissions = await StudentSubmission.find({ studentId }).sort({ submissionDate: -1 });
-
-    if (!submissions.length) {
-      return res.status(404).json({ success: false, message: "No meal selections found for this student" });
-    }
-
-    res.status(200).json({ success: true, data: submissions });
-  } catch (error) {
-    console.error("❌ Error fetching student submissions:", error);
-    res.status(500).json({ success: false, message: `Failed to fetch student submissions: ${error.message}` });
+    res.status(200).json(submissions);
+  } catch (err) {
+    console.error("Error fetching today's submissions:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

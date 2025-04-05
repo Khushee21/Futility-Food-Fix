@@ -1,67 +1,33 @@
-const Attendance = require("../models/Attendance");
-const StudentSubmission = require("../models/StudentSubmission");
+const Student = require("../models/Attendance"); // Make sure this model has studentId and presentCount
 
-// Mark attendance
-const markAttendance = async (req, res) => {
+const updateAttendance = async (req, res) => {
   try {
-    const { studentId, studentName, date, submitted, breakfast, lunch, highTea, dinner } = req.body;
+    const { students } = req.body; // you're sending this from frontend
 
-    if (!studentId || !studentName || !date) {
-      return res.status(400).json({ success: false, message: "Student ID, Name, and Date are required" });
+    console.log("📥 Received attendance data:", students);
+
+    for (const student of students) {
+      const { id, meals } = student;
+      const attendedAny = meals.some((meal) => meal === true || meal === "late");
+
+      if (attendedAny) {
+        const updatedStudent = await Student.findOneAndUpdate(
+          { studentId: String(id) },
+          { $inc: { presentCount: 1 } },
+          { new: true }
+        );
+        console.log(`✅ Updated ${id}:`, updatedStudent);
+      }
     }
 
-    const existing = await Attendance.findOne({ studentId, date });
-    if (existing) {
-      return res.status(400).json({ success: false, message: "Attendance already marked for today" });
-    }
-
-    const attendance = await Attendance.create({
-      studentId,
-      studentName,
-      date,
-      submitted,
-      breakfast,
-      lunch,
-      highTea,
-      dinner,
-    });
-
-    res.status(201).json({ success: true, message: "Attendance marked", data: attendance });
+    res.status(200).json({ success: true, message: "Attendance updated successfully." });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to mark attendance", error: error.message });
+    console.error("❌ Error updating attendance:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
-// Get attendance of a specific student
-
-
-const getLatestStudentSubmission = async (req, res) => {
-  try {
-    const latestSubmission = await StudentSubmission.findOne().sort({ submissionDate: -1 });
-    if (!latestSubmission) {
-      return res.status(404).json({ success: false, message: "No submissions found" });
-    }
-    res.status(200).json({ success: true, data: latestSubmission });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch latest submission", error: error.message });
-  }
-};
-
-
-
-// Get all students' attendance
-const getAllAttendance = async (req, res) => {
-  try {
-    const records = await Attendance.find().sort({ date: -1 });
-    res.status(200).json({ success: true, data: records });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch attendance", error: error.message });
-  }
-};
-
+// ✅ Only one export
 module.exports = {
-  markAttendance,
-  getStudentAttendance,
-  getAllAttendance,
-  getLatestStudentSubmission  ,
+  updateAttendance,
 };

@@ -1,6 +1,5 @@
 const { Server } = require("socket.io");
 const StudentSubmission = require("./models/StudentSubmission");
-const Attendance = require("./models/Attendance");
 const MealForm = require("./models/MealForm");
 
 function setupSocket(server) {
@@ -15,104 +14,80 @@ function setupSocket(server) {
   io.on("connection", (socket) => {
     console.log("✅ User connected:", socket.id);
 
-    // Student Form Submission
+    // 🔹 Student Form Submission
     socket.on("submitStudentForm", async (submissionData, callback) => {
       try {
-        const { studentId, studentName, mealSelections, myDate } = submissionData;
-        if (!studentId || !studentName || !mealSelections || !myDate) {
-          return callback({ success: false, message: "Missing required fields" });
+        console.log("📩 Received submission data:", submissionData);
+    
+        const { studentId, studentName, meals, myDate } = submissionData;
+    
+        console.log("📌 studentId:", studentId);
+        console.log("📌 studentName:", studentName);
+        console.log("📌 meals:", meals);
+        console.log("📌 myDate:", myDate);
+    
+        // Validate presence of fields
+        if (
+          !studentId?.trim() ||
+          !studentName?.trim() ||
+          // !Date ||
+          !myDate?.trim() ||
+          typeof meals !== 'object' ||
+          meals === null
+        ) {
+          console.log("❌ Validation failed: Missing fields");
+          return callback?.({ success: false, message: "Missing required fields" });
         }
-
-        const existingSubmission = await StudentSubmission.findOne({ studentId, myDate });
+    
+        // Optional: You can validate if at least one meal is true
+        const hasAtLeastOneMeal = Object.values(meals).some(Boolean);
+        if (!hasAtLeastOneMeal) {
+          console.log("❌ No meal selected");
+          return callback?.({ success: false, message: "Please select at least one meal" });
+        }
+    
+        // Check for existing submission
+        const existingSubmission = await StudentSubmission.findOne({ studentId, date: myDate });
         if (existingSubmission) {
-          return callback({
-            success: false,
-            message: "You have already submitted your meal selection for today.",
-          });
+          return callback?.({ success: false, message: "Already submitted" });
         }
-
-        const submission = new StudentSubmission({
+    
+        // Save to DB
+        const newSubmission = new StudentSubmission({
           studentId,
           studentName,
-          mealSelections,
-          myDate,
+          date: myDate,
+          meals,
           submissionDate: new Date(),
         });
-
-        await submission.save();
-        callback({
-          success: true,
-          message: "Meal selection submitted successfully!",
-          data: submission,
-        });
-
-        io.emit("formSubmitted", { success: true, message: "Student form submitted!" });
+        
+    
+        await newSubmission.save();
+        console.log("✅ Submission saved");
+    
+        callback?.({ success: true, message: "Submission successful" });
+        io.emit("formSubmitted", { success: true });
       } catch (error) {
-        callback({ success: false, message: "Server error.", error: error.message });
+        console.error("🔥 Server error:", error);
+        callback?.({ success: false, message: "Server error" });
       }
     });
-
-    // Attendance Submission
-    socket.on("submitAttendance", async (data, callback) => {
+    
+    
+    // 🔹 Meal Form Submission
+    socket.on("submitMeal", async (formData, callback) => {
       try {
-        const { studentId, studentName, status, date } = data;
-        if (!studentId || !studentName || !status || !date) {
-          return callback({ success: false, message: "Missing required fields" });
+        const newMeal = await MealForm.create(formData);
+        io.emit("mealUpdate", newMeal); // Notify all clients
+
+        if (typeof callback === "function") {
+          callback({ success: true, message: "Meal form submitted successfully!" });
         }
-
-        const existingAttendance = await Attendance.findOne({ id: studentId, date });
-        if (existingAttendance) {
-          return callback({
-            success: false,
-            message: "Attendance already marked for today.",
-          });
-        }
-
-        const attendanceEntry = new Attendance({
-          id: studentId,
-          name: studentName,
-          meals: [status, null, null, null, null],
-          submitted: true,
-        });
-
-        await attendanceEntry.save();
-        callback({ success: true, message: "Attendance submitted successfully!" });
-
-        io.emit("updateAttendance", attendanceEntry);
       } catch (error) {
-        callback({ success: false, message: "Server error." });
-      }
-    });
-
-    // Warden Meal Form Submission
-    socket.on("submitMeal", async (data) => {
-      try {
-        const today = new Date().toISOString().split("T")[0];
-        const existingForm = await MealForm.findOne({ myDate: today });
-
-        if (existingForm) {
-          socket.emit("submissionStatus", {
-            success: false,
-            message: "A meal form has already been submitted for today.",
-          });
-          return;
+        console.error("❌ Error saving meal:", error);
+        if (typeof callback === "function") {
+          callback({ success: false, message: "Server error while submitting meal." });
         }
-
-        const newForm = new MealForm({ ...data, myDate: today });
-        await newForm.save();
-
-        io.emit("newMealForm", newForm);
-        socket.emit("submissionStatus", {
-          success: true,
-          message: "Meal form submitted successfully!",
-        });
-        console.log("✅ Meal form submitted:", data);
-      } catch (error) {
-        console.error("❌ Error saving form:", error);
-        socket.emit("submissionStatus", {
-          success: false,
-          message: "Failed to submit form. Try again.",
-        });
       }
     });
 

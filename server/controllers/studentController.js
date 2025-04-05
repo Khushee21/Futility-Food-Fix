@@ -1,13 +1,8 @@
 const Student = require("../models/Student");
-<<<<<<< HEAD
 const StudentSubmission = require("../models/StudentSubmission");
 const moment = require("moment");
 
-
-
-
-// Fetch student data by ID
->>>>>>> 73320cea2ac5a8f62bddc9736b75e39298181087
+// ✅ Get student by ID
 exports.getStudentById = async (req, res) => {
   try {
     const studentId = req.params.id;
@@ -16,10 +11,6 @@ exports.getStudentById = async (req, res) => {
     if (!student) {
       return res.status(404).json({ success: false, message: "Student not found" });
     }
-
-
-
-    // Exclude sensitive data like password and OTP
 
     const studentData = {
       id: student.id,
@@ -37,6 +28,7 @@ exports.getStudentById = async (req, res) => {
   }
 };
 
+// ✅ Get all students
 exports.getAllStudents = async (req, res) => {
   try {
     const students = await Student.find({}, "id name");
@@ -47,13 +39,14 @@ exports.getAllStudents = async (req, res) => {
   }
 };
 
+// ✅ Get today's meal submissions (Attendance Page)
 exports.getTodayMeal = async (req, res) => {
   try {
-    const todayStart = moment().startOf('day').toDate();
-    const todayEnd = moment().endOf('day').toDate();
+    const todayStart = moment().startOf("day").toDate();
+    const todayEnd = moment().endOf("day").toDate();
 
     const submissions = await StudentSubmission.find({
-      submissionDate: { $gte: todayStart, $lte: todayEnd }
+      submissionDate: { $gte: todayStart, $lte: todayEnd },
     });
 
     res.status(200).json({ success: true, data: submissions });
@@ -62,6 +55,3 @@ exports.getTodayMeal = async (req, res) => {
     res.status(500).json({ success: false, message: "Error fetching submissions" });
   }
 };
-
-};
-
