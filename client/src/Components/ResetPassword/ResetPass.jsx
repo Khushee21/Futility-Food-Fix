@@ -49,7 +49,7 @@ const ResetPass = () => {
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
               className={styles.re_resetInput}
-              style={{backgroundColor:"white",border:"1px solid black"}}
+              style={{backgroundColor:"white",border:"1px solid black", color:"black"}}
               required
             />
             {error && <p className={styles.re_resetError}>{error}</p>}

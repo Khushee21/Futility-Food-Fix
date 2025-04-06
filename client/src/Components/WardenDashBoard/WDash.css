@@ -1,0 +1,940 @@
+*{
+  /* box-sizing:content-box; */
+}
+
+
+body {
+  box-sizing:content-box;
+  background: #f4f4f4;
+  background-color: rgb(0, 0, 0);
+  overflow-x: hidden;
+ 
+
+}
+
+
+
+
+.WashS_shape {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.WashS_svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.WashS_header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top:0px;
+  /* Space between logo and text */
+}
+.WashS_container {
+  margin-top: 0px; /* Adjust depending on your header height */
+}
+.WashS_logo {
+  width: 80px;
+  height: 80px;
+  animation: bounceGlow 2s infinite ease-in-out;
+  transition: transform 0.3s;
+  margin-left: 80px;
+}
+
+.WashS_logo:hover {
+  transform: rotate(360deg);
+}
+
+/* Text Animations */
+@keyframes slideFadeIn {
+  0% {
+      opacity: 0;
+      transform: translateX(-50px);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+@keyframes colorWave {
+  0% {
+      color: #f6f3f2;
+  }
+
+  25% {
+      color: #f6f3f2;
+  }
+
+  50% {
+      color: #f6f3f2;
+  }
+
+  75% {
+      color: #f6f3f2;
+  }
+
+  100% {
+      color: #f6f3f2;
+  }
+}
+
+@keyframes textGlow {
+  0% {
+      text-shadow: 0 0 5px #63605f;
+  }
+
+  50% {
+      text-shadow: 0 0 15px #504f4e;
+  }
+
+  100% {
+      text-shadow: 0 0 5px #2b2928;
+  }
+}
+
+.WashS_header-text {
+  font-size: 28px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  animation: slideFadeIn 1.5s ease-out forwards, colorWave 5s infinite alternate, textGlow 3s infinite;
+
+}
+
+.WashS_container {
+  position: relative;
+  width: 100vw;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+  margin-top: 10px;
+}
+
+.WashS_center-container {
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Overlay for text on image */
+.WashS_text-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Ensures text is centered and readable */
+.WashS_text {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+/* Animation for text */
+.WashS_animate {
+  animation: slideLeft 0.5s ease-out forwards;
+}
+
+@keyframes slideLeft {
+  0% {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+
+  50% {
+      opacity: 1;
+  }
+
+  100% {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+
+
+
+
+.WashS_about-container {
+  width: 100%;
+  padding: 13px;
+  background: #333;
+  color: white;
+  /* color:rgb(97, 97, 244) */
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+}
+
+.WashS_about-container:hover {
+  background: #222;
+}
+
+.WashS_developer-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  /* border-radius: 10px; */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+  display: none;
+  transition: 0.3s ease-in-out;
+}
+
+.WashS_about-container:hover .WashS_developer-info {
+  display: flex;
+}
+
+.WashS_developer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  margin: 10px;
+  transition: 0.3s ease-in-out;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.WashS_developer:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 255, 0.1);
+  box-shadow: 0px 0px 15px rgba(62, 62, 63, 1);
+}
+
+.WashS_developer img {
+  width: 70%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #333;
+  transition: 0.3s;
+}
+
+.WashS_developer-name {
+  font-size: 100%;
+  font-weight: bold;
+  margin-top: 5px;
+  transition: 0.3s;
+  color: black;
+}
+
+.WashS_developer-info-text {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  transition: 0.3s;
+  /* color:rgb(26, 25, 25) */
+}
+
+
+
+
+
+
+
+.WashS_container11 {
+  position: absolute;
+  margin-top: 370px;
+  width: 110%;
+  height: 40vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  /* border: 5px solid transparent; */
+  animation: glowBorder 3s infinite alternate;
+}
+
+@keyframes glowBorder {
+  0% {
+      border-color: rgba(109, 91, 91, 0.8);
+  }
+
+  50% {
+      border-color: rgba(180, 180, 170, 0.8);
+  }
+
+  100% {
+      border-color: rgba(83, 83, 83, 0.8);
+  }
+}
+
+.WashS_announcement-container {
+  margin-top: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.WashS_announcement {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #000000, #2b2a28);
+  padding: 20px 35px;
+  border-radius: 15px;
+  display: inline-block;
+  box-shadow: 0px 0px 25px rgba(255, 247, 244, 0.8);
+  position: relative;
+}
+
+.WashS_edit-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.WashS_edit-icon:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.WashS_edit-input {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 90%;
+  text-align: center;
+}
+
+/* @keyframes bounce {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-10px); }
+} */
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+
+  50% {
+      transform: scale(1.1);
+  }
+
+  100% {
+      transform: scale(1);
+  }
+}
+
+/* Ensure meal button section has space */
+.WashS_meal-button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  /* Adds space below announcement */
+  padding-bottom: 20px;
+  /* Prevents overlap with footer */
+  gap: 10px;
+  
+}
+
+.WashS_meal-button {
+  background: linear-gradient(45deg, #ff8c00, #f0eeee);
+  color: rgb(20, 19, 19);
+  font-size: 16px;
+  /* Adjusted for better readability */
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  /* Modern font */
+  border: none;
+  padding: 10px 20px;
+  /* Balanced padding for better shape */
+  width: 350px;
+  /* Increased width */
+  height:40px;
+  text-align: center;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  
+  /* Forces text into a single line */
+}
+
+/* Button Hover Effect */
+.WashS_meal-button:hover {
+  transform: scale(1.9);
+  box-shadow: 0 0 15px rgba(255, 69, 0, 1);
+}
+
+/* Glowing Animation */
+@keyframes pulseGlow {
+  0% {
+      box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+  }
+
+  50% {
+      box-shadow: 0 0 20px rgba(255, 69, 0, 1);
+  }
+
+  100% {
+      box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+  }
+}
+
+.WashS_meal-button {
+  animation: pulseGlow 2s infinite alternate;
+}
+
+/* Flex container for vote buttons */
+.WashS_vote-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Space between buttons */
+} 
+.WashS_vote-button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 16px;
+   font-weight: bold;
+   border: none;
+   border-radius: 50px;
+   padding: 10px 15px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+}
+
+/* Upvote Button */
+.WashS_upvote {
+   background: white;
+   /* Green */
+   color: rgba(40, 167, 69, 0.8);
+   box-shadow: 0 0 10px rgba(40, 167, 69, 0.8);
+   border:none;
+}
+
+.WashS_upvote:focus {
+   outline: none;
+   box-shadow: none;
+}
+
+/* Downvote Button */
+.WashS_downvote {
+   background: white;
+   /* Red */
+   color: #dc3545;
+   box-shadow: 0 0 10px rgba(220, 53, 69, 0.8);
+  border: none;
+}
+
+.WashS_downvote:focus {
+   outline: none;
+   box-shadow: none;
+}
+.WashS_button-container {
+  display: flex;
+  justify-content: center;
+  /* Center buttons horizontally */
+  align-items: center;
+  /* Align vertically */
+  gap: 25px;
+  /* Space between buttons */
+  flex-wrap: wrap;
+  /* Prevents overflow */
+
+  /* Adjust spacing */
+margin-left:0px;
+width: 100%;
+  /* Make sure container takes full width */
+  max-width: 100vw;
+  /* Prevents overflow */
+  padding: 20px;
+  /* Adds space to avoid cut-off */
+  overflow: visible;/
+}
+
+.WashS_upload-form-button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: linear-gradient(90deg, #1b1a19,rgba(224, 153, 142, 0.6));
+   color: white;
+   font-size: 16px;
+   font-weight: bold;
+   border: none;
+   border-radius: 50px;
+   padding: 12px 20px;
+   margin-top: 10px;
+   cursor: pointer;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   box-shadow: 0 0 15px white;
+
+}
+.WashS_upload-form-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.WashS_upload-form-button:hover {
+   transform: scale(1.1);
+   box-shadow: 0 0 25px white;
+}
+
+.WashS_upload-form-button:active {
+   transform: scale(0.95);
+}
+
+.WashS_chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+.WashS_chat-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  animation: bounce 1.5s infinite;
+  display: flex;
+  align-items: center;
+}
+
+.WashS_chat-toggle:focus {
+   outline: none;
+   box-shadow: none;
+}
+
+.WashS_chat-icon {
+  font-size: 50px;
+  color: white;
+  filter: drop-shadow(0 0 10px white);
+  transition: transform 0.3s ease;
+}
+
+.WashS_chat-toggle:hover .WashS_chat-icon {
+  transform: scale(1.2);
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+      transform: translateY(0);
+  }
+
+  50% {
+      transform: translateY(-5px);
+  }
+}
+
+.WashS_chatbox {
+  width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.WashS_chatbox.WashS_open {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+}
+
+.WashS_chat-header {
+  background: #1b1a19;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.WashS_chat-messages {
+  height: 250px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.WashS_message {
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 75%;
+}
+
+.WashS_message.WashS_bot {
+  background: #e0e0e0;
+  align-self: flex-start;
+}
+
+.WashS_message.WashS_user {
+  background: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.WashS_chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 5px;
+}
+
+.WashS_chat-input input {
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+}
+
+.WashS_chat-input button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.WashS_chat-input button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.WashS_confetti {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: yellow;
+  opacity: 0.8;
+  transform: rotate(45deg);
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  0% {
+      transform: translateY(-50px) rotate(0deg);
+      opacity: 1;
+  }
+
+  100% {
+      transform: translateY(90vh) rotate(720deg);
+      opacity: 0;
+  }
+}
+
+
+
+
+.WashS_menu-container {
+  position: fixed;
+  top: 20px;
+  right: 2%;
+  z-index: 1000;
+}
+
+.WashS_menu-button {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.WashS_menu-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.WashS_menu-button:hover {
+  transform: rotate(90deg);
+}
+
+/* Menu overlay */
+.WashS_menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(100%);
+  /* Start off-screen */
+  transition: transform 0.9s ease-in-out;
+}
+
+/* When menu is active */
+.WashS_menu-overlay.WashS_active {
+  transform: translateX(0);
+  /* Slide in */
+}
+
+/* Menu buttons */
+.WashS_menu-overlay button {
+  background: linear-gradient(45deg, #444, #666);
+  border: none;
+  color: white;
+  padding: 15px 20px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.9s ease-out, opacity 0.4s ease-out;
+}
+
+/* Show buttons with delay */
+.WashS_menu-overlay.WashS_active button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.WashS_menu-overlay.WashS_active button:nth-child(1) {transition-delay: 0.1s;}
+.WashS_menu-overlay.WashS_active button:nth-child(2) {transition-delay: 0.2s;}
+.WashS_menu-overlay.WashS_active button:nth-child(3) {transition-delay: 0.3s;}
+.WashS_menu-overlay.WashS_active button:nth-child(4) {transition-delay: 0.4s;}
+.WashS_menu-overlay.WashS_active button:nth-child(5) {transition-delay: 0.5s;}
+.WashS_menu-overlay.WashS_active button:nth-child(6) {transition-delay: 0.6s;}
+.WashS_menu-overlay.WashS_active button:nth-child(7) {transition-delay: 0.7s;}
+
+/* .WashS_menu-overlay.open button:nth-child(1) { transition-delay: 0.1s; }
+.WashS_menu-overlay.open button:nth-child(2) { transition-delay: 0.2s; }
+.WashS_menu-overlay.open button:nth-child(3) { transition-delay: 0.3s; }
+.WashS_menu-overlay.open button:nth-child(4) { transition-delay: 0.4s; }
+.WashS_menu-overlay.open button:nth-child(5) { transition-delay: 0.5s; }
+.WashS_menu-overlay.open button:nth-child(6) { transition-delay: 0.6s; }
+.WashS_menu-overlay.open button:nth-child(7) { transition-delay: 0.7s; } */
+
+/* Hover effect */
+.WashS_menu-overlay button:hover {
+  background: linear-gradient(45deg, #555, #777);
+  transform: scale(1.05) rotate(1deg);
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+
+
+
+.WashS_fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  /* background-color: black;  */
+}
+
+
+.WashS_scroll-wrapper {
+  padding-top: 170px; /* Same height as fixed header */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.WashS_menu-overlay {
+  position: fixed;
+  top: -10px; 
+  right: 20px;
+  background-color: rgba(5, 4, 4, 0.95);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.WashS_menu-overlay button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.2s ease;
+}
+
+.WashS_menu-overlay button:hover {
+  background-color: #555;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.WashS_menu-container {
+  /* position: fixed; */
+  /* top: 20px; */
+  /* left: 20px; */
+  z-index: 2000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

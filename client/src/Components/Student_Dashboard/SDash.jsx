@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./SDash.css";
+import Chatbot from "../Chatbot";
 
 const SDash = () => {
+
+
+    const [menuVisible, setMenuVisible] = useState(false);
+
     const texts = [
         { text: "Hello I am Chesta Sharma", image: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600" },
         { text: "Welcome to this page", image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600" },
@@ -62,6 +67,11 @@ const SDash = () => {
 
 <div className="dashS_announcement-container">
     <div className="dashS_announcement">{announcements[index1]}</div>
+    {!menuVisible && (
+    <div>
+        <Chatbot />
+    </div>
+)}
 </div>
 
 
@@ -85,13 +95,20 @@ const SDash = () => {
             </div>
 
             <div className="dashS_menu-container">
-                <button className="dashS_menu-button" onClick={() => document.getElementById("menuOverlay").classList.toggle("dashS_active")}>
-                    &#9776;
-                </button>
+               <button 
+    className="dashS_menu-button" 
+    onClick={() => {
+        const overlay = document.getElementById("menuOverlay");
+        overlay.classList.toggle("dashS_active");
+        setMenuVisible(!menuVisible); // 👈 Update state here
+    }}
+>
+    &#9776;
+</button>
             </div>
 
             <div className="dashS_menu-overlay" id="menuOverlay">
-                {["dashboard.html", "monthly_report.html", "occupational_meal.html", "form.html", "logout.html", "my_profile.html", "why_fff.html"].map((page, i) => (
+                {["Dashboard.html", "Monthly_Report.html", "Occupational_Meal.html", "Form.html", "Logout.html", "My_Profile.html", "Why_FFF.html","NGO.html"].map((page, i) => (
                     <button key={i} onClick={() => window.location.href = page}>{page.replace(".html", "").replace("_", " ")}</button>
                 ))}
             </div>
