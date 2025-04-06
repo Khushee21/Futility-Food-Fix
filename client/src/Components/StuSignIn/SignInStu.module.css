@@ -186,3 +186,17 @@ body {
     background-color: #ffffff;
   }
 }
+
+
+
+
+
+.sstu_inputContainer input {
+  color: black; /* Set the input text color to black */
+  /* Optional enhancements: */
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+}

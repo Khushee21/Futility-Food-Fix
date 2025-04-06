@@ -1,0 +1,261 @@
+.NGO_page-container {
+    min-height: 100vh;
+    margin-top: 4%;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: linear-gradient(to bottom right, #d1fae5,);
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.NGO_centered-wrapper {
+    max-width: 800px;
+    width: 100%;
+    background-color:rgb(36, 34, 34);
+    border-radius: 20px;
+    border: 2px solid #ccc;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Header */
+.NGO_header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.NGO_header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color:rgb(246, 242, 242)
+}
+
+.NGO_tagline {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #f6fafa;
+}
+
+/* Common heading style */
+.NGO_section-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+/* Left panel heading (NGO List) */
+.NGO_left-heading {
+    color: #e8e9ea;
+    /* Blue */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    text-align: center;
+}
+
+/* Right panel heading (Selected NGO Name) */
+.NGO_right-heading {
+    color: #efecec;
+    /* Maroon */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    text-align: center;
+}
+
+/* Layout for the main content */
+.NGO_content-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+   
+}
+
+
+.NGO_ngo-image {
+    width: 100vw;
+    /* Make image responsive to container width */
+    height: auto;
+    /* Maintain aspect ratio */
+    max-height: 150px;
+    /* Set a max height so it's not too tall */
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+
+    /* Ensures the entire image fits inside */
+}
+
+.NGO_ngo-list,
+.NGO_ngo-details {
+    background-color: rgba(120, 120, 113, 0.194);
+    padding: 1rem;
+    /* reduced from 1.5rem to save space */
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    min-height: 300px;
+    border: 2px solid white;
+    /* <-- added this */
+}
+
+/* Right container styles */
+.NGO_ngo-details p {
+    color: #f0f0f0;
+    /* Light gray for contrast */
+    font-weight: 500;
+}
+
+/* Keep 'Contact:' bold and white */
+.NGO_ngo-details p strong {
+    color: white;
+}
+
+/* Style the website link */
+.NGO_ngo-details a {
+    color: #007bff;
+    /* Keep it blue */
+    background-color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.NGO_ngo-details a:hover {
+    background-color: #e6e6e6;
+    text-decoration: underline;
+}
+
+
+.NGO_ngo-item {
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    background-color: rgb(28, 27, 27);
+    color: #f7f6f6;
+    transition: color 0.2s;
+}
+
+.NGO_ngo-item:hover {
+    color: #fafafa;
+    font-weight: bold;
+}
+
+.NGO_ngo-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.NGO_chart-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.NGO_custom-info-box {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 12px 16px;
+    width: 220px;
+    text-align: center;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.NGO_custom-info-box h4 {
+    margin: 0;
+    color: #ff8800;
+    font-weight: bold;
+}
+
+.NGO_custom-info-box p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.NGO_custom-info-box button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #999;
+    cursor: pointer;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .NGO_content-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .NGO_ngo-list,
+    .NGO_ngo-details {
+        width: 90%;
+    }
+}
+
+
+.NGO_ngo-ul {
+    margin-bottom: auto;
+    list-style: none;
+    padding: 0;
+}
+
+.NGO_ngo-item {
+    color: white;
+    margin: 0.8rem 0;
+    cursor: pointer;
+    background-color: #222;
+    padding: 0.8rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.NGO_ngo-item:hover {
+    background-color: #444;
+}
+
+.NGO_add-entry-form {
+    margin-top: 2rem;
+    text-align: center;
+    color: white;
+}
+
+.NGO_add-entry-form h3 {
+    margin-bottom: 0.5rem;
+}
+
+.NGO_add-entry-form input {
+    display: block;
+    margin: 0.3rem auto;
+    width: 90%;
+    padding: 6px;
+    border-radius: 5px;
+    border: none;
+}
+
+.NGO_add-entry-form button {
+    margin-top: 0.5rem;
+    padding: 8px 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.NGO_add-entry-form button:hover {
+    background-color: #ddd;
+}
