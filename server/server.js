@@ -11,6 +11,7 @@ const { setupSocket } = require("./socket");
 // const moment = require("moment");
 // const Student = require('./models/Student'); 
 const StudentSubmission = require("./models/StudentSubmission");
+const Attendance = require("./models/Attendance");
 
 // Route imports
 const authRoutes = require("./routes/authRoutes");
@@ -91,6 +92,18 @@ app.use((err, req, res, next) => {
 // Setup WebSocket (Socket.IO)
 setupSocket(server);
 
+app.get("/drop-index/:indexName", async (req, res) => {
+  const indexName = req.params.indexName;
+
+  try {
+    await Attendance.collection.dropIndex(indexName);
+    console.log(`✅ Index '${indexName}' dropped successfully.`);
+    res.send(`✅ Index '${indexName}' dropped successfully.`);
+  } catch (error) {
+    console.error("❌ Error dropping index:", error);
+    res.status(500).send("Error: " + error.message);
+  }
+});
 // Connect to MongoDB and start the server
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

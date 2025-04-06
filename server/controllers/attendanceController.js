@@ -1,22 +1,53 @@
-const Student = require("../models/Attendance"); // Make sure this model has studentId and presentCount
+const Attendance = require("../models/Attendance");
 
 const updateAttendance = async (req, res) => {
   try {
-    const { students } = req.body; // you're sending this from frontend
+    const { students } = req.body;
 
     console.log("📥 Received attendance data:", students);
 
+    if (!Array.isArray(students)) {
+      return res.status(400).json({ success: false, message: "Invalid students data format." });
+    }
+
     for (const student of students) {
-      const { id, meals } = student;
+      let { id, meals, name } = student;
+
+      console.log(`➡️ Processing student: ${JSON.stringify(student)}`);
+
+      // 💡 Convert id to string and trim
+      id = id ? String(id).trim() : null;
+
+      // ⛔ Validate fields strictly
+      if (!id || !name || !Array.isArray(meals)) {
+        console.warn("⚠️ Skipping invalid student:", student);
+        continue;
+      }
+
       const attendedAny = meals.some((meal) => meal === true || meal === "late");
 
       if (attendedAny) {
-        const updatedStudent = await Student.findOneAndUpdate(
-          { studentId: String(id) },
-          { $inc: { presentCount: 1 } },
-          { new: true }
-        );
-        console.log(`✅ Updated ${id}:`, updatedStudent);
+        try {
+          const updatedStudent = await Attendance.findOneAndUpdate(
+            { studentId: id },
+            {
+              $setOnInsert: { name, studentId: id },
+              $inc: { presentCount: 1 },
+            },
+            {
+              new: true,
+              upsert: true,
+              runValidators: true,
+              strict: false,
+            }
+          );
+
+          console.log(`✅ Attendance updated for ${id}:`, updatedStudent);
+        } catch (err) {
+          console.error(`❌ Error updating student with ID ${id}:`, err.message);
+        }
+      } else {
+        console.log(`📌 Student ${id} did not attend any meals. Skipping.`);
       }
     }
 
@@ -27,7 +58,6 @@ const updateAttendance = async (req, res) => {
   }
 };
 
-// ✅ Only one export
 module.exports = {
   updateAttendance,
 };
