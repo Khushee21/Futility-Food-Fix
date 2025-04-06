@@ -179,7 +179,7 @@ const Attendance = () => {
       <div className="Att_Main_Header">
         <div className={`Att_fixed-header ${menuOpen ? "hidden" : ""}`}>
           <div className="Att_shape">
-            <svg viewBox="0 0 100 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="svg1" viewBox="0 0 100 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0,0 H100 V35 L50,50 L0,35 Z" fill="rgba(26,25,25,1)" />
             </svg>
           </div>

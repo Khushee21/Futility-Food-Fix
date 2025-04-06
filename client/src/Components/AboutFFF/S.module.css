@@ -1,16 +1,19 @@
 
-* {
-  margin: 0;
+  *{
+   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: 'Poppins'; */
-}
+
+
+} 
+body{
+  background-color: black;
+}  
 
 .Abt_container {
   height: 100%;
   width: 100%;
-  /* background-color:#1c1c1c; */
-  /* background-color:#6b75e2; */
+  
 }
 
 .Abt_service-wrapper {
@@ -63,7 +66,7 @@ padding-left: 5%;
   margin-bottom: 5%;
   background-color: rgb(31, 30, 30);
  
-  /* margin-left: 5%; */
+ 
 }
 .Abt_card i {
   color: rgb(141, 192, 234);
@@ -96,13 +99,6 @@ padding-left: 5%;
 }
 
 
-/* @media (max-width: 1400px) {
-  .cards {
-      grid-template-columns: repeat(3, 1fr);
-     
-  }
-
-} */
 @media (max-width: 1200px) {
   .Abt_cards {
       grid-template-columns: repeat(2, 1fr);

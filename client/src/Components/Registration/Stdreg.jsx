@@ -85,6 +85,7 @@ const Stdreg = () => {
               value={formData[field]}
               onChange={handleChange}
               placeholder=" " /* Required for floating label effect */
+            
               required
             />
             <label className={styles.reg_floatingLabel}>

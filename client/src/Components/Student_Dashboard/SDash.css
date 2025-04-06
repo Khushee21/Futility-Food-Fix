@@ -213,7 +213,7 @@ margin-top: 4%;;
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 100;
+    /* z-index: 100; */
 }
 
 .dashS_about-container:hover {
@@ -328,6 +328,8 @@ margin-top: 4%;;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    
 }
 
 .dashS_announcement {
@@ -339,6 +341,7 @@ margin-top: 4%;;
     border-radius: 15px;
     display: inline-block;
     box-shadow: 0px 0px 25px rgba(255, 247, 244, 0.8);
+  
 }
 
 /* @keyframes bounce {

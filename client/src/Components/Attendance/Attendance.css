@@ -1,35 +1,27 @@
-/* 
-html, body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-} */
 
-html, body {
+ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 }
 
-/* Fixed Header */
 .Att_fixed-header { 
     position: fixed;
     top: 0;
     left: 0;
-    width: 95%; /* Ensure full width */
+    width: 95%; 
     height: 23%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-color: black; /* Add a background to keep it visible */
-    z-index: 1000; /* Keep it above other content */
+    background-color: black; 
+    z-index: 1000; 
 }
 
-/* Shape Container */
+
 .Att_shape {
     position: relative;
     width: 100%;
@@ -39,23 +31,23 @@ html, body {
     justify-content: center;
 }
 
-/* SVG Styling */
-svg {
+
+.svg1 {
     width: 100%;
     height: 100%;
     display: block;
-}
+} 
 
-/* Header Content (Logo + Text) */
+
 .Att_header-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1vw; /* Adjust spacing */
-    position: absolute; /* Keeps it inside shape */
+    gap: 1vw; 
+    position: absolute; 
 }
 
-/* Logo */
+
 .Att_logo {
     width: 12vh;
     height: 10vh;
@@ -67,7 +59,6 @@ svg {
     transform: rotate(360deg);
 }
 
-/* Header Text */
 .Att_header-text {
     color: #f4f4f4;
     font-size: 4vh;
@@ -77,13 +68,13 @@ svg {
     animation: slideFadeIn 1.5s ease-out forwards, colorWave 5s infinite alternate, textGlow 3s infinite;
 }
 
-/* Keyframes for Slide In Effect */
+
 @keyframes slideFadeIn {
     0% { opacity: 0; transform: translateX(-50px); }
     100% { opacity: 1; transform: translateX(0); }
 }
 
-/* Responsive Adjustments */
+
 @media (max-width: 768px) {
     .Att_header-text {
         font-size: 3vh;
@@ -102,7 +93,7 @@ svg {
 }
 
 
-/* Main Container */
+
 .Att_container {
     display: flex;
     flex-direction: column;
@@ -121,7 +112,7 @@ svg {
     text-align: center;
 }
 
-/* Header */
+
 .Att_header-container {
     margin-top: 20vh;
     display: flex;
@@ -131,10 +122,9 @@ svg {
     gap: 0.5vh;
     width: 100%;
     padding: 1vh;
-    /* background-color: green; */
+
 }
 
-/* Title */
 .Att_h2 {
     text-align: center;
     color: white;
@@ -143,43 +133,34 @@ svg {
     font-weight: bold;
     letter-spacing: 0.2vh;
     margin-left: 5vw;
-    /* background-color: green; */
+  
 }
 
-/* Button */
 
-/* Table Container */
 .Att_table-container {
     display: flex;
     justify-content: center;
     width: 90%;
     max-width: 100vw;
-    overflow-x: auto; /* Allows scrolling only if necessary */
+    overflow-x: auto;
     margin-right: 7vh;
     margin-left: 1vh;
-    /* background-color: blue; */
+  
 }
 
-/* Table */
+
 .Att_table{
     width: 98vw;
-    /* max-width: 98vw; */
+   
     margin-left: 2vw;
     border-collapse: collapse;
-    /* background-color: green; */
+   
     color:white
 }
 
-/* Table Header */
-/* .Att_table th {
-    background-color: black;
-    color: white;
-    text-transform: uppercase;
-    font-size: 2vh;
-    padding: 2vh;
-} */
 
-/* Table Cells */
+
+
 .Att_table th, td {
     border: 1px solid rgba(255, 255, 255, 0.731);
     padding: 2vh;
@@ -187,7 +168,7 @@ svg {
     font-weight: bold;
 }
 
-/* Student Info */
+
 student-id,student-name, .Att_room-cell {
     color: white;
     font-size: 2vh;
@@ -195,7 +176,7 @@ student-id,student-name, .Att_room-cell {
     background-color: black;
 }
 
-/* Meal Cell */
+
 .Att_meal-cell {
     cursor: pointer;
     font-size: 3vh;
@@ -207,36 +188,36 @@ student-id,student-name, .Att_room-cell {
     background-color: #d9d9d9;
 }
 
-/* Header Right Section */
+
 .Att_header-right {
     display: flex;
-    /* gap: 10px; */
+   
     align-items: center;
 }
 
-/* Search Input */
+
 .Att_search-input {
-    /* padding: 5px; */
+
     font-size: 14%;
     border: 1px solid #ccc;
-    /* border-radius: 400px; */
+
     margin-left: 1vw;
 }
 
-/* Highlighted Elements */
+
 .Att_highlight {
     background-color: rgb(53, 53, 51) !important;
     transition: background-color 0.5s ease-in-out;
 }
 
-/* Search Container */
+
 .Att_edit-search-container {
     display: flex;
     align-items: center;
-    /* gap: 100px; */
+   
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .Att_container {
         padding: 4vh 2vw;
@@ -245,7 +226,7 @@ student-id,student-name, .Att_room-cell {
     .Att_h2 {
         font-size: 2.5vh;
         margin-left: 2vw;
-        /* color: red; */
+       
     }
 
     .Att_edit-btn {
@@ -265,7 +246,7 @@ student-id,student-name, .Att_room-cell {
 
 @media (max-width: 600px) {
     .Att_h2 {
-        /* color: yellow; */
+       
         font-size: 2vh;
         margin-left: 1vw;
     }
@@ -290,98 +271,17 @@ student-id,student-name, .Att_room-cell {
 
     .Att_meal-cell {
         font-size: 2vh;
-        /* background-color: blue; */
+     
     }
 }
 
 
 
-/* Menu Container */
-.Att_menu-container {
-    position: fixed;
-    right: 1vw;
-    z-index: 1100;
-    top: 5%;
-    left:94%;
-}
-/* Menu Button */
-.Att_menu-button {
-    background: none;
-    border: none;
-    font-size: 4vh;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    padding: 1vh;
-}
-.Att_menu-button:hover {
-    transform: rotate(90deg);
-}
-
-/* Menu Overlay */
-
-.Att_menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transform: translateX(100%);
-    transition: transform 1s ease-in-out;
-}
-/* Hide the menu initially */
-/* .menu-overlay.hidden {
-    transform: translateX(100%);
-    opacity: 0;
-    pointer-events: none;
-} */
-.Att_menu-overlay.open {
-    transform: translateX(0);
-}
-/* Show menu when active */
-.Att_menu-overlay.active {
-    transform: translateX(0);
-    opacity: 1;
-    pointer-events: auto;
-}
+ 
 
 
-.Att_menu-overlay button {
-    background: linear-gradient(45deg, #444, #666);
-    border: none;
-    color: white;
-    padding: 2vh 3vh;
-    margin: 1vh;
-    font-size: 3vh;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 40vh;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: transform 0.9s ease-out, opacity 0.4s ease-out;
-/* background-color: pink; */
-}
 
-.Att_menu-overlay.open button {
-    opacity: 1;
-    transform: translateY(0);
-}
-.Att_menu-overlay button:hover {
-    /* background: linear-gradient(90deg, #555, #777); */
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
-}
-
-/* Responsive Design */
-
-h1 {
+ h1 {
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
@@ -397,13 +297,13 @@ h1 {
     padding: 2% 0;
     padding-right: 9%;
     margin-bottom: 1.2%;
-    /* background-color: red; */
+ 
 }
 
 .Att_header-container h2 {
    margin-top: 0.5%;
     font-size: 3.5vh;
-    /* font-weight: bold; */
+
 }
 
 
@@ -418,7 +318,7 @@ h1 {
   }
   
   .Att_edit-btn {
-    /* padding: 8px 12px; */
+
     font-size: 2vh;
    
     background-color: #085f07;
@@ -462,10 +362,7 @@ h1 {
   
 
 
-/* Styling for the buttons inside the menu */
 
-
-/* Buttons appear one by one */
 
 
 .Att_menu-overlay.open button:nth-child(1) { transition-delay: 0.1s; }
@@ -476,7 +373,7 @@ h1 {
 .Att_menu-overlay.open button:nth-child(6) { transition-delay: 0.6s; }
 .Att_menu-overlay.open button:nth-child(7) { transition-delay: 0.7s; }
 
-/* Button Hover Effect */
+
 
 .Att_fixed-header.hidden {
     display: none;
@@ -487,7 +384,88 @@ h1 {
 }
 .Att_menu-button:hover {
     background: none;
+} 
+
+
+
+
+
+
+
+
+.Att_menu-container {
+    position: fixed;
+    right: 1vw;
+    z-index: 1100;
+    top: 5%;
+    left:94%;
+}
+
+.Att_menu-button {
+    background: none;
+    border: none;
+    font-size: 4vh;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    padding: 1vh;
+}
+.Att_menu-button:hover {
+    transform: rotate(90deg);
 }
 
 
 
+.Att_menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 1s ease-in-out;
+}
+
+.Att_menu-overlay.open {
+    transform: translateX(0);
+}
+
+.Att_menu-overlay.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+.Att_menu-overlay button {
+    background: linear-gradient(45deg, #444, #666);
+    border: none;
+    color: white;
+    padding: 2vh 3vh;
+    margin: 1vh;
+    font-size: 3vh;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 40vh;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.9s ease-out, opacity 0.4s ease-out;
+
+}
+
+.Att_menu-overlay.open button {
+    opacity: 1;
+    transform: translateY(0);
+}
+.Att_menu-overlay button:hover {
+ 
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}  

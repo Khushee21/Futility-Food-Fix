@@ -9,8 +9,9 @@ import WardenDashboard from './Components/WardenDashBoard/Warden';
 
  import StudentProfile from "./Components/myProfile/studentProfile";
 
-import ResetPass from './Components/ResetPassword/ResetPass';
 import OccasionForm from './Components/OccasionForm/tempOccasion';
+
+import ResetPass from './Components/ResetPassword/ResetPass';
 import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
 import SignInStu from './Components/StuSignIn/SignInStu';
 import Attendance from './Components/Attendance/Attendance'; 
@@ -21,6 +22,7 @@ import AboutFFF from './Components/AboutFFF/About_Us';
 import Profile from './Components/Profile/Profile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
+import WDash from './Components/WardenDashBoard/WDash';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -55,12 +57,13 @@ function App() {
           <Route path="/Attendance" element={<Attendance />} />
           <Route path="/stud-daily" element={<Stud />} />
           <Route path="/warden-daily" element={<Ward />} />
-          <Route path="/monthly-report" element={<MonthlyReport />} />
+          <Route path="/monthly-report" element={<MonthlyReport />} /> 
           <Route path="/about-us" element={<AboutFFF />} />      
-          <Route path="/Profile" element={<Profile />} /> 
+           <Route path="/Profile" element={<Profile />} /> 
           <Route path="/SDash" element={<SDash />} />
           <Route path="/register" element={<Stdreg />} />
           <Route path="/reset-password" element={<ResetPass />} />
+          <Route path="/WDash" element={<WDash />} />
         </Routes>
       </main>
     </div>

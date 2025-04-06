@@ -152,3 +152,9 @@
       background-color: #ffffff;
     }
   }
+
+
+
+  .reg_inputGroup input {
+    color: black; /* This will ensure input text appears in black */
+  }

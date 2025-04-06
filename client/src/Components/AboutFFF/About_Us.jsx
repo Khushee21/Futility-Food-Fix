@@ -4,7 +4,7 @@ import styles from "./S.module.css"; // Importing CSS Module
 const About_Us = () => {
   return (
     <div className={styles.Abt_container}>
-      <div className={styles.Abt_serviceWrapper}>
+      <div className={styles.Abt_serviceWrapper}>        
         <div className={styles.Abt_service}>
           <h1>Why FFF?</h1>
           <p>
