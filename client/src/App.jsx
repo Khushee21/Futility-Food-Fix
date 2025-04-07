@@ -9,8 +9,9 @@ import WardenDashboard from './Components/WardenDashBoard/Warden';
 
  import StudentProfile from "./Components/myProfile/studentProfile";
 
-import OccasionForm from './Components/OccasionForm/tempOccasion';
 
+import NGO from './Components/NGO/NGO';
+import OccasionForm from './Components/OccasionForm/tempOccasion';
 import ResetPass from './Components/ResetPassword/ResetPass';
 import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
 import SignInStu from './Components/StuSignIn/SignInStu';
@@ -64,6 +65,7 @@ function App() {
           <Route path="/register" element={<Stdreg />} />
           <Route path="/reset-password" element={<ResetPass />} />
           <Route path="/WDash" element={<WDash />} />
+          <Route path="/NGO" element={<NGO />} />
         </Routes>
       </main>
     </div>
