@@ -7,18 +7,20 @@ const {
   getStudentSubmissions
 } = require('../controllers/DailyController');
 
-// Warden generates a new meal form
 router.post('/meal-form', createDailyMealForm);
 
 // Get the latest daily meal form for students
-router.get('/meal-form/latest', getDailyMealForm);
+router.get('/latest', getDailyMealForm);
+
 
 
 // Student submits their meal selection
 router.post('/student-form', submitStudentForm);
 
+router.get('/today', getStudentSubmissions);
+
 // Get submissions for a specific student
-router.get('/student-submissions/:studentId', getStudentSubmissions);
+// router.get('/student-submissions/:studentId', getStudentSubmissions);
 
 // Error handling middleware
 router.use((err, req, res, next) => {
