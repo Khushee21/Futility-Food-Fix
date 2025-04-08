@@ -29,122 +29,114 @@
   }
 }
 
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: url("bg.jpg") no-repeat center center;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.container {
+.Dm_container {
   margin-left: 20%;
-  width: 60%;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 30px;
-  border-radius: 10px;
+  width: 65%;
+  background-color: rgba(230, 229, 229, 0.2);
+  padding: 4.2vh;
+  border-radius: 1.5vh;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
   animation: scaleUp 0.5s ease-in-out;
   position: relative;
   text-align: center;
 }
 
-.ward-heading {
-  margin-top: 2px;
-  color: black;
-  font-size: 33px;
+.Dm_ward-heading {
+  margin-top: 0.8vh;
+  margin-bottom: 2.8vh;
+  color: rgb(255, 255, 255);
+  font-size: 4vh;
   font-weight: bold;
   animation: slideDown 1s ease-in-out;
 }
 
-table {
+.Dm_table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th,
-td {
-  padding: 15px;
+.Dm_th,
+.Dm_td {
+  padding: 2vh;
   text-align: left;
   font-weight: bold;
-  color: white;
+  color: rgb(241, 226, 226);
+  border:none
 }
 
-th {
-  background-color: black;
-  color: white;
+.Dm_th {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   text-align: center;
-  border-radius: 5px;
-  font-size: 18px;
+  font-size: 2.8vh;
 }
 
-td {
-  border-bottom: 1px solid #000;
+.Dm_td {
+  border-bottom: 0.2vh solid #000000;
 }
 
-label {
-  font-size: 16px;
+.Dm_table label {
+  font-size: 2.3vh;
 }
 
-.editable-select {
+.Dm_editable-select {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid black;
-  border-radius: 5px;
+  padding: 1.3vh;
+  font-size: 2.3vh;
+  border: 0.2vh solid black;
+  border-radius: 1vh;
   transition: all 0.3s ease-in-out;
 }
 
-.editable-select:focus {
-  border-color: royalblue;
-  box-shadow: 0px 0px 10px rgba(65, 105, 225, 0.5);
+.Dm_editable-select:focus {
+  box-shadow: 0px 0px 10px rgba(43, 200, 18, 0.5);
   transform: scale(1.05);
 }
 
-.meal-options {
+.Dm_meal-options {
   display: flex;
-  gap: 15px;
+  gap: 2vh;
 }
 
-.buttons {
-  margin-top: 30px;
+.Dm_buttons {
+  margin-top: 3.4vh;
   display: flex;
   justify-content: space-between;
 }
 
-input[type="submit"],
-input[type="reset"] {
+.Dm_buttons input[type="submit"],
+.Dm_buttons input[type="reset"] {
   width: 48%;
-  padding: 12px;
+  padding:1vh;
   border: none;
-  border-radius: 5px;
+  border-radius: 1vh;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 2.6vh;
+  height: 20%;
   transition: all 0.3s ease-in-out;
 }
 
-input[type="submit"] {
+
+.Dm_buttons input[type="submit"]
+{
+  margin-top: 0%;
+}
+.Dm_buttons input[type="submit"] {
   background: rgb(1, 114, 16);
   color: white;
 }
 
-input[type="reset"] {
+.Dm_buttons input[type="reset"] {
   background: crimson;
   color: white;
 }
 
-input[type="submit"]:hover {
+.Dm_buttons input[type="submit"]:hover {
   background: rgb(1, 123, 7);
   transform: scale(1.1);
 }
 
-input[type="reset"]:hover {
+.Dm_buttons input[type="reset"]:hover {
   background: darkred;
   transform: scale(1.1);
 }

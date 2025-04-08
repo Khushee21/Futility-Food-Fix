@@ -9,13 +9,16 @@ const fs = require("fs");
 
 // Route imports
 const authRoutes = require("./routes/authRoutes");
+const voteRoutes = require("./routes/voteRoutes"); // Vote routes
 const occasionRoutes = require("./routes/occasionRoutes");
 const dailyRoutes = require("./routes/DailyRoutes"); // Ensure correct file name
+const studentRoutes = require("./routes/studentRoutes");
 
 // Create express app
 const app = express();
 const PORT = process.env.PORT || 5066;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/femine-food-fix";
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
 // Increase payload size limit
 app.use(express.json({ limit: "50mb" }));
@@ -24,7 +27,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // CORS configuration
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: CORS_ORIGIN,
     credentials: true,
   })
 );
@@ -52,15 +55,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Basic route
+// Welcome route
 app.get("/", (req, res) => {
   res.send("Welcome to the Server!");
 });
 
-// Existing routes
-app.use("/api/auth", authRoutes);
-app.use("/api/occasional", occasionRoutes);
-app.use("/api/daily", dailyRoutes);
+// Mount routes
+app.use("/api/auth", authRoutes); // Authentication routes
+app.use("/api", voteRoutes); // Voting routes
+app.use("/api/occasional", occasionRoutes); // Occasion routes
+app.use("/api/student", studentRoutes);  // Profile routes
+app.use("/api/daily", dailyRoutes); // Daily routes
 
 // 404 Route - Handles invalid routes
 app.use((req, res) => {
@@ -75,10 +80,12 @@ app.use((err, req, res, next) => {
 
 // Create HTTP server and integrate Socket.IO
 const server = http.createServer(app);
+
+// Socket.io setup
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: CORS_ORIGIN,
     methods: ["GET", "POST"],
   },
 });
@@ -173,3 +180,12 @@ mongoose
     console.error("❌ MongoDB connection error:", err);
     process.exit(1);
   });
+
+// Graceful shutdown
+process.on("SIGINT", () => {
+  console.log("Shutting down server...");
+  mongoose.connection.close(() => {
+    console.log("MongoDB connection closed.");
+    process.exit(0);
+  });
+});

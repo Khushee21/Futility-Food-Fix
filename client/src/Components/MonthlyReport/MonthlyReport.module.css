@@ -1,0 +1,116 @@
+/* Full Page Dark Background */
+body,
+html {
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+   
+}
+.month_reportTitle
+{
+    margin-top: 5%;
+    margin-bottom: 8%;
+}
+.month_reportContainer {
+    text-align: center;
+    padding: 36px;
+    min-height: 100vh;
+}
+
+.month_chartContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.month_barChartWrapper {
+    width: 94%;
+    height: 300px;
+}
+.month_pieChartWrapper {
+    width: 350px;
+    height: 350px;
+}
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.month_dropdownContainer {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+select {
+    padding: 12px;
+    font-size: 18px;
+    background-color: #333;
+    color: white;
+    border: 2px solid #555;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+select:hover,
+select:focus {
+    border-color: #ff9800;
+    background-color: #222;
+}
+
+.month_reportTable {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 50%;
+    background-color: #222;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(128, 128, 128, 0.7);
+}
+
+.month_reportTable th,
+.month_reportTable td {
+    padding: 12px 20px;
+    border: 1px solid #444;
+    text-align: center;
+}
+
+.month_reportTable th {
+    background-color: #444;
+    font-weight: bold;
+}
+
+.month_reportTable tr:hover {
+    background-color: rgb(91, 86, 86);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.month_buttonContainer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.month_buttonContainer button {
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(45deg, #8e2de2, #4a00e0);
+    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.month_buttonContainer button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(138, 43, 226, 0.5);
+}
+

@@ -1,15 +1,9 @@
-/* Background Image for the Page */
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('./bg4.png');
-    /* Replace with actual image path */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+* {
+    
     text-align: center;
-    padding: 20px;
+    
 }
-/* Animation for "Shree Shanta Sangam" (One-time Bounce) */
+
 @keyframes bounceOnce {
     0% {
         opacity: 0;
@@ -26,53 +20,55 @@ body {
     }
 }
 
-.animatedTitle {
+.stocc_animatedTitle {
     animation: bounceOnce 1.2s ease-out;
 }
 
-/* Animation for the Form (Fade-in + Scale-Up) */
-@keyframes fadeInScale {
+
+@keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: scale(0.8);
     }
 
     100% {
         opacity: 1;
-        transform: scale(1);
     }
 }
 
-/* Transparent White Form */
-.container {
+.stocc_container {
     max-width: 700px;
     margin: auto;
     background: rgba(255, 255, 255, 0.176);
-    /* White with transparency */
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-    animation: fadeInScale 1s ease-out;
+    position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    animation: fadeIn 1s ease-out;
     background-image: url('/holi.jpg');
-        /* Add your image path here */
         background-size: cover;
         background-position: center;
 }
 
-/* Heading Styles */
-h1 {
+
+.stocc_animatedTitle{
     color: #151515;
     font-size: 32px;
 }
 
-h2 {
-    color: #86471c;
-    font-size: 28px;
-    animation: pulse 1.5s infinite;
+.stocc_highlightText {
+    color: #000000;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+.stocc_highlightText b{
+    color: #000000;
+    font-size: 19px;
 }
 
-/* Pulse Animation */
+
 @keyframes pulse {
 
     0%,
@@ -85,23 +81,22 @@ h2 {
     }
 }
 
-/* Forms Layout */
-.forms {
+
+.stocc_forms {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
 }
 
-.subForm {
+.stocc_subForm {
     text-align: center;
 }
 
-/* Transparent Black Circle */
-.bulgingCircle {
+
+.stocc_bulgingCircle {
     width: 230px;
     height: 230px;
     background-color: rgba(30, 29, 27, 0.566);
-    /* Black with transparency */
     border-radius: 50%;
     display: flex;
     flex-direction: column;
@@ -110,23 +105,24 @@ h2 {
     box-shadow: 0 0 20px rgba(238, 185, 38, 0.674);;
     position: relative;
     padding: 10px;
+    margin-bottom:10px;
 }
 
-/* Checkbox inside circle */
-.checkContainer {
+
+.stocc_checkContainer {
     position: absolute;
     bottom: 5px;
 }
 
-.checkContainer input[type="checkbox"] {
+.stocc_checkContainer input[type="checkbox"] {
     width: 22px;
     height: 14px;
     transform: scale(1.2);
     cursor: pointer;
 }
 
-/* Oval Buttons */
-.oval {
+
+.stocc_oval {
     width: 130px;
     height: 45px;
     background-color:rgba(238, 185, 38, 0.82);
@@ -144,23 +140,23 @@ h2 {
     padding: 5px;
 }
 
-/* Hover Effect on Oval */
-.oval:hover {
+
+.stocc_oval:hover {
     background-color: #804e11;
     transform: scale(1.1);
     color: rgb(244, 238, 238);
 }
 
-/* Food item inside oval */
-.foodItem {
+
+.stocc_foodItem {
     font-size: 14px;
     color: white;
     margin-left: 5px;
 }
 
-/* Close Button */
-.closeButton {
-    background-color: red;
+
+.stocc_closeButton {
+    background-color: rgb(178, 1, 1);
     color: white;
     border: none;
     padding: 5px 10px;
@@ -172,12 +168,12 @@ h2 {
     right: 10px;
 }
 
-.closeButton:hover {
+.stocc_closeButton:hover {
     background-color: darkred;
 }
 
-/* Submit Button */
-button.submit {
+
+button.stocc_submit {
     background-color:#1d692f;
     color: white;
     border: none;
@@ -186,27 +182,35 @@ button.submit {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+   
+        
 }
 
-button.submit:hover {
+button.stocc_submit:hover {
     background-color: #309646;
 }
-.errorMessage {
+.stocc_errorMessage {
     background-color: #100f0f;
-    /* Light red background */
     color:#ffcccc;
-    /* Dark red text */
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
     margin: 10px auto;
     width: fit-content;
 }
-.highlightText {
+.stocc_highlightText {
     background-color: #ffdd99;
-    /* Light orange background */
     padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;
     font-weight: bold;
+
+}
+.stocc_highlightText1 {
+    background-color: #ffdd99;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+margin-top: 30px;
 }

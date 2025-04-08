@@ -12,15 +12,6 @@ const foodQuotes = [
   "Happiness is homemade.",
 ];
 
-// Define fields with state key and label
-const fields = [
-  { key: "id", label: "Student ID" },
-  { key: "name", label: "Student Name" },
-  { key: "degree", label: "Degree" },
-  { key: "email", label: "Email (banasthali.in)" },
-  { key: "parentEmail", label: "Parent Email" },
-];
-
 const Stdreg = () => {
   const [formData, setFormData] = useState({
     id: "",
@@ -30,6 +21,7 @@ const Stdreg = () => {
     parentEmail: "",
     password: "",
   });
+
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +29,6 @@ const Stdreg = () => {
   const [fade, setFade] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Cycle through food quotes every 5 seconds (with fade transition)
   useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
@@ -57,7 +48,6 @@ const Stdreg = () => {
     e.preventDefault();
     setMessage("");
 
-    // Validate that email ends with @banasthali.in
     if (!formData.email.endsWith("@banasthali.in")) {
       setMessage("Only banasthali.in email addresses are allowed.");
       setMessageType("error");
@@ -81,26 +71,28 @@ const Stdreg = () => {
   };
 
   return (
-    <div className={styles.registerContainer}>
-      <form onSubmit={handleSubmit} className={styles.registerForm}>
-        <img src={logo} alt="FFF Logo" className={styles.logo} />
-        <h2>Futility Food Fix</h2>
+    <div className={styles.reg_registerContainer}>
+      <form onSubmit={handleSubmit} className={styles.reg_registerForm}>
+        <img src={logo} alt="FFF Logo" className={styles.reg_logo} />
+        <h2 className="reg_h2">Futility Food Fix</h2>
 
-        {fields.map((field, index) => (
-          <div className={styles.inputGroup} key={index}>
+        {["StudentId", "StudentName", "degree", "email", "parentEmail"].map((field, index) => (
+          <div className={styles.reg_inputGroup} key={index}>
             <input
               type="text"
-              name={field.key}
-              value={formData[field.key]}
+              name={field}
+              value={formData[field]}
               onChange={handleChange}
-              placeholder=" " /* Required for floating label effect */
+              placeholder=" " 
               required
             />
-            <label className={styles.floatingLabel}>{field.label}</label>
+            <label className={styles.reg_floatingLabel}>
+              {field === "email" ? "Email (banasthali.in)" : field.replace(/([A-Z])/g, " $1").trim()}
+            </label>
           </div>
         ))}
 
-        <div className={styles.inputGroup}>
+        <div className={styles.reg_inputGroup}>
           <input
             type={showPassword ? "text" : "password"}
             name="password"
@@ -109,24 +101,25 @@ const Stdreg = () => {
             placeholder=" "
             required
           />
-          <label className={styles.floatingLabel}>Password</label>
-          <span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+          <label className={styles.reg_floatingLabel}>Password</label>
+          <span className={styles.reg_eyeIcon} onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
+<div className={styles.My_Button1}>
+<button  type="submit" disabled={isSubmitting}>{isSubmitting ? "Registering..." : "Register"}</button>
+</div>
+      
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Registering..." : "Register"}
-        </button>
+        {message && <p className={`${styles.reg_message} ${styles[messageType]}`}>{message}</p>}
 
-        {message && <p className={`${styles.message} ${styles[messageType]}`}>{message}</p>}
-
-        <p className={`${styles.foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>
-          {foodQuotes[currentQuoteIndex]}
-        </p>
+        <p className={`${styles.reg_foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>{foodQuotes[currentQuoteIndex]}</p>
       </form>
     </div>
   );
 };
 
 export default Stdreg;
+
+
+

@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+body {
+  background-color: black;
+}
+
+.re_resetBox {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgb(18, 17, 17);
+  width: 350px;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 60%;
+  width:27vw;
+}
+
+.re_resetLogo {
+  display: block;
+  margin: 0 auto 10px;
+  width: 80px;
+  height: auto;
+}
+
+.re_resetTitle {
+  font-family: 'Playfair Display', serif;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.re_resetHeading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: blue;
+}
+
+.re_resetLabel {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.re_resetInput {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #3a3636;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+  background-color: white;
+}
+
+.re_resetInput:focus {
+  border-color: blue;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+
+.re_resetButton {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(64, 64, 255);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.re_resetButton:hover {
+  background-color: darkblue;
+}
+
+.re_resetError {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.re_resetSuccess {
+  color: green;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.re_otpContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.re_resetOtp {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(72, 129, 235, 0.1);
+}
+
+.re_resetOtp:focus {
+  border-color: blue;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+
+.re_quoteContainer {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-style: bold;
+  margin-top: 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.re_resetLabel
+{
+  color:black;
+}
+
+.re_quoteText {
+  animation: fadeInOut 0.5s infinite;
+  color:#555;
+  white-space: nowrap;
+animation: fadeIn 0.5s ease-in-out;
+font-weight: bold;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./occasion.module.css";
+import styles from "./occasion.module.css";
 
 const OccasionForm = () => {
   const [occasion, setOccasion] = useState("");
@@ -12,16 +12,13 @@ const OccasionForm = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
 
-  // Handle change for the occasion dropdown
   const handleOccasionChange = (e) => {
     setOccasion(e.target.value);
-    // Reset error if any
     if (formErrors.occasion) {
       setFormErrors((prev) => ({ ...prev, occasion: "" }));
     }
   };
 
-  // Handle change for specifying other occasion
   const handleOtherOccasionChange = (e) => {
     setOtherOccasion(e.target.value);
     if (formErrors.otherOccasion) {
@@ -29,7 +26,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Handle file upload and convert to Base64 string
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -41,7 +37,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Handle changes in meal inputs
   const handleMealChange = (e, mealNumber, field) => {
     const value = e.target.value;
     if (mealNumber === 1) {
@@ -51,7 +46,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Validate all fields before submitting
   const validateForm = () => {
     let errors = {};
     if (!occasion) errors.occasion = "Occasion is required";
@@ -60,12 +54,10 @@ const OccasionForm = () => {
     }
     if (!customImage) errors.image = "Image upload is required";
 
-    // Validate meal1 fields
     if (!meal1.dal.trim()) errors.daal1 = "This field is required";
     if (!meal1.vegetable.trim()) errors.vegetable1 = "This field is required";
     if (!meal1.sweet.trim()) errors.sweet1 = "This field is required";
 
-    // Validate meal2 fields
     if (!meal2.dal.trim()) errors.daal2 = "This field is required";
     if (!meal2.vegetable.trim()) errors.vegetable2 = "This field is required";
     if (!meal2.sweet.trim()) errors.sweet2 = "This field is required";
@@ -76,12 +68,10 @@ const OccasionForm = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Use the specified otherOccasion if "other" is selected
     const finalOccasion = occasion === "other" ? otherOccasion : occasion;
 
     const formData = {
@@ -101,7 +91,6 @@ const OccasionForm = () => {
     };
 
     try {
-      // Note: Ensure your backend endpoint matches this route!
       const response = await axios.post(
         "http://localhost:5066/api/occasional/create",
         formData,
@@ -119,7 +108,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Reset the form to its initial state
   const handleReset = () => {
     setOccasion("");
     setOtherOccasion("");
@@ -132,21 +120,18 @@ const OccasionForm = () => {
 
   return (
     isVisible && (
-      <div className="container">
-        <button className="close-button" onClick={() => setIsVisible(false)}>
+      <div className={styles.occ_container}>
+        <button className={styles.occ_closeButton} onClick={() => setIsVisible(false)}>
           ×
         </button>
-        <h1 className="title">SHREE SHANTA SANGAM</h1>
+        <h1 className={styles.occ_title}>Shree Shanta Sangam</h1>
         <form onSubmit={handleSubmit}>
-          {/* Occasion Dropdown */}
-          <div className="form-group">
-            <label htmlFor="occasion">
-              <strong>Occasion:</strong>
-            </label>
+          <div className={styles.occ_formGroup}>
             <select
               id="occasion"
-              name="occasion"
+              className="occasion"
               value={occasion}
+              style={{ backgroundColor: "rgb(24, 22, 22)" }}
               onChange={handleOccasionChange}
               required
             >
@@ -162,13 +147,12 @@ const OccasionForm = () => {
               <option value="other">Other</option>
             </select>
             {formErrors.occasion && (
-              <span className="error">{formErrors.occasion}</span>
+              <span className={styles.occ_error}>{formErrors.occasion}</span>
             )}
           </div>
 
-          {/* Specify Other Occasion */}
           {occasion === "other" && (
-            <div className="form-group">
+            <div className={styles.occ_formGroup}>
               <label htmlFor="otherOccasion">
                 <strong>Specify Occasion:</strong>
               </label>
@@ -177,35 +161,34 @@ const OccasionForm = () => {
                 id="otherOccasion"
                 value={otherOccasion}
                 onChange={handleOtherOccasionChange}
-                className="other-occasion-input"
+                className={styles.occ_otherOccasionInput}
                 required
               />
               {formErrors.otherOccasion && (
-                <span className="error">{formErrors.otherOccasion}</span>
+                <span className={styles.occ_error}>{formErrors.otherOccasion}</span>
               )}
             </div>
           )}
 
-          {/* Upload Custom Image */}
-          <div className="upload-container">
-            <label htmlFor="image">
-              <strong>Upload Custom Image:</strong>
-            </label>
-            <input type="file" id="image" onChange={handleImageUpload} required />
-            {formErrors.image && (
-              <span className="error">{formErrors.image}</span>
-            )}
-          </div>
+          <div className={styles.occ_uploadContainer} style={{ color: "white" }}>
+  <label htmlFor="image">
+    <strong  style={{width:"200px" ,marginLeft:"70px"}} >Upload Custom Image:</strong>
+  </label>
+  <input style={{ marginLeft:"1px" ,width:"220px"}} type="file" id="image" onChange={handleImageUpload} required />
+  {formErrors.image && (
+    <span className={styles.occ_error}>{formErrors.image}</span>
+  )}
+</div>
 
-          {/* Meal Choices */}
-          <div className="choice-container">
-            <div className="choice-box">
+          <div className={styles.occ_choiceContainer}>
+            <div className={styles.occ_choiceBox}>
               <h3>Choice 1</h3>
-              <div>
-                <label htmlFor="daal1">
-                  <strong>Daal:</strong>
+              <div className="occ_t">
+                <label  style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="daal1">             
+                  <strong >Daal:</strong>
+
                 </label>
-                <input
+                <input 
                   type="text"
                   id="daal1"
                   value={meal1.dal}
@@ -213,14 +196,14 @@ const OccasionForm = () => {
                   required
                 />
                 {formErrors.daal1 && (
-                  <span className="error">{formErrors.daal1}</span>
+                  <span className={styles.occ_error}>{formErrors.daal1}</span>
                 )}
               </div>
-              <div>
-                <label htmlFor="vegetable1">
+              <div className="occ_t">
+                <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="vegetable1">
                   <strong>Vegetable:</strong>
                 </label>
-                <input
+                <input 
                   type="text"
                   id="vegetable1"
                   value={meal1.vegetable}
@@ -228,11 +211,11 @@ const OccasionForm = () => {
                   required
                 />
                 {formErrors.vegetable1 && (
-                  <span className="error">{formErrors.vegetable1}</span>
+                  <span className={styles.occ_error}>{formErrors.vegetable1}</span>
                 )}
               </div>
-              <div>
-                <label htmlFor="sweet1">
+              <div className="occ_t">
+                <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="sweet1">
                   <strong>Sweet:</strong>
                 </label>
                 <input
@@ -243,18 +226,18 @@ const OccasionForm = () => {
                   required
                 />
                 {formErrors.sweet1 && (
-                  <span className="error">{formErrors.sweet1}</span>
+                  <span className={styles.occ_error}>{formErrors.sweet1}</span>
                 )}
               </div>
             </div>
 
-            <div className="choice-box">
+            <div className={styles.occ_choiceBox}>
               <h3>Choice 2</h3>
-              <div>
-                <label htmlFor="daal2">
+              <div className="occ_t">
+                <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="daal2">
                   <strong>Daal:</strong>
                 </label>
-                <input
+                <input 
                   type="text"
                   id="daal2"
                   value={meal2.dal}
@@ -262,14 +245,14 @@ const OccasionForm = () => {
                   required
                 />
                 {formErrors.daal2 && (
-                  <span className="error">{formErrors.daal2}</span>
+                  <span className={styles.occ_error}>{formErrors.daal2}</span>
                 )}
               </div>
-              <div>
-                <label htmlFor="vegetable2">
+              <div className="occ_t">
+                <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="vegetable2">
                   <strong>Vegetable:</strong>
                 </label>
-                <input
+                <input 
                   type="text"
                   id="vegetable2"
                   value={meal2.vegetable}
@@ -277,11 +260,11 @@ const OccasionForm = () => {
                   required
                 />
                 {formErrors.vegetable2 && (
-                  <span className="error">{formErrors.vegetable2}</span>
+                  <span className={styles.occ_error}>{formErrors.vegetable2}</span>
                 )}
               </div>
-              <div>
-                <label htmlFor="sweet2">
+              <div className="occ_t">
+                <label style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="sweet2">
                   <strong>Sweet:</strong>
                 </label>
                 <input
@@ -292,33 +275,33 @@ const OccasionForm = () => {
                   required
                 />
                 {formErrors.sweet2 && (
-                  <span className="error">{formErrors.sweet2}</span>
+                  <span className={styles.occ_error}>{formErrors.sweet2}</span>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Date Selection */}
-          <div className="form-group">
+          <div className={styles.occ_formGroup}>
             <label htmlFor="date">
-              <strong>Date:</strong>
+              <strong style={{ color: "white" }}>Date:</strong>
             </label>
             <input
+            className="Date1"
               type="date"
               id="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
+              style={{ backgroundColor: "rgb(31, 26, 26)"}}
             />
             {formErrors.date && (
-              <span className="error">{formErrors.date}</span>
+              <span className={styles.occ_error}>{formErrors.date}</span>
             )}
           </div>
 
-          {/* Submit and Reset Buttons */}
-          <div className="button-group">
-            <button type="submit">Submit</button>
-            <button type="button" onClick={handleReset}>
+          <div className={styles.occ_buttonGroup}>
+            <button className = {styles.occ_button} type="submit">Submit</button>
+            <button className = {styles.occ_button} type="button" onClick={handleReset}>
               Reset
             </button>
           </div>
@@ -329,3 +312,5 @@ const OccasionForm = () => {
 };
 
 export default OccasionForm;
+
+
