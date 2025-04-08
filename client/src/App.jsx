@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
 
-import WDash from './Components/WardenDashBoard/WDash'
+import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
+import WDash from './Components/WardenDashBoard/WDash';
 import StudentProfile from './Components/myProfile/studentProfile';
+import NGO from './Components/NGO/NGO';
 import OccasionForm from './Components/OccasionForm/tempOccasion';
 import ResetPass from './Components/ResetPassword/ResetPass';
 import Studentoccasion from './Components/Studentoccasion/Studentoccasion';
@@ -13,11 +14,9 @@ import Stud from './Components/Daily_Warden/Stud';
 import Ward from './Components/Daily_Meal/Ward';
 import MonthlyReport from './Components/MonthlyReport/MonthlyReport';
 import AboutFFF from './Components/AboutFFF/About_Us';
-// import Profile from './Components/Profile/Profile';
-import Profile from './Components/myProfile/studentProfile'
+import Profile from './Components/myProfile/studentProfile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
-import NGO from './Components/NGO/NGO';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -48,16 +47,17 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="/SignInAdmin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
-          <Route path="/WDash" element={isAdmin ? <WDash /> : <Navigate to="/WDash" />} />
+          <Route path="/WDash" element={isAdmin ? <WDash /> : <Navigate to="/SignInAdmin" />} />
           <Route path="/occasion-form" element={<OccasionForm />} />
           <Route path="/stud-daily" element={<Stud />} />
           <Route path="/warden-daily" element={<Ward />} />
           <Route path="/monthly-report" element={<MonthlyReport />} />
 
-          {/* Catch-all route */}
-          <Route path="*" element={<Navigate to="/signin" />} />
+          {/* NGO Route */}
           <Route path="/NGO" element={<NGO />} />
-          <Route path="/WDash" element={<WDash/>}/>
+
+          {/* Catch-all */}
+          <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
       </main>
     </div>
