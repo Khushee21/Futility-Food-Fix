@@ -93,7 +93,15 @@ const SDash = () => {
         navigate("/NGO");
       };
 
-      
+       const handleLogout = () => {
+        const confirmLogout = window.confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+            localStorage.removeItem("userData");
+            // localStorage.removeItem("studentId");
+            navigate("/signin");
+        }
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % texts.length);
@@ -191,7 +199,7 @@ const SDash = () => {
       <button onClick={goToMonthlyReport}>Monthly Report</button>
       <button onClick={goToOccupationalMeal}>Occupational Meal</button>
       <button onClick={goToForm}>Form</button>
-      <button onClick={goToLogout}>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
       <button onClick={goToMyProfile}>My Profile</button>
       <button onClick={goToWhyFFF}>Why FFF</button>
       <button onClick={goToNGO}>NGO</button>
