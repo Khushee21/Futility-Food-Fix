@@ -66,6 +66,9 @@ app.use("/api", voteRoutes); // Voting routes
 app.use("/api/occasional", occasionRoutes); // Occasion routes
 app.use("/api/student", studentRoutes);  // Profile routes
 app.use("/api/daily", dailyRoutes); // Daily routes
+// Request OTP for Password Reset
+// app.post("/api/request-otp", authController.requestOtp); // Assuming you're using express
+
 
 // 404 Route - Handles invalid routes
 app.use((req, res) => {

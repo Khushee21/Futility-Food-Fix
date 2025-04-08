@@ -14,13 +14,12 @@ const foodQuotes = [
 
 const ResetPass = () => {
   const [studentId, setStudentId] = useState("");
-  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [otp, setOtp] = useState(new Array(6).fill("")); // OTP input fields
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
-  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false); // To track if OTP was sent
   const [loading, setLoading] = useState(false);
   const [quoteIndex, setQuoteIndex] = useState(0);
   const navigate = useNavigate();
@@ -33,15 +32,45 @@ const ResetPass = () => {
     return () => clearInterval(quoteInterval);
   }, []);
 
+  // Handle the OTP sending action when the user clicks the "Send OTP" button
+  const handleSendOtp = async (e) => {
+    e.preventDefault(); // Prevent form submission
+
+    if (!studentId) {
+      setError("Please enter your student ID.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError(""); // Clear previous errors
+
+      // Make an API request to send OTP
+      const response = await axios.post("/api/request-otp", { id: studentId });
+
+      if (response.data.success) {
+        setSuccess("OTP has been sent to your registered email.");
+        setOtpSent(true); // Change to OTP sent state
+      } else {
+        setError("Failed to send OTP. Please try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.re_resetContainer}>
       <div className={styles.re_resetBox}>
-        <img src={logo} alt="Logo" className={styles.re_resetLogo}/>
+        <img src={logo} alt="Logo" className={styles.re_resetLogo} />
         <h2 className={styles.re_resetTitle}>Futility Food Fix</h2>
         <h1 className={styles.re_resetHeading}>Reset Password</h1>
 
+        {/* Show the OTP form or the initial form */}
         {!otpSent ? (
-          <form>
+          <form onSubmit={handleSendOtp}>
             <label htmlFor="studentId" className={styles.re_resetLabel}>Student ID</label>
             <input
               type="text"
@@ -49,15 +78,18 @@ const ResetPass = () => {
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
               className={styles.re_resetInput}
-              style={{backgroundColor:"white",border:"1px solid black", color:"black"}}
+              style={{backgroundColor: "white", border: "1px solid black", color: "black"}}
               required
             />
             {error && <p className={styles.re_resetError}>{error}</p>}
             {success && <p className={styles.re_resetSuccess}>{success}</p>}
-            <button type="submit" className={styles.re_resetButton}>Send OTP</button>
+            <button type="submit" className={styles.re_resetButton} disabled={loading}>
+              {loading ? "Sending..." : "Send OTP"}
+            </button>
           </form>
         ) : (
           <>
+            {/* OTP input fields */}
             <div className={styles.re_otpContainer}>
               {otp.map((data, index) => (
                 <input
@@ -65,10 +97,18 @@ const ResetPass = () => {
                   maxLength="1"
                   key={index}
                   value={data}
+                  onChange={(e) => {
+                    const newOtp = [...otp];
+                    newOtp[index] = e.target.value;
+                    setOtp(newOtp);
+                  }}
                   className={styles.re_resetOtp}
                 />
               ))}
             </div>
+            <button className={styles.re_resetButton} onClick={() => setIsOtpVerified(true)}>
+              Verify OTP
+            </button>
           </>
         )}
 

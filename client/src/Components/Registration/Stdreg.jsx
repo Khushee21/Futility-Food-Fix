@@ -14,12 +14,12 @@ const foodQuotes = [
 
 const Stdreg = () => {
   const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    degree: "",
-    email: "",
-    parentEmail: "",
-    password: "",
+    id: null,
+    name: null,
+    degree: null,
+    email: null,
+    parentEmail: null,
+    password: null,
   });
 
   const [message, setMessage] = useState("");
@@ -48,7 +48,7 @@ const Stdreg = () => {
     e.preventDefault();
     setMessage("");
 
-    if (!formData.email.endsWith("@banasthali.in")) {
+    if (!formData.email || !formData.email.endsWith("@banasthali.in")) {
       setMessage("Only banasthali.in email addresses are allowed.");
       setMessageType("error");
       return;
@@ -58,9 +58,17 @@ const Stdreg = () => {
     try {
       const response = await axios.post("http://localhost:5066/api/auth/register", formData);
       if (response.status === 201) {
+        window.alert("Registration successful!");
         setMessage("Registration successful!");
         setMessageType("success");
-        setFormData({ id: "", name: "", degree: "", email: "", parentEmail: "", password: "" });
+        setFormData({
+          id: null,
+          name: null,
+          degree: null,
+          email: null,
+          parentEmail: null,
+          password: null,
+        });
       }
     } catch (error) {
       setMessage(error.response ? error.response.data.message : "Something went wrong. Please try again.");
@@ -76,14 +84,14 @@ const Stdreg = () => {
         <img src={logo} alt="FFF Logo" className={styles.reg_logo} />
         <h2 className="reg_h2">Futility Food Fix</h2>
 
-        {["StudentId", "StudentName", "degree", "email", "parentEmail"].map((field, index) => (
+        {["id", "name", "degree", "email", "parentEmail"].map((field, index) => (
           <div className={styles.reg_inputGroup} key={index}>
             <input
               type="text"
               name={field}
-              value={formData[field]}
+              value={formData[field] || ""}  // Avoid undefined value by using fallback to empty string
               onChange={handleChange}
-              placeholder=" " 
+              placeholder=" "
               required
             />
             <label className={styles.reg_floatingLabel}>
@@ -96,7 +104,7 @@ const Stdreg = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            value={formData.password}
+            value={formData.password || ""}  // Fallback to empty string
             onChange={handleChange}
             placeholder=" "
             required
@@ -106,20 +114,21 @@ const Stdreg = () => {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
-<div className={styles.My_Button1}>
-<button  type="submit" disabled={isSubmitting}>{isSubmitting ? "Registering..." : "Register"}</button>
-</div>
-      
+
+        <div className={styles.My_Button1}>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Registering..." : "Register"}
+          </button>
+        </div>
 
         {message && <p className={`${styles.reg_message} ${styles[messageType]}`}>{message}</p>}
 
-        <p className={`${styles.reg_foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>{foodQuotes[currentQuoteIndex]}</p>
+        <p className={`${styles.reg_foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>
+          {foodQuotes[currentQuoteIndex]}
+        </p>
       </form>
     </div>
   );
 };
 
 export default Stdreg;
-
-
-
