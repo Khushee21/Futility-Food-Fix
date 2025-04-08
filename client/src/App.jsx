@@ -25,6 +25,7 @@ import Profile from './Components/Profile/Profile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
 import WDash from './Components/WardenDashBoard/WDash';
+import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -52,7 +53,7 @@ function App() {
 
         
       
-
+          <Route path="/signin-admin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
           <Route path="/occasion-form" element={<OccasionForm />} />
           <Route path="/student-occasion" element={<Studentoccasion />} /> 
           <Route path="/signin" element={<SignInStu />} />

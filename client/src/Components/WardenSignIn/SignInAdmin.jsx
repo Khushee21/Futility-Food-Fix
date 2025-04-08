@@ -26,7 +26,7 @@ const SignInAdmin = ({ onLogin }) => {  // Accept onLogin prop
         onLogin();  // This will set isAdmin to true in App.jsx
 
         // Navigate to the Warden dashboard
-        navigate("/warden-dashboard");
+        navigate("/WDash");
       } else {
         setError(response.data.message || "❌ Invalid credentials");
       }

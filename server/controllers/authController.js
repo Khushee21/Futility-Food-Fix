@@ -152,7 +152,7 @@ exports.requestOtp = async (req, res) => {
         }
 
         const otp = crypto.randomInt(100000, 999999).toString();
-        const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
 
         student.otp = otp;
         student.otpExpires = otpExpires;
@@ -182,6 +182,7 @@ exports.requestOtp = async (req, res) => {
 
 // Verify OTP
 exports.verifyOtp = async (req, res) => {
+    console.log("inside ver");
     const { id, otp } = req.body;
 
     if (!id || !otp) {

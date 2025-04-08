@@ -22,6 +22,7 @@ const ResetPass = () => {
   const [otpSent, setOtpSent] = useState(false); // To track if OTP was sent
   const [loading, setLoading] = useState(false);
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const [isOtpVerified, setIsOtpVerified] = useState(false); // OTP verification state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const ResetPass = () => {
       setError(""); // Clear previous errors
 
       // Make an API request to send OTP
-      const response = await axios.post("/api/request-otp", { id: studentId });
+      const response = await axios.post("http://localhost:5066/api/auth/request-otp", { id: studentId });
 
       if (response.data.success) {
         setSuccess("OTP has been sent to your registered email.");
@@ -61,6 +62,49 @@ const ResetPass = () => {
     }
   };
 
+  // Handle OTP verification action
+  const handleVerifyOtp = async () => {
+    try {
+      const response = await axios.post("http://localhost:5066/api/auth/verify-otp", {
+        id: studentId,
+        otp: otp.join(''), // Joining OTP array as a string
+      });
+  
+      console.log("OTP verified successfully:", response.data);
+      setIsOtpVerified(true);  // OTP is verified, show the password reset form
+      setSuccess(response.data.message); // Optionally, show a success message
+    } catch (error) {
+      console.error("OTP verification failed:", error.response.data);
+      setError(error.response.data.message); // Set the error message from the backend
+    }
+  };
+  
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+  
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:5066/api/auth/reset-password", {
+        id: studentId,
+        otp: otp.join(''), // OTP used in verification step
+        newPassword: newPassword, // New password entered by the user
+      });
+  
+      console.log("Password reset successfully:", response.data);
+      alert(response.data.message);
+      setSuccess(response.data.message);  // Show success message
+      setNewPassword("");  // Clear input fields
+      setConfirmPassword("");
+    } catch (error) {
+      console.error("Password reset failed:", error.response.data);
+      setError(error.response.data.message);  // Show error message
+    }
+  };
+  
   return (
     <div className={styles.re_resetContainer}>
       <div className={styles.re_resetBox}>
@@ -78,7 +122,7 @@ const ResetPass = () => {
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
               className={styles.re_resetInput}
-              style={{backgroundColor: "white", border: "1px solid black", color: "black"}}
+              style={{ backgroundColor: "white", border: "1px solid black", color: "black" }}
               required
             />
             {error && <p className={styles.re_resetError}>{error}</p>}
@@ -106,11 +150,45 @@ const ResetPass = () => {
                 />
               ))}
             </div>
-            <button className={styles.re_resetButton} onClick={() => setIsOtpVerified(true)}>
+            <button className={styles.re_resetButton} onClick={handleVerifyOtp}>
               Verify OTP
             </button>
           </>
         )}
+        {isOtpVerified && (
+  <div className={styles.re_resetBox}>
+    <h1 className={styles.re_resetHeading}>Reset Password</h1>
+
+    <form onSubmit={handleResetPassword}>
+      <label htmlFor="newPassword" className={styles.re_resetLabel}>New Password</label>
+      <input
+        type="password"
+        id="newPassword"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+        className={styles.re_resetInput}
+        required
+      />
+
+      <label htmlFor="confirmPassword" className={styles.re_resetLabel}>Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        className={styles.re_resetInput}
+        required
+      />
+
+      {error && <p className={styles.re_resetError}>{error}</p>}
+      {success && <p className={styles.re_resetSuccess}>{success}</p>}
+
+      <button type="submit" className={styles.re_resetButton}>
+        Reset Password
+      </button>
+    </form>
+  </div>
+)}
 
         <div className={styles.re_quoteContainer}>
           <p key={quoteIndex} className={styles.re_quoteText}>{foodQuotes[quoteIndex]}</p>

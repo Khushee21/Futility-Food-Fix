@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./SDash.css";
 import Chatbot from "../Chatbot";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
+
 
 const SDash = () => {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -19,7 +23,77 @@ const SDash = () => {
 
     const [index, setIndex] = useState(0);
     const [index1, setIndex1] = useState(0);
+    const [goodVotes, setGoodVotes] = useState(0);
+    const [badVotes, setBadVotes] = useState(0);
+    const [hasVoted, setHasVoted] = useState(false);
+    const navigate = useNavigate();
 
+    const studentId = localStorage.getItem("studentId");
+
+    useEffect(() => {
+        fetchVoteCounts();
+    }, []);
+
+    // Fetch vote counts from the server
+    const fetchVoteCounts = async () => {
+        try {
+            const response = await axios.get("/api/vote-counts");
+            setGoodVotes(response.data.goodVotes);
+            setBadVotes(response.data.badVotes);
+        } catch (error) {
+            console.error("Error fetching vote counts:", error);
+        }
+    };
+
+    // Handle vote submission
+    const handleVote = async (vote) => {
+        if (hasVoted) {
+            alert("You have already voted today.");
+            return;
+        }
+
+        try {
+            await axios.post("/api/vote", { studentId, vote });
+            setHasVoted(true);
+            fetchVoteCounts(); // Refresh vote counts
+        } catch (error) {
+            console.error("Error submitting vote:", error);
+        }
+    };
+
+    const goToDashboard = () => {
+        navigate("/SDash");
+      };
+    
+      const goToMonthlyReport = () => {
+        navigate("/monthly-report");
+      };
+    
+      const goToOccupationalMeal = () => {
+        navigate("/student-occasion");
+      };
+    
+      const goToForm = () => {
+        navigate("/stud-daily");
+      };
+    
+      const goToLogout = () => {
+        navigate("/");
+      };
+    
+      const goToMyProfile = () => {
+        navigate("/Profile");
+      };
+    
+      const goToWhyFFF = () => {
+        navigate("/about-us");
+      };
+    
+      const goToNGO = () => {
+        navigate("/NGO");
+      };
+
+      
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % texts.length);
@@ -101,12 +175,26 @@ const SDash = () => {
 >
     &#9776;
 </button>
+<div className="voting-container">
+                <button onClick={() => handleVote("good")} disabled={hasVoted}>
+                    👍 {goodVotes}
+                </button>
+                <button onClick={() => handleVote("bad")} disabled={hasVoted}>
+                    👎 {badVotes}
+                </button>
+            </div>
+
             </div>
 
             <div className="dashS_menu-overlay" id="menuOverlay">
-                {["Dashboard.html", "Monthly_Report.html", "Occupational_Meal.html", "Form.html", "Logout.html", "My_Profile.html", "Why_FFF.html","NGO.html"].map((page, i) => (
-                    <button key={i} onClick={() => window.location.href = page}>{page.replace(".html", "").replace("_", " ")}</button>
-                ))}
+            <button onClick={goToDashboard}>Dashboard</button>
+      <button onClick={goToMonthlyReport}>Monthly Report</button>
+      <button onClick={goToOccupationalMeal}>Occupational Meal</button>
+      <button onClick={goToForm}>Form</button>
+      <button onClick={goToLogout}>Logout</button>
+      <button onClick={goToMyProfile}>My Profile</button>
+      <button onClick={goToWhyFFF}>Why FFF</button>
+      <button onClick={goToNGO}>NGO</button>
             </div>
         </div>
     );
