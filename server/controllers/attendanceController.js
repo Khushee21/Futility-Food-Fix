@@ -24,31 +24,37 @@ const updateAttendance = async (req, res) => {
         continue;
       }
 
-      const attendedAny = meals.some((meal) => meal === true || meal === "late");
+      const allMealsFalse = meals.every(meal => meal === false); // ✅ Check for all false
+      const attendedAny = meals.some(meal => meal === true || meal === "late");
 
-      if (attendedAny) {
-        try {
-          const updatedStudent = await Attendance.findOneAndUpdate(
-            { studentId: id },
-            {
-              $setOnInsert: { name, studentId: id },
-              $inc: { presentCount: 1 },
-            },
-            {
-              new: true,
-              upsert: true,
-              runValidators: true,
-              strict: false,
-            }
-          );
-          
+      try {
+        const updateFields = {
+          $setOnInsert: { name, studentId: id }
+        };
 
-          console.log(`✅ Attendance updated for ${id}:`, updatedStudent);
-        } catch (err) {
-          console.error(`❌ Error updating student with ID ${id}:`, err.message);
+        if (attendedAny) {
+          updateFields.$inc = { presentCount: 1 };
         }
-      } else {
-        console.log(`📌 Student ${id} did not attend any meals. Skipping.`);
+
+        if (allMealsFalse) {
+          if (!updateFields.$inc) updateFields.$inc = {};
+          updateFields.$inc.initialCount = 1; // ✅ Updated to match schema
+        }
+
+        const updatedStudent = await Attendance.findOneAndUpdate(
+          { studentId: id },
+          updateFields,
+          {
+            new: true,
+            upsert: true,
+            runValidators: true,
+            strict: false,
+          }
+        );
+
+        console.log(`✅ Attendance updated for ${id}:`, updatedStudent);
+      } catch (err) {
+        console.error(`❌ Error updating student with ID ${id}:`, err.message);
       }
     }
 

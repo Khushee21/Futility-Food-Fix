@@ -21,6 +21,7 @@ const occasionRoutes = require("./routes/occasionRoutes");
 const dailyRoutes = require("./routes/DailyRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const attendanceRoutes =require("./routes/attendanceRoutes");
+const resRoutes = require("./routes/repRoutes");
 
 // Environment variables
 const PORT = process.env.PORT || 5066;
@@ -74,6 +75,7 @@ app.use("/api/occasional", occasionRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/daily", dailyRoutes);
 app.use("/api/attendance",attendanceRoutes);
+app.use("/api/rep",resRoutes);
 // Welcome route
 app.get("/", (req, res) => {
   res.send("Welcome to the Server!");

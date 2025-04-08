@@ -140,9 +140,55 @@ const getStudentSubmissions =  async (req, res) => {
   }
 };
 
+const getMonthlyFormSubmissionCount = async (req, res) => {
+  try {
+    const { month, year } = req.query;
+
+    if (!month || !year) {
+      return res.status(400).json({ success: false, message: "Month and year are required" });
+    }
+
+    const startDate = new Date(`${year}-${month}-01`);
+    const endDate = new Date(startDate);
+    endDate.setMonth(endDate.getMonth() + 1);
+
+    const submissions = await StudentSubmission.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: startDate.toISOString().split("T")[0],
+            $lt: endDate.toISOString().split("T")[0]
+          }
+        }
+      },
+      {
+        $group: {
+          _id: "$studentId",
+          studentName: { $first: "$studentName" },
+          submissionCount: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { submissionCount: -1 }
+      }
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: `Monthly submission count for ${month}-${year}`,
+      data: submissions
+    });
+
+  } catch (error) {
+    console.error("❌ Error fetching monthly submission count:", error);
+    res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   createDailyMealForm,
   getDailyMealForm,
   submitStudentForm,
   getStudentSubmissions,
+  getMonthlyFormSubmissionCount
 };

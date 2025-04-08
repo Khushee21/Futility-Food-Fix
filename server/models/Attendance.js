@@ -19,6 +19,10 @@ const attendanceSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  initialCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Attendance", attendanceSchema);

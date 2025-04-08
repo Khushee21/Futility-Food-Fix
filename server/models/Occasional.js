@@ -49,7 +49,7 @@ const OccasionalSchema = new mongoose.Schema({
     }
   },
   date: {
-    type: Date,         // Using Date type for better date handling
+    type: Date,         
     required: true
   }
 });

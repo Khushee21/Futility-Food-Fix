@@ -4,7 +4,7 @@ const {
   createDailyMealForm,
   getDailyMealForm,
   submitStudentForm,
-  getStudentSubmissions
+  getStudentSubmissions,
 } = require('../controllers/DailyController');
 
 router.post('/meal-form', createDailyMealForm);

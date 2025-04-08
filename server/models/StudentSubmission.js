@@ -12,6 +12,7 @@ const StudentSubmissionSchema = new mongoose.Schema(
       dinner: { type: Boolean, default: false },
     },
     submissionDate: { type: Date, default: Date.now },
+    count: { type: Number, default: 1 },
   },
   { timestamps: true }
 );
