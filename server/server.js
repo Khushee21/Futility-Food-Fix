@@ -7,6 +7,7 @@ const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 const { setupSocket } = require("./socket"); 
+const nodemailer = require("nodemailer");
 
 // const moment = require("moment");
 // const Student = require('./models/Student'); 

@@ -13,14 +13,14 @@ const updateAttendance = async (req, res) => {
     for (const student of students) {
       let { id, meals, name } = student;
 
-      console.log(`➡️ Processing student: ${JSON.stringify(student)}`);
-
-      // 💡 Convert id to string and trim
       id = id ? String(id).trim() : null;
+      name = name ? String(name).trim() : null;
 
-      // ⛔ Validate fields strictly
+      console.log(`➡️ Processing student: ${JSON.stringify(student)}`);
+      console.log(`🧪 Final studentId to update in DB: ${id}`);
+
       if (!id || !name || !Array.isArray(meals)) {
-        console.warn("⚠️ Skipping invalid student:", student);
+        console.warn("⚠️ Skipping invalid student due to missing ID, name or meals:", student);
         continue;
       }
 
@@ -41,6 +41,7 @@ const updateAttendance = async (req, res) => {
               strict: false,
             }
           );
+          
 
           console.log(`✅ Attendance updated for ${id}:`, updatedStudent);
         } catch (err) {
