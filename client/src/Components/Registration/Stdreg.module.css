@@ -1,17 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Playfair+Display:ital,wght@1,700&display=swap');
 
-/* body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #222;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
-} */
-
 .reg_registerContainer {
   background: white;
   color: black;
@@ -58,7 +46,6 @@
   width: 100%;
   padding: 12px;
   border: 2px solid rgba(118, 113, 113, 0.388);
-  /* Default black border */
   border-radius: 5px;
   font-size: 16px;
   box-sizing: border-box;
@@ -67,17 +54,14 @@
   outline: none;
 }
 
-/* Change border to blue when focused */
 .reg_inputGroup input:focus {
   border-color: #646cff;;
 }
 
-/* Label remains at the border at all times */
 .reg_floatingLabel {
   position: absolute;
   left: 12px;
   top: -10px;
-  /* Always stay at border */
   background: white;
   padding: 0 5px;
   font-size: 10px;
@@ -85,7 +69,6 @@
   pointer-events: none;
 }
 
-/* Password field and eye icon */
 .passwordGroup {
   display: flex;
   align-items: center;
@@ -104,7 +87,6 @@
 .My_Button1
 {
   width:100%;
-  /* background-color: red; */
 }
 .My_Button1 button{
   background-color: rgb(64, 64, 255);
@@ -132,7 +114,6 @@
   animation: fadeIn 0.5s ease-in-out;
   }
   
-  /* Animation */
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -144,8 +125,7 @@
       transform: translateY(0px);
     }
   }
-  
-  /* Media Queries */
+ 
   @media (prefers-color-scheme: light) {
     :root {
       color: #213547;
@@ -156,5 +136,5 @@
 
 
   .reg_inputGroup input {
-    color: black; /* This will ensure input text appears in black */
+    color: black; 
   }

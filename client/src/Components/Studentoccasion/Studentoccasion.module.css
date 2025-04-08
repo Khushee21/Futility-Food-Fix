@@ -1,11 +1,9 @@
-/* Background Image for the Page */
 * {
     
     text-align: center;
-    /* background-color: #100f0f; */
     
 }
-/* Animation for "Shree Shanta Sangam" (One-time Bounce) */
+
 @keyframes bounceOnce {
     0% {
         opacity: 0;
@@ -26,7 +24,7 @@
     animation: bounceOnce 1.2s ease-out;
 }
 
-/* Animation for the Form (Fade-in + Scale-Up) */
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -37,28 +35,24 @@
     }
 }
 
-/* Transparent White Form */
 .stocc_container {
     max-width: 700px;
     margin: auto;
     background: rgba(255, 255, 255, 0.176);
-    /* White with transparency */
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: absolute;
-        /* Or use "fixed" if needed */
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     animation: fadeIn 1s ease-out;
     background-image: url('/holi.jpg');
-        /* Add your image path here */
         background-size: cover;
         background-position: center;
 }
 
-/* Heading Styles */
+
 .stocc_animatedTitle{
     color: #151515;
     font-size: 32px;
@@ -74,7 +68,7 @@
     font-size: 19px;
 }
 
-/* Pulse Animation */
+
 @keyframes pulse {
 
     0%,
@@ -87,7 +81,7 @@
     }
 }
 
-/* Forms Layout */
+
 .stocc_forms {
     display: flex;
     justify-content: space-around;
@@ -98,12 +92,11 @@
     text-align: center;
 }
 
-/* Transparent Black Circle */
+
 .stocc_bulgingCircle {
     width: 230px;
     height: 230px;
     background-color: rgba(30, 29, 27, 0.566);
-    /* Black with transparency */
     border-radius: 50%;
     display: flex;
     flex-direction: column;
@@ -115,7 +108,7 @@
     margin-bottom:10px;
 }
 
-/* Checkbox inside circle */
+
 .stocc_checkContainer {
     position: absolute;
     bottom: 5px;
@@ -128,7 +121,7 @@
     cursor: pointer;
 }
 
-/* Oval Buttons */
+
 .stocc_oval {
     width: 130px;
     height: 45px;
@@ -147,21 +140,21 @@
     padding: 5px;
 }
 
-/* Hover Effect on Oval */
+
 .stocc_oval:hover {
     background-color: #804e11;
     transform: scale(1.1);
     color: rgb(244, 238, 238);
 }
 
-/* Food item inside oval */
+
 .stocc_foodItem {
     font-size: 14px;
     color: white;
     margin-left: 5px;
 }
 
-/* Close Button */
+
 .stocc_closeButton {
     background-color: rgb(178, 1, 1);
     color: white;
@@ -179,7 +172,7 @@
     background-color: darkred;
 }
 
-/* Submit Button */
+
 button.stocc_submit {
     background-color:#1d692f;
     color: white;
@@ -198,9 +191,7 @@ button.stocc_submit:hover {
 }
 .stocc_errorMessage {
     background-color: #100f0f;
-    /* Light red background */
     color:#ffcccc;
-    /* Dark red text */
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
@@ -209,7 +200,6 @@ button.stocc_submit:hover {
 }
 .stocc_highlightText {
     background-color: #ffdd99;
-    /* Light orange background */
     padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;
@@ -218,7 +208,6 @@ button.stocc_submit:hover {
 }
 .stocc_highlightText1 {
     background-color: #ffdd99;
-    /* Light orange background */
     padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;

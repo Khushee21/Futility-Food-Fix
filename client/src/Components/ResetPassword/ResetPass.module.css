@@ -119,7 +119,6 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 
-/* Quote Container */
 .re_quoteContainer {
   text-align: center;
   font-size: 16px;
@@ -136,17 +135,15 @@ body {
 {
   color:black;
 }
-/* Quote Animation */
+
 .re_quoteText {
   animation: fadeInOut 0.5s infinite;
   color:#555;
   white-space: nowrap;
-  /* Prevents text from wrapping */
 animation: fadeIn 0.5s ease-in-out;
 font-weight: bold;
 }
 
-/* Animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -159,7 +156,6 @@ font-weight: bold;
   }
 }
 
-/* Media Queries */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

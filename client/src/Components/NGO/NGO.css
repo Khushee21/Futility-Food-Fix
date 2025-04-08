@@ -23,7 +23,6 @@
     box-sizing: border-box;
 }
 
-/* Header */
 .NGO_header {
     text-align: center;
     margin-bottom: 2rem;
@@ -41,30 +40,24 @@
     color: #f6fafa;
 }
 
-/* Common heading style */
 .NGO_section-heading {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 16px;
 }
 
-/* Left panel heading (NGO List) */
 .NGO_left-heading {
     color: #e8e9ea;
-    /* Blue */
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
     text-align: center;
 }
 
-/* Right panel heading (Selected NGO Name) */
 .NGO_right-heading {
     color: #efecec;
-    /* Maroon */
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
     text-align: center;
 }
 
-/* Layout for the main content */
 .NGO_content-container {
     display: flex;
     gap: 1rem;
@@ -77,47 +70,35 @@
 
 .NGO_ngo-image {
     width: 100vw;
-    /* Make image responsive to container width */
     height: auto;
-    /* Maintain aspect ratio */
     max-height: 150px;
-    /* Set a max height so it's not too tall */
     border-radius: 10px;
     margin-bottom: 1rem;
     object-fit: contain;
-
-    /* Ensures the entire image fits inside */
 }
 
 .NGO_ngo-list,
 .NGO_ngo-details {
     background-color: rgba(120, 120, 113, 0.194);
     padding: 1rem;
-    /* reduced from 1.5rem to save space */
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 350px;
     min-height: 300px;
     border: 2px solid white;
-    /* <-- added this */
 }
 
-/* Right container styles */
 .NGO_ngo-details p {
     color: #f0f0f0;
-    /* Light gray for contrast */
     font-weight: 500;
 }
 
-/* Keep 'Contact:' bold and white */
 .NGO_ngo-details p strong {
     color: white;
 }
 
-/* Style the website link */
 .NGO_ngo-details a {
     color: #007bff;
-    /* Keep it blue */
     background-color: white;
     padding: 2px 6px;
     border-radius: 4px;
@@ -192,7 +173,6 @@
     cursor: pointer;
 }
 
-/* Responsive tweaks */
 @media (max-width: 768px) {
     .NGO_content-container {
         flex-direction: column;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./P.css"; // Import the CSS file
+import "./P.css"; 
 
 const Profile = () => {
   const [name, setName] = useState("Chesta Sharma");
   const [studentId, setStudentId] = useState("ABMCA24090");
   const [degree, setDegree] = useState("MCA");
-  const [studentEmail] = useState("chesta.sharma@banasthali.in"); // Uneditable
+  const [studentEmail] = useState("chesta.sharma@banasthali.in"); 
   const [parentEmail, setParentEmail] = useState("satbirsharma123@gmail.com");
   const [profilePic, setProfilePic] = useState(
     "http://3.bp.blogspot.com/-Le4kx6cdgRI/UcFOVbsDmiI/AAAAAAAABTY/Pwjv1dBRVBs/s1600/hd-picture-lovely-baby-kid-smiling-laughing--download-freely.jpg"

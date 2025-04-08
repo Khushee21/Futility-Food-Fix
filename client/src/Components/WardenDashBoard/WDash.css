@@ -1,17 +1,9 @@
-
-
-
 body {
   box-sizing:content-box;
   background: #f4f4f4;
   background-color: rgb(0, 0, 0);
-  overflow-x: hidden;
- 
-
+  overflow-x: hidden; 
 }
-
-
-
 
 .WashS_shape {
   position: relative;
@@ -30,10 +22,9 @@ body {
   align-items: center;
   gap: 15px;
   margin-top:0px;
-  /* Space between logo and text */
 }
 .WashS_container {
-  margin-top: 0px; /* Adjust depending on your header height */
+  margin-top: 0px; 
 }
 .WashS_logo {
   width: 80px;
@@ -47,7 +38,6 @@ body {
   transform: rotate(360deg);
 }
 
-/* Text Animations */
 @keyframes slideFadeIn {
   0% {
       opacity: 0;
@@ -130,7 +120,6 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Overlay for text on image */
 .WashS_text-container {
   position: absolute;
   width: 100%;
@@ -142,7 +131,6 @@ body {
   color: white;
 }
 
-/* Ensures text is centered and readable */
 .WashS_text {
   font-size: 30px;
   font-weight: bold;
@@ -150,7 +138,7 @@ body {
   text-align: center;
 }
 
-/* Animation for text */
+
 .WashS_animate {
   animation: slideLeft 0.5s ease-out forwards;
 }
@@ -171,16 +159,11 @@ body {
   }
 }
 
-
-
-
-
 .WashS_about-container {
   width: 100%;
   padding: 13px;
   background: #333;
   color: white;
-  /* color:rgb(97, 97, 244) */
   text-align: center;
   font-size: 20px;
   font-weight: bold;
@@ -206,7 +189,6 @@ body {
   left: 0;
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
-  /* border-radius: 10px; */
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   padding: 15px;
   text-align: center;
@@ -257,14 +239,7 @@ body {
   color: #555;
   text-align: center;
   transition: 0.3s;
-  /* color:rgb(26, 25, 25) */
 }
-
-
-
-
-
-
 
 .WashS_container11 {
   position: absolute;
@@ -279,7 +254,6 @@ body {
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  /* border: 5px solid transparent; */
   animation: glowBorder 3s infinite alternate;
 }
 
@@ -347,10 +321,6 @@ body {
   text-align: center;
 }
 
-/* @keyframes bounce {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-10px); }
-} */
 @keyframes pulse {
   0% {
       transform: scale(1);
@@ -365,15 +335,13 @@ body {
   }
 }
 
-/* Ensure meal button section has space */
+
 .WashS_meal-button-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 50px;
-  /* Adds space below announcement */
   padding-bottom: 20px;
-  /* Prevents overlap with footer */
   gap: 10px;
   
 }
@@ -382,15 +350,11 @@ body {
   background: linear-gradient(45deg, #ff8c00, #f0eeee);
   color: rgb(20, 19, 19);
   font-size: 16px;
-  /* Adjusted for better readability */
   font-weight: bold;
   font-family: "Poppins", sans-serif;
-  /* Modern font */
   border: none;
   padding: 10px 20px;
-  /* Balanced padding for better shape */
   width: 350px;
-  /* Increased width */
   height:40px;
   text-align: center;
   border-radius: 25px;
@@ -400,17 +364,13 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   white-space: nowrap;
-  
-  /* Forces text into a single line */
 }
 
-/* Button Hover Effect */
 .WashS_meal-button:hover {
   transform: scale(1.9);
   box-shadow: 0 0 15px rgba(255, 69, 0, 1);
 }
 
-/* Glowing Animation */
 @keyframes pulseGlow {
   0% {
       box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
@@ -429,12 +389,10 @@ body {
   animation: pulseGlow 2s infinite alternate;
 }
 
-/* Flex container for vote buttons */
 .WashS_vote-buttons {
   display: flex;
   align-items: center;
   gap: 10px;
-  /* Space between buttons */
 } 
 .WashS_vote-button {
    display: flex;
@@ -449,10 +407,8 @@ body {
    transition: all 0.3s ease;
 }
 
-/* Upvote Button */
 .WashS_upvote {
    background: white;
-   /* Green */
    color: rgba(40, 167, 69, 0.8);
    box-shadow: 0 0 10px rgba(40, 167, 69, 0.8);
    border:none;
@@ -463,10 +419,8 @@ body {
    box-shadow: none;
 }
 
-/* Downvote Button */
 .WashS_downvote {
    background: white;
-   /* Red */
    color: #dc3545;
    box-shadow: 0 0 10px rgba(220, 53, 69, 0.8);
   border: none;
@@ -479,22 +433,13 @@ body {
 .WashS_button-container {
   display: flex;
   justify-content: center;
-  /* Center buttons horizontally */
   align-items: center;
-  /* Align vertically */
   gap: 25px;
-  /* Space between buttons */
   flex-wrap: wrap;
-  /* Prevents overflow */
-
-  /* Adjust spacing */
 margin-left:0px;
 width: 100%;
-  /* Make sure container takes full width */
   max-width: 100vw;
-  /* Prevents overflow */
   padding: 20px;
-  /* Adds space to avoid cut-off */
   overflow: visible;/
 }
 
@@ -680,9 +625,6 @@ width: 100%;
   }
 }
 
-
-
-
 .WashS_menu-container {
   position: fixed;
   top: 20px;
@@ -710,7 +652,6 @@ width: 100%;
   transform: rotate(90deg);
 }
 
-/* Menu overlay */
 .WashS_menu-overlay {
   position: fixed;
   top: 0;
@@ -723,17 +664,13 @@ width: 100%;
   justify-content: center;
   align-items: center;
   transform: translateX(100%);
-  /* Start off-screen */
   transition: transform 0.9s ease-in-out;
 }
 
-/* When menu is active */
 .WashS_menu-overlay.WashS_active {
   transform: translateX(0);
-  /* Slide in */
 }
 
-/* Menu buttons */
 .WashS_menu-overlay button {
   background: linear-gradient(45deg, #444, #666);
   border: none;
@@ -751,7 +688,6 @@ width: 100%;
   transition: transform 0.9s ease-out, opacity 0.4s ease-out;
 }
 
-/* Show buttons with delay */
 .WashS_menu-overlay.WashS_active button {
   opacity: 1;
   transform: translateY(0);
@@ -765,23 +701,11 @@ width: 100%;
 .WashS_menu-overlay.WashS_active button:nth-child(6) {transition-delay: 0.6s;}
 .WashS_menu-overlay.WashS_active button:nth-child(7) {transition-delay: 0.7s;}
 
-/* .WashS_menu-overlay.open button:nth-child(1) { transition-delay: 0.1s; }
-.WashS_menu-overlay.open button:nth-child(2) { transition-delay: 0.2s; }
-.WashS_menu-overlay.open button:nth-child(3) { transition-delay: 0.3s; }
-.WashS_menu-overlay.open button:nth-child(4) { transition-delay: 0.4s; }
-.WashS_menu-overlay.open button:nth-child(5) { transition-delay: 0.5s; }
-.WashS_menu-overlay.open button:nth-child(6) { transition-delay: 0.6s; }
-.WashS_menu-overlay.open button:nth-child(7) { transition-delay: 0.7s; } */
-
-/* Hover effect */
 .WashS_menu-overlay button:hover {
   background: linear-gradient(45deg, #555, #777);
   transform: scale(1.05) rotate(1deg);
   box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
 }
-
-
-
 
 .WashS_fixed-header {
   position: fixed;
@@ -793,27 +717,11 @@ width: 100%;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  /* background-color: black;  */
 }
-
 
 .WashS_scroll-wrapper {
-  padding-top: 170px; /* Same height as fixed header */
+  padding-top: 170px; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .WashS_menu-overlay {
   position: fixed;
@@ -845,94 +753,6 @@ width: 100%;
   background-color: #555;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .WashS_menu-container {
-  /* position: fixed; */
-  /* top: 20px; */
-  /* left: 20px; */
   z-index: 2000;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

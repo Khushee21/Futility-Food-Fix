@@ -11,7 +11,6 @@ const Studentoccasion = () => {
   const [error, setError] = useState(false);
   const [showForm, setShowForm] = useState(true);
 
-  // Function to fetch today's occasion data
   const fetchMenuData = async () => {
     try {
       const response = await axios.get("http://localhost:5066/api/occasional");
@@ -26,7 +25,7 @@ const Studentoccasion = () => {
     }
   };
 
-  // Initial fetch and setup Socket.IO connection
+
   useEffect(() => {
     fetchMenuData();
 
@@ -36,7 +35,7 @@ const Studentoccasion = () => {
       setMenu(data);
     });
 
-    // Cleanup on unmount
+
     return () => {
       socket.disconnect();
     };
@@ -60,8 +59,6 @@ const Studentoccasion = () => {
     } else {
       setError(false);
       alert("Form submitted successfully!");
-      // Example POST request to vote:
-      // axios.post("http://localhost:5066/api/occasional/vote", { selectedMenu });
     }
   };
 
@@ -75,7 +72,6 @@ const Studentoccasion = () => {
       <h2 className={styles.stocc_highlightText1}>{menu?.occasion}</h2>
 
       <div className={styles.stocc_forms}>
-        {/* Menu 1 */}
         <div className={styles.stocc_subForm}>
           <h3 className={styles.stocc_highlightText}>Menu 1</h3>
           <div className={styles.stocc_bulgingCircle}>
@@ -92,7 +88,6 @@ const Studentoccasion = () => {
           </div>
         </div>
 
-        {/* Menu 2 */}
         <div className={styles.stocc_subForm}>
           <h3 className={styles.stocc_highlightText}>Menu 2</h3>
           <div className={styles.stocc_bulgingCircle}>
@@ -110,14 +105,12 @@ const Studentoccasion = () => {
         </div>
       </div>
 
-      {/* Error Message */}
       {error && (
         <p className={styles.stocc_errorMessage}>
           Firstly select any of the given menu
         </p>
       )}
 
-      {/* Date & Submit Button */}
       <p className={styles.stocc_highlightText}>
         <b>Date:</b> {menu?.date}
       </p>

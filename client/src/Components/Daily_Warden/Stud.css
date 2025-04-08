@@ -9,29 +9,24 @@
     }}
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    /* background-color: #e33535; */
     color: #000;
     text-align: center;
-    /* background: url('Background.jpg') no-repeat center center;
-    background-size: cover; */
     padding: 0;
     margin: 0;
 }
 
 .St_container {
-    width: 35vw; /* Reduced width */
+    width: 35vw;
     margin-left: 4vw;
     margin-top: 0vh;
     padding-top: 0vh;
-    padding: 1vh; /* Adjusted padding */
+    padding: 1vh; 
     border-radius: 4vh;
-
     position: relative;
     text-align: center;
     background-color: rgba(40, 39, 39, 0.9);
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     animation: scaleUp 0.5s ease-in-out;
-    /* background-color: rgba(174, 174, 174, 0.2); */
 }
 
 .St_container h1 {
@@ -85,13 +80,12 @@ body {
     font-weight: bold;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out; /* Smooth transition for color change */
+    transition: background-color 0.3s ease-in-out; 
 color:black;
 }
 
 .St_small-circle:hover {
     background: #70a070;
-    /* No scaling effect here */
 }
 
 .breakfast { top: 0; left: 50%; transform: translate(-50%, 0); }
@@ -123,14 +117,6 @@ label[for="da"] {
     color: white;
 }
 
-/* .mydate input[type="date"] {
-    font-size: 1.6vh;
-    padding: 0.2vw;
-    border: 1px solid #000000;
-    border-radius: 0.2vw;
-    background: #292727;
-    text-align: center;
-} */
 input[type="submit"]:hover {
     background: rgb(1, 123, 7);
     transform: scale(1.1);
@@ -141,7 +127,6 @@ input[type="submit"] {
     font-size: 2vh;
     font-weight: bold;
     border: none;
-    /* background: black; */
    background: rgb(1, 114, 16);
     border-radius: 1vh;
     cursor: pointer;

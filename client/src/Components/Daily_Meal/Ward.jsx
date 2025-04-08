@@ -15,8 +15,6 @@ const Ward = () => {
     myDate: "",
   });
   const [socket, setSocket] = useState(null);
-
-  // Initialize Socket.IO connection
   useEffect(() => {
     const newSocket = io("http://localhost:5066");
     setSocket(newSocket);
@@ -30,12 +28,10 @@ const Ward = () => {
     };
   }, []);
 
-  // Handle form input changes
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.myDate) {

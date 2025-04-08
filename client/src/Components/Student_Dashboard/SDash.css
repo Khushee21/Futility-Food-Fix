@@ -1,24 +1,8 @@
 body {
-   /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    /* overflow: hidden; */
-
     background: #f4f4f4;
-    /*margin: 0;
-    padding-top: 3vh;*/
     background-color: rgb(0, 0, 0);
-    /* color: green; */
     overflow-x: hidden;
-        /* Prevents horizontal scrolling */
-        
 }
-
-
-
-
 
 .dashS_fixed-header {
     position: absolute;
@@ -30,9 +14,7 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0;
-    /* Remove margin */
     padding: 0;
-    /* Remove padding */
 }
 
 .dashS_shape {
@@ -51,7 +33,6 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    /* Space between logo and text */
 }
 
 .dashS_logo {
@@ -65,7 +46,6 @@ body {
     transform: rotate(360deg);
 }
 
-/* Text Animations */
 @keyframes slideFadeIn {
     0% {
         opacity: 0;
@@ -124,13 +104,10 @@ body {
 
 }
 
-/* Ensures the image stretches full width */
 .dashS_container {
     position: relative;
     width: 100vw;
-    /* Full width of the screen */
     height: 30vh;
-    /* Adjust height as needed */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,11 +115,8 @@ body {
     background-position: center;
     transition: background-image 0.5s ease-in-out;
     margin-top: px;
-    /* Reduced margin */
-    /* background-color: olive; */
 }
 
-/* Ensures the text is positioned above the image */
 .dashS_center-container {
     width: 100%;
     text-align: center;
@@ -151,11 +125,9 @@ body {
     font-weight: bold;
     padding: 20px;
     position: relative;
-    /* background-color: rgba(122, 22, 22, 0.7); */
-margin-top: 4%;;
+    margin-top: 4%;
 }
 
-/* Overlay for text on image */
 .dashS_text-container {
     position: absolute;
     width: 100%;
@@ -167,7 +139,6 @@ margin-top: 4%;;
     color: white;
 }
 
-/* Ensures text is centered and readable */
 .dashS_text {
     font-size: 30px;
     font-weight: bold;
@@ -175,7 +146,6 @@ margin-top: 4%;;
     text-align: center;
 }
 
-/* Animation for text */
 .dashS_animate {
     animation: slideLeft 0.5s ease-out forwards;
 }
@@ -204,7 +174,6 @@ margin-top: 4%;;
     padding: 13px;
     background: #333;
     color: white;
-    /* color:rgb(97, 97, 244) */
     text-align: center;
     font-size: 20px;
     font-weight: bold;
@@ -213,7 +182,6 @@ margin-top: 4%;;
     position: fixed;
     bottom: 0;
     left: 0;
-    /* z-index: 100; */
 }
 
 .dashS_about-container:hover {
@@ -230,7 +198,6 @@ margin-top: 4%;;
     left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.9);
-    /* border-radius: 10px; */
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     padding: 15px;
     text-align: center;
@@ -281,14 +248,7 @@ margin-top: 4%;;
     color: #555;
     text-align: center;
     transition: 0.3s;
-    /* color:rgb(26, 25, 25) */
 }
-
-
-
-
-
-
 
 .dashS_container11 {
     position: absolute;
@@ -303,7 +263,6 @@ margin-top: 4%;;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    /* border: 5px solid transparent; */
     animation: glowBorder 3s infinite alternate;
 }
 
@@ -323,13 +282,10 @@ margin-top: 4%;;
 
 .dashS_announcement-container {
     margin-top: 70px;
-    /* Adjust as needed */
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    
 }
 
 .dashS_announcement {
@@ -344,10 +300,6 @@ margin-top: 4%;;
   
 }
 
-/* @keyframes bounce {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-10px); }
-} */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -384,9 +336,6 @@ margin-top: 4%;;
     }
 }
 
-
-
-
 .dashS_menu-container {
     position: fixed;
     top: 20px;
@@ -413,7 +362,6 @@ margin-top: 4%;;
     transform: rotate(90deg);
 }
 
-/* Menu overlay */
 .dashS_menu-overlay {
     position: fixed;
     top: 0;
@@ -426,17 +374,13 @@ margin-top: 4%;;
     justify-content: center;
     align-items: center;
     transform: translateX(100%);
-    /* Start off-screen */
     transition: transform 0.9s ease-in-out;
 }
 
-/* When menu is active */
 .dashS_menu-overlay.dashS_active {
     transform: translateX(0);
-    /* Slide in */
 }
 
-/* Menu buttons */
 .dashS_menu-overlay button {
     background: linear-gradient(45deg, #444, #666);
     border: none;
@@ -454,7 +398,6 @@ margin-top: 4%;;
     transition: transform 0.9s ease-out, opacity 0.4s ease-out;
 }
 
-/* Show buttons with delay */
 .dashS_menu-overlay.dashS_active button {
     opacity: 1;
     transform: translateY(0);
@@ -488,7 +431,6 @@ margin-top: 4%;;
     transition-delay: 0.7s;
 }
 
-/* Hover effect */
 .dashS_menu-overlay button:hover {
     background: linear-gradient(45deg, #555, #777);
     transform: scale(1.05) rotate(1deg);

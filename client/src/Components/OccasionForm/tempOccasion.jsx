@@ -12,16 +12,13 @@ const OccasionForm = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
 
-  // Handle change for the occasion dropdown
   const handleOccasionChange = (e) => {
     setOccasion(e.target.value);
-    // Reset error if any
     if (formErrors.occasion) {
       setFormErrors((prev) => ({ ...prev, occasion: "" }));
     }
   };
 
-  // Handle change for specifying other occasion
   const handleOtherOccasionChange = (e) => {
     setOtherOccasion(e.target.value);
     if (formErrors.otherOccasion) {
@@ -29,7 +26,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Handle file upload and convert to Base64 string
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -41,7 +37,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Handle changes in meal inputs
   const handleMealChange = (e, mealNumber, field) => {
     const value = e.target.value;
     if (mealNumber === 1) {
@@ -51,7 +46,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Validate all fields before submitting
   const validateForm = () => {
     let errors = {};
     if (!occasion) errors.occasion = "Occasion is required";
@@ -60,12 +54,10 @@ const OccasionForm = () => {
     }
     if (!customImage) errors.image = "Image upload is required";
 
-    // Validate meal1 fields
     if (!meal1.dal.trim()) errors.daal1 = "This field is required";
     if (!meal1.vegetable.trim()) errors.vegetable1 = "This field is required";
     if (!meal1.sweet.trim()) errors.sweet1 = "This field is required";
 
-    // Validate meal2 fields
     if (!meal2.dal.trim()) errors.daal2 = "This field is required";
     if (!meal2.vegetable.trim()) errors.vegetable2 = "This field is required";
     if (!meal2.sweet.trim()) errors.sweet2 = "This field is required";
@@ -76,12 +68,10 @@ const OccasionForm = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Use the specified otherOccasion if "other" is selected
     const finalOccasion = occasion === "other" ? otherOccasion : occasion;
 
     const formData = {
@@ -101,7 +91,6 @@ const OccasionForm = () => {
     };
 
     try {
-      // Note: Ensure your backend endpoint matches this route!
       const response = await axios.post(
         "http://localhost:5066/api/occasional/create",
         formData,
@@ -119,7 +108,6 @@ const OccasionForm = () => {
     }
   };
 
-  // Reset the form to its initial state
   const handleReset = () => {
     setOccasion("");
     setOtherOccasion("");
@@ -138,11 +126,7 @@ const OccasionForm = () => {
         </button>
         <h1 className={styles.occ_title}>Shree Shanta Sangam</h1>
         <form onSubmit={handleSubmit}>
-          {/* Occasion Dropdown */}
           <div className={styles.occ_formGroup}>
-            {/* <label htmlFor="occasion">
-            <strong style={{ color: "white" }}>Occasion:</strong>
-            </label> */}
             <select
               id="occasion"
               className="occasion"
@@ -167,7 +151,6 @@ const OccasionForm = () => {
             )}
           </div>
 
-          {/* Specify Other Occasion */}
           {occasion === "other" && (
             <div className={styles.occ_formGroup}>
               <label htmlFor="otherOccasion">
@@ -187,7 +170,6 @@ const OccasionForm = () => {
             </div>
           )}
 
-          {/* Upload Custom Image */}
           <div className={styles.occ_uploadContainer} style={{ color: "white" }}>
   <label htmlFor="image">
     <strong  style={{width:"200px" ,marginLeft:"70px"}} >Upload Custom Image:</strong>
@@ -198,16 +180,13 @@ const OccasionForm = () => {
   )}
 </div>
 
-          {/* Meal Choices */}
           <div className={styles.occ_choiceContainer}>
             <div className={styles.occ_choiceBox}>
               <h3>Choice 1</h3>
               <div className="occ_t">
-                <label  style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="daal1">
-                  {/* <strong >Daal:</strong> */}
+                <label  style={{ textAlign: "left", display: "block", width: "100px"}} htmlFor="daal1">             
                   <strong >Daal:</strong>
 
-                  {/* <strong style="text-align: left; display: block;">Daal:</strong> */}
                 </label>
                 <input 
                   type="text"
@@ -293,7 +272,6 @@ const OccasionForm = () => {
                   id="sweet2"
                   value={meal2.sweet}
                   onChange={(e) => handleMealChange(e, 2, "sweet")}
-                  // style={{ backgroundColor: "rgb(0, 0, 0)"}}
                   required
                 />
                 {formErrors.sweet2 && (
@@ -303,7 +281,6 @@ const OccasionForm = () => {
             </div>
           </div>
 
-          {/* Date Selection */}
           <div className={styles.occ_formGroup}>
             <label htmlFor="date">
               <strong style={{ color: "white" }}>Date:</strong>
@@ -322,7 +299,6 @@ const OccasionForm = () => {
             )}
           </div>
 
-          {/* Submit and Reset Buttons */}
           <div className={styles.occ_buttonGroup}>
             <button className = {styles.occ_button} type="submit">Submit</button>
             <button className = {styles.occ_button} type="button" onClick={handleReset}>

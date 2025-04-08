@@ -79,13 +79,11 @@ const Stdreg = () => {
         {["StudentId", "StudentName", "degree", "email", "parentEmail"].map((field, index) => (
           <div className={styles.reg_inputGroup} key={index}>
             <input
-            //  style={{ backgroundColor: "rgb(255, 255, 255)",border:"1px  rgb(86, 24, 24)" ,height:"7%"}}
               type="text"
               name={field}
               value={formData[field]}
               onChange={handleChange}
-              placeholder=" " /* Required for floating label effect */
-            
+              placeholder=" " 
               required
             />
             <label className={styles.reg_floatingLabel}>

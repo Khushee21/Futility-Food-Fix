@@ -1,21 +1,11 @@
-/* Importing Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Great+Vibes&family=Bebas+Neue&family=Oswald:wght@500&family=Playfair+Display:ital,wght@1,700&family=Lora:ital,wght@1,600&family=Dancing+Script:wght@700&display=swap');
-
-/* Global Styles */
 body {
-  /*background-color: #141515ea;*/
-  /*display: flex;*/
   justify-content: center;
-  /*align-items: center;
-  
-  font-family: 'Poppins', sans-serif;*/
-
 }
 .sstu_eyeIcon svg {
-  /* fill: black; */
   stroke: black;
 }
-/* Auth Box */
+
 .sstu_authBox {
   background: white;
   padding: 2rem;
@@ -25,14 +15,12 @@ body {
   width: 400px;
 }
 
-/* Logo */
 .sstu_authLogo {
   width: 80px;
   height: 80px;
   margin-bottom: 10px;
 }
 
-/* Heading */
 .sstu_authHeading {
   font-size: 32px;
   font-weight: bold;
@@ -41,7 +29,6 @@ body {
   color: #101010;
 }
 
-/* Input Fields */
 .sstu_inputContainer {
   position: relative;
   margin-bottom: 20px;
@@ -82,7 +69,6 @@ body {
   color: #275586d5;
 }
 
-/* Password Eye Icon */
 .sstu_eyeIcon {
   position: absolute;
   right: 12px;
@@ -96,22 +82,16 @@ body {
   color: #007bff;
 }
 
-/* Buttons - Reset Global Styles */
-
-
-/* Auth Button */
 .sstu_authButton {
   width: 100%;
   padding: 12px;
   background-color: #007bff;
-  /* Removed !important */
   color: white;
   font-size: 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  /* Fixed transition */
   display: block;
   margin-top: 10px;
 }
@@ -120,7 +100,6 @@ body {
   background-color: #1f067a;
 }
 
-/* General Buttons - Not Auth Button */
 .sstu_button:not(.sstu_authButton) {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -136,7 +115,6 @@ body {
   border-color: #646cff;
 }
 
-/* Links */
 .sstu_authLinks {
   margin-top: 15px;
 }
@@ -157,7 +135,6 @@ body {
   color: #007bff; ;
 }
 
-/* Animated Food Quotes */
 .sstu_foodQuote {
   margin-top: 20px;
   font-size: 14px;
@@ -166,7 +143,6 @@ body {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -179,7 +155,6 @@ body {
   }
 }
 
-/* Media Queries */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -187,13 +162,8 @@ body {
   }
 }
 
-
-
-
-
 .sstu_inputContainer input {
-  color: black; /* Set the input text color to black */
-  /* Optional enhancements: */
+  color: black;
   background-color: white;
   border: 1px solid #ccc;
   padding: 10px;

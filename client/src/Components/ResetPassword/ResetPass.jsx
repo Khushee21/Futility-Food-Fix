@@ -72,7 +72,6 @@ const ResetPass = () => {
           </>
         )}
 
-        {/* ⬇️ Quotes placed below the OTP container inside reset-box */}
         <div className={styles.re_quoteContainer}>
           <p key={quoteIndex} className={styles.re_quoteText}>{foodQuotes[quoteIndex]}</p>
         </div>
