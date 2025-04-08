@@ -1,0 +1,45 @@
+.student-list-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .student-list-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .student-table th, .student-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .student-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .view-report-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .view-report-button:hover {
+    background-color: #45a049;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }

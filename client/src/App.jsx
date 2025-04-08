@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
+import rep from './Components/Rep/Rep';
 import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
 import WDash from './Components/WardenDashBoard/WDash';
 import StudentProfile from './Components/myProfile/studentProfile';
@@ -17,6 +17,7 @@ import AboutFFF from './Components/AboutFFF/About_Us';
 import Profile from './Components/myProfile/studentProfile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
+import Rep from './Components/Rep/Rep';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -55,7 +56,7 @@ function App() {
 
           {/* NGO Route */}
           <Route path="/NGO" element={<NGO />} />
-
+          <Route path="/std-list" element={<Rep/>}/>
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>

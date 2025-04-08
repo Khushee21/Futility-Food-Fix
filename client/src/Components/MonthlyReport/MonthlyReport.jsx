@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios"; // Make sure axios is installed
 
 ChartJS.register(BarElement, ArcElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -23,40 +24,51 @@ const getPreviousMonth = () => {
   return previousMonthIndex >= 0 ? monthNames[previousMonthIndex] : "December";
 };
 
-const MonthlyReport = () => {
+const MonthlyReport = ({ studentId }) => {
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [previousValidMonth, setPreviousValidMonth] = useState("");
+  const [monthData, setMonthData] = useState({});
   const [viewType, setViewType] = useState("bar");
   const [selectedMeal, setSelectedMeal] = useState(null);
 
-  const monthData = {
-    January: { breakfast: 16, lunch: 14, dinner: 18, highTea: 10 },
-    February: { breakfast: 15, lunch: 12, dinner: 20, highTea: 8 },
-  };
-
   useEffect(() => {
-    const prevMonth = getPreviousMonth();
-    if (monthData[prevMonth]) {
-      setSelectedMonth(prevMonth);
-      setPreviousValidMonth(prevMonth);
-    } else {
-      setSelectedMonth("January");
-      setPreviousValidMonth("January");
-    }
-  }, []);
+    const fetchMonthlyData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000//api/rep/getMonthlyMealStats/${studentId}`);
+        if (res.data.success) {
+          setMonthData(res.data.stats); // should be in { January: { taken: x, notTaken: y }, ... }
+        }
+      } catch (error) {
+        console.error("Error fetching meal stats:", error);
+      }
+    };
+
+    fetchMonthlyData();
+    setSelectedMonth(getPreviousMonth());
+  }, [studentId]);
 
   const handleMonthChange = (event) => {
     const month = event.target.value;
     if (monthData[month]) {
       setSelectedMonth(month);
-      setPreviousValidMonth(month);
     } else {
       alert(`No report available for ${month}.`);
-      setSelectedMonth(previousValidMonth);
     }
   };
 
-  const data = monthData[selectedMonth] || { breakfast: 0, lunch: 0, dinner: 0, highTea: 0 };
+  const data = monthData[selectedMonth] || { taken: 0, notTaken: 0 };
+
+  const pieChartData = {
+    labels: ["taken", "notTaken"],
+    datasets: [
+      {
+        label: `Monthly Report - ${selectedMonth}`,
+        data: [data.taken, data.notTaken],
+        backgroundColor: ["#821818", "#8c611f"],
+        borderColor: "white",
+        borderWidth: 2,
+      },
+    ],
+  };
 
   const chartOptionsPie = {
     plugins: {
@@ -64,7 +76,7 @@ const MonthlyReport = () => {
       tooltip: {
         callbacks: {
           label: function (tooltipItem) {
-            const labels = ["Breakfast", "Lunch", "High Tea", "Dinner"];
+            const labels = ["taken", "notTaken"];
             return `${labels[tooltipItem.dataIndex]}: ${tooltipItem.raw} days`;
           },
         },
@@ -81,7 +93,7 @@ const MonthlyReport = () => {
       tooltip: {
         callbacks: {
           label: function (tooltipItem) {
-            const labels = ["Breakfast", "Lunch", "High Tea", "Dinner"];
+            const labels = ["taken", "notTaken"];
             return `${labels[tooltipItem.dataIndex]}: ${tooltipItem.raw} days`;
           },
         },
@@ -93,23 +105,10 @@ const MonthlyReport = () => {
     },
   };
 
-  const pieChartData = {
-    labels: ["Breakfast", "Lunch", "High Tea", "Dinner"],
-    datasets: [
-      {
-        label: `Monthly Report - ${selectedMonth}`,
-        data: [data.breakfast, data.lunch, data.highTea, data.dinner],
-        backgroundColor: ["#821818", "#8c611f", "#245864", "#6c1c84"],
-        borderColor: "white",
-        borderWidth: 2,
-      },
-    ],
-  };
-
   const handlePieClick = (event, elements) => {
     if (elements.length > 0) {
       const index = elements[0].index;
-      const meals = ["Breakfast", "Lunch", "High Tea", "Dinner"];
+      const meals = ["taken", "notTaken"];
       setSelectedMeal(`${meals[index]}: ${Object.values(data)[index]} days`);
     }
   };
@@ -120,10 +119,8 @@ const MonthlyReport = () => {
 
       <div className={styles.month_dropdownContainer}>
         <label>Select Month:</label>
-        <select value={selectedMonth} onChange={handleMonthChange}   style={{ fontSize:"15px" ,width: "150px",height:"50px" }} >
-          {["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-          ].map((month) => (
+        <select value={selectedMonth} onChange={handleMonthChange} style={{ fontSize: "15px", width: "150px", height: "50px" }}>
+          {Object.keys(monthData).map((month) => (
             <option key={month} value={month}>{month}</option>
           ))}
         </select>
@@ -134,14 +131,10 @@ const MonthlyReport = () => {
         {viewType === "pie" && <div className={styles.month_pieChartWrapper}><Pie data={pieChartData} options={chartOptionsPie} onClick={handlePieClick} /></div>}
         {viewType === "data" && (
           <table className={styles.month_reportTable}>
-            <thead>
-              <tr><th>Meal</th><th>Days</th></tr>
-            </thead>
+            <thead><tr><th>Meal</th><th>Days</th></tr></thead>
             <tbody>
-              <tr><td>Breakfast</td><td>{data.breakfast}</td></tr>
-              <tr><td>Lunch</td><td>{data.lunch}</td></tr>
-              <tr><td>High Tea</td><td>{data.highTea}</td></tr>
-              <tr><td>Dinner</td><td>{data.dinner}</td></tr>
+              <tr><td>Taken</td><td>{data.taken}</td></tr>
+              <tr><td>Not Taken</td><td>{data.notTaken}</td></tr>
             </tbody>
           </table>
         )}
