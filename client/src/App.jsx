@@ -49,6 +49,7 @@ function App() {
           {/* Admin Routes */}
           <Route path="/SignInAdmin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
           <Route path="/WDash" element={isAdmin ? <WDash /> : <Navigate to="/SignInAdmin" />} />
+          <Route path="/monthly-report/:studentId" element={<MonthlyReport />} />
           <Route path="/occasion-form" element={<OccasionForm />} />
           <Route path="/stud-daily" element={<Stud />} />
           <Route path="/warden-daily" element={<Ward />} />

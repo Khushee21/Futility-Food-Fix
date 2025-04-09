@@ -22,6 +22,7 @@ const dailyRoutes = require("./routes/DailyRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const attendanceRoutes =require("./routes/attendanceRoutes");
 const resRoutes = require("./routes/repRoutes");
+const monthlyRoutes = require("./routes/monthlyReportRoutes");
 
 // Environment variables
 const PORT = process.env.PORT || 5066;
@@ -79,6 +80,8 @@ app.use("/api/student", studentRoutes);
 app.use("/api/daily", dailyRoutes);
 app.use("/api/attendance",attendanceRoutes);
 app.use("/api/rep",resRoutes);
+app.use("/api/monthly-report",monthlyRoutes);
+
 // Welcome route
 app.get("/", (req, res) => {
   res.send("Welcome to the Server!");
