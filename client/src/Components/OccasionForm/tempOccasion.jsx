@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./occasion.module.css";
+import { useNavigate} from "react-router-dom";
 
 const OccasionForm = () => {
   const [occasion, setOccasion] = useState("");
@@ -12,6 +13,7 @@ const OccasionForm = () => {
   const [date, setDate] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
+  const navigate=useNavigate();
 
   // Handle change for the occasion dropdown
   const handleOccasionChange = (e) => {
@@ -131,10 +133,13 @@ const OccasionForm = () => {
     setFormErrors({});
   };
 
+  const handleClose=()=>{
+    navigate("/WDash");
+  }
   return (
     isVisible && (
       <div className="container">
-        <button className="close-button" onClick={() => setIsVisible(false)}>
+        <button className="close-button" onClick={handleClose}>
           ×
         </button>
         <h1 className="title">SHREE SHANTA SANGAM</h1>

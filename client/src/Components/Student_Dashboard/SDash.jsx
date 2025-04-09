@@ -3,17 +3,13 @@ import "./SDash.css";
 import Chatbot from "../Chatbot";
 
 const SDash = () => {
-
-
     const [menuVisible, setMenuVisible] = useState(false);
-
     const texts = [
         { text: "Hello I am Chesta Sharma", image: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600" },
         { text: "Welcome to this page", image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600" },
         { text: "JavaScript Animations are good, right?", image: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600" },
         { text: "Then Enjoy! Bro...", image: "https://images.pexels.com/photos/784633/pexels-photo-784633.jpeg?auto=compress&cs=tinysrgb&w=600" }
     ];
-
     const announcements = [
         "🎉 Holiday on Friday! 🎉",
         "📢 Exam Timetable Released! 📝",
@@ -80,10 +76,10 @@ const SDash = () => {
                 About the Developers
                 <div className="dashS_developer-info">
                     {[
-                        { name: "Chesta", role: "Frontend Developer, Passionate about UI/UX.", img: "https://tse4.mm.bing.net/th?id=OIP.eD7MpRmuCp5oKFlcdoKmuwHaE8&pid=Api&P=0&h=180" },
-                        { name: "Gauri", role: "Backend Developer, Expert in Databases.", img: "https://tse4.mm.bing.net/th?id=OIP.cXzAqs3GQ-sAFDbD7jUgpgHaFj&pid=Api&P=0&h=180" },
-                        { name: "Juhi", role: "Full Stack Developer, Loves Coding Challenges.", img: "https://imgmedia.lbb.in/media/2019/08/5d662c8ea84656a7661be92a_1566977166741.jpg" },
-                        { name: "Khushi", role: "Software Engineer, Enjoys Problem Solving.", img: "https://tse3.mm.bing.net/th?id=OIP.W9RFknwcGfgpMFJFhQurjgHaEK&pid=Api&P=0&h=180" }
+                        { name: "Chesta", role: "Frontend Developer, Passionate about UI/UX.", img: "Chesta.jpeg"},
+                        { name: "Gauri", role: "Backend Developer, Expert in Databases.", img: "Gauri.jpeg"},
+                        { name: "Juhi", role: "Full Stack Developer, Loves Coding Challenges.", img: "Juhii.jpeg" },
+                        { name: "Khushi", role: "Software Engineer, Enjoys Problem Solving.", img: "khushi.jpeg" }
                     ].map((dev, i) => (
                         <div className="dashS_developer" key={i}>
                             <img src={dev.img} alt={dev.name} />
@@ -100,7 +96,7 @@ const SDash = () => {
     onClick={() => {
         const overlay = document.getElementById("menuOverlay");
         overlay.classList.toggle("dashS_active");
-        setMenuVisible(!menuVisible); // 👈 Update state here
+        setMenuVisible(!menuVisible); 
     }}
 >
     &#9776;
