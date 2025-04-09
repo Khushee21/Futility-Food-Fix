@@ -29,6 +29,15 @@ const Stdreg = () => {
   const [fade, setFade] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
+  // Input fields configuration
+  const inputFields = [
+    { name: "id", label: "Student ID" },
+    { name: "name", label: "Student Name" },
+    { name: "degree", label: "Degree" },
+    { name: "email", label: "Email (banasthali.in)" },
+    { name: "parentEmail", label: "Parent Email" },
+  ];
+
   useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
@@ -60,10 +69,19 @@ const Stdreg = () => {
       if (response.status === 201) {
         setMessage("Registration successful!");
         setMessageType("success");
-        setFormData({ id: "", name: "", degree: "", email: "", parentEmail: "", password: "" });
+        setFormData({
+          id: "",
+          name: "",
+          degree: "",
+          email: "",
+          parentEmail: "",
+          password: "",
+        });
       }
     } catch (error) {
-      setMessage(error.response ? error.response.data.message : "Something went wrong. Please try again.");
+      setMessage(
+        error.response ? error.response.data.message : "Something went wrong. Please try again."
+      );
       setMessageType("error");
     } finally {
       setIsSubmitting(false);
@@ -76,19 +94,17 @@ const Stdreg = () => {
         <img src={logo} alt="FFF Logo" className={styles.reg_logo} />
         <h2 className="reg_h2">Futility Food Fix</h2>
 
-        {["StudentId", "StudentName", "degree", "email", "parentEmail"].map((field, index) => (
+        {inputFields.map(({ name, label }, index) => (
           <div className={styles.reg_inputGroup} key={index}>
             <input
               type="text"
-              name={field}
-              value={formData[field]}
+              name={name}
+              value={formData[name]}
               onChange={handleChange}
-              placeholder=" " 
+              placeholder=" "
               required
             />
-            <label className={styles.reg_floatingLabel}>
-              {field === "email" ? "Email (banasthali.in)" : field.replace(/([A-Z])/g, " $1").trim()}
-            </label>
+            <label className={styles.reg_floatingLabel}>{label}</label>
           </div>
         ))}
 
@@ -106,20 +122,23 @@ const Stdreg = () => {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
-<div className={styles.My_Button1}>
-<button  type="submit" disabled={isSubmitting}>{isSubmitting ? "Registering..." : "Register"}</button>
-</div>
-      
 
-        {message && <p className={`${styles.reg_message} ${styles[messageType]}`}>{message}</p>}
+        <div className={styles.My_Button1}>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Registering..." : "Register"}
+          </button>
+        </div>
 
-        <p className={`${styles.reg_foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>{foodQuotes[currentQuoteIndex]}</p>
+        {message && (
+          <p className={`${styles.reg_message} ${styles[messageType]}`}>{message}</p>
+        )}
+
+        <p className={`${styles.reg_foodQuote} ${fade ? styles.fadeIn : styles.fadeOut}`}>
+          {foodQuotes[currentQuoteIndex]}
+        </p>
       </form>
     </div>
   );
 };
 
 export default Stdreg;
-
-
-

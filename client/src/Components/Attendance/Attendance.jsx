@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import io from "socket.io-client";
 import "./Attendance.css";
 import Logo from "./logo.png";
+
+const socket = io("http://localhost:5066"); // Socket.IO connection
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
@@ -11,24 +14,44 @@ const Attendance = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchedData = [];
-    for (let room = 101; room <= 105; room++) {
-      for (let i = 1; i <= 4; i++) {
-        fetchedData.push({
-          roomNo: room,
-          name: `Student ${room}-${i}`,
-          id: `S${room}${i}`,
+  // ✅ Fetch student submission data from backend
+  const fetchStudentData = async () => {
+    try {
+      const res = await fetch("http://localhost:5066/api/daily/today");
+      const data = await res.json();
+
+      const formattedData = data.map((submission) => {
+        const meals = submission.meals || {};
+        return {
+          name: submission.studentName,
+          id: submission.studentId,
           meals: [
-            Math.random() > 0.5 ? true : null,
-            Math.random() > 0.5 ? true : null,
-            Math.random() > 0.5 ? true : null,
-            Math.random() > 0.5 ? true : null,
+            meals.breakfast ?? null,
+            meals.lunch ?? null,
+            meals.highTea ?? null,
+            meals.dinner ?? null,
           ],
-        });
-      }
+        };
+      });
+
+      setStudents(formattedData);
+    } catch (error) {
+      console.error("Error fetching student submissions:", error);
     }
-    setStudents(fetchedData);
+  };
+
+  useEffect(() => {
+    fetchStudentData(); // Initial fetch
+
+    // ✅ Listen for real-time form submission updates
+    socket.on("formSubmitted", () => {
+      console.log("📡 New form submitted, updating table...");
+      fetchStudentData();
+    });
+
+    return () => {
+      socket.off("formSubmitted");
+    };
   }, []);
 
   const toggleMeal = (studentIndex, mealIndex) => {
@@ -93,12 +116,54 @@ const Attendance = () => {
     setMenuOpen(false);
   };
 
+
+  const saveUpdatedDataToBackend = async () => {
+    console.log("🔧 Save function triggered"); // Add this
+  
+    const presentStudents = students.filter((student) =>
+      student.meals.some((meal) => meal === true || meal === "late")
+    );
+  
+    console.log("🧑‍🎓 Students to update:", presentStudents); // Check this too
+  
+    try {
+      const response = await fetch("http://localhost:5066/api/attendance/update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ students: presentStudents }),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("✅ Attendance saved successfully!");
+      } else {
+        alert(`❌ Failed to save: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error saving attendance:", error);
+      alert("⚠️ Something went wrong while saving attendance!");
+    }
+  };
+  
   return (
     <div className="Att_container">
       <div className="Att_menu-container">
-        <button className="Att_menu-button" onClick={toggleMenu}>
-          &#9776;
-        </button>
+      <button
+  className="Att_edit-btn"
+  onClick={() => {
+    if (isEditing) {
+      // If already editing and user clicks "Save"
+      saveUpdatedDataToBackend(); // ✅ Call the save function
+    }
+    setIsEditing((prev) => !prev); // Toggle editing state
+  }}
+>
+  {isEditing ? "Save" : "Edit"}
+</button>
+
       </div>
 
       <div className={`Att_menu-overlay ${menuOpen ? "open" : ""}`}>
@@ -129,12 +194,19 @@ const Attendance = () => {
         <div className="Att_header-content-column">
           <h2 className="Att_h2">Hostel Meal Attendance</h2>
           <div className="Att_edit-search-container">
-            <button className="Att_edit-btn" onClick={() => setIsEditing(!isEditing)}>
-              {isEditing ? "Save" : "Edit"}
+            <button className="Att_edit-btn" onClick={() => {
+               if (isEditing) {
+                saveUpdatedDataToBackend(); // ✅ Call the save function
+                }
+                setIsEditing((prev) => !prev); // Toggle editing state
+               }}
+                >
+             {isEditing ? "Save" : "Edit"}
             </button>
+            
             <input
               type="text"
-              style={{fontSize:"14px" ,width:"190px"}}
+              style={{ fontSize: "14px", width: "190px" }}
               placeholder="Search by Name or ID"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -149,7 +221,6 @@ const Attendance = () => {
         <table className="Att_table">
           <thead>
             <tr>
-              <th>Room No</th>
               <th>Name</th>
               <th>ID</th>
               <th>Breakfast</th>
@@ -159,30 +230,21 @@ const Attendance = () => {
             </tr>
           </thead>
           <tbody>
-            {students.map((student, index) => {
-              const isFirstInRoom =
-                index === 0 || students[index - 1].roomNo !== student.roomNo;
-              return (
-                <tr key={student.id} ref={(el) => (rowRefs.current[index] = el)}>
-                  {isFirstInRoom && (
-                    <td rowSpan={4} className="Att_room-cell">
-                      {student.roomNo}
-                    </td>
-                  )}
-                  <td>{student.name}</td>
-                  <td>{student.id}</td>
-                  {student.meals.map((meal, mealIndex) => (
-                    <td
-                      key={mealIndex}
-                      className="Att_meal-cell"
-                      onClick={() => toggleMeal(index, mealIndex)}
-                    >
-                      {meal === true ? "✅" : meal === false ? "❌" : meal === "late" ? "🔴" : ""}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
+            {students.map((student, index) => (
+              <tr key={student.id} ref={(el) => (rowRefs.current[index] = el)}>
+                <td>{student.name}</td>
+                <td>{student.id}</td>
+                {student.meals.map((meal, mealIndex) => (
+                  <td
+                    key={mealIndex}
+                    className="Att_meal-cell"
+                    onClick={() => toggleMeal(index, mealIndex)}
+                  >
+                    {meal === true ? "✅" : meal === false ? "❌" : meal === "late" ? "🔴" : ""}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

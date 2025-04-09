@@ -1,4 +1,4 @@
-// routes/voteRoutes.js
+
 const express = require("express");
 const router = express.Router();
 const { submitVote, getVoteCounts } = require("../controllers/voteController");
