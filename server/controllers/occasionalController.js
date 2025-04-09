@@ -1,3 +1,4 @@
+
 // Importing the Occasional model
 const Occasional = require('../models/Occasional');
 const mongoose = require('mongoose');

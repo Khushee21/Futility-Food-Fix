@@ -1,3 +1,5 @@
+
+
 // models/Occasional.js
 
 const mongoose = require('mongoose');
@@ -49,7 +51,7 @@ const OccasionalSchema = new mongoose.Schema({
     }
   },
   date: {
-    type: Date,         
+    type: Date,         // Using Date type for better date handling
     required: true
   }
 });

@@ -68,6 +68,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
+// Setup WebSocket (Socket.IO)
+setupSocket(server, app); // Pass the express app too
+
 // Mount routes
 app.use("/api/auth", authRoutes);
 app.use("/api", voteRoutes);
@@ -92,8 +95,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: "Something went wrong" });
 });
 
-// Setup WebSocket (Socket.IO)
-setupSocket(server);
 
 app.get("/drop-index/:indexName", async (req, res) => {
   const indexName = req.params.indexName;
