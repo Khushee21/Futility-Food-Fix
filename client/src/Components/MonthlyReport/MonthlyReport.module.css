@@ -12,7 +12,6 @@ html {
     margin-top: 5%;
     margin-bottom: 8%;
 }
-/* Centered Container */
 .month_reportContainer {
     text-align: center;
     padding: 36px;
@@ -30,11 +29,9 @@ html {
 .month_barChartWrapper {
     width: 94%;
     height: 300px;
-    /* Increased graph size */
 }
 .month_pieChartWrapper {
     width: 350px;
-    /* Restore previous size */
     height: 350px;
 }
 canvas {
@@ -42,17 +39,13 @@ canvas {
     height: 100% !important;
 }
 
-/* Dropdown Styling */
 .month_dropdownContainer {
     margin-bottom: 20px;
-    /* Add spacing between label and dropdown */
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    /* Space between label and dropdown */
 }
-
 
 select {
     padding: 12px;
@@ -70,24 +63,17 @@ select:focus {
     background-color: #222;
 }
 
-/* Table Styling - Restoring Previous Design */
-/* Table Styling */
 .month_reportTable {
     margin: 20px auto;
     border-collapse: collapse;
     width: 50%;
     background-color: #222;
-    /* Dark background */
     color: white;
     border-radius: 10px;
-    /* Rounded corners */
     overflow: hidden;
-
-    /* Adding shadow for bulge effect */
     box-shadow: 0px 4px 10px rgba(128, 128, 128, 0.7);
 }
 
-/* Table Header and Cell Styling */
 .month_reportTable th,
 .month_reportTable td {
     padding: 12px 20px;
@@ -95,27 +81,21 @@ select:focus {
     text-align: center;
 }
 
-/* Table Header Styling */
 .month_reportTable th {
     background-color: #444;
     font-weight: bold;
 }
 
-/* Hover Effect for Rows */
 .month_reportTable tr:hover {
     background-color: rgb(91, 86, 86);
-    /* Change row color on hover */
     transition: background-color 0.3s ease-in-out;
 }
 
-/* Buttons */
 .month_buttonContainer {
     margin-top: 30px;
-    /* Increase spacing above buttons */
     display: flex;
     justify-content: center;
     gap: 15px;
-    /* Space between buttons */
 }
 
 .month_buttonContainer button {

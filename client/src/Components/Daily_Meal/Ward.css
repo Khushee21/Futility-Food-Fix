@@ -68,7 +68,6 @@
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
   text-align: center;
-  /* border-radius: 5px; */
   font-size: 2.8vh;
 }
 
@@ -90,7 +89,6 @@
 }
 
 .Dm_editable-select:focus {
-  /* border-color: rgb(0, 0, 0); */
   box-shadow: 0px 0px 10px rgba(43, 200, 18, 0.5);
   transform: scale(1.05);
 }
