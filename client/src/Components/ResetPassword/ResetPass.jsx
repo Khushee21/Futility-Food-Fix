@@ -14,104 +14,97 @@ const foodQuotes = [
 
 const ResetPass = () => {
   const [studentId, setStudentId] = useState("");
-  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [otp, setOtp] = useState(new Array(6).fill("")); // OTP input fields
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
-  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false); // To track if OTP was sent
   const [loading, setLoading] = useState(false);
   const [quoteIndex, setQuoteIndex] = useState(0);
-
+  const [isOtpVerified, setIsOtpVerified] = useState(false); // OTP verification state
   const navigate = useNavigate();
 
   useEffect(() => {
     const quoteInterval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % foodQuotes.length);
     }, 4000);
+
     return () => clearInterval(quoteInterval);
   }, []);
 
+  // Handle the OTP sending action when the user clicks the "Send OTP" button
   const handleSendOtp = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-    setLoading(true);
+    e.preventDefault(); // Prevent form submission
+
+    if (!studentId) {
+      setError("Please enter your student ID.");
+      return;
+    }
 
     try {
-      const res = await axios.post("/api/auth/request-otp", { id: studentId });
-      setSuccess(res.data.message);
-      setOtpSent(true);
+      setLoading(true);
+      setError(""); // Clear previous errors
+
+      // Make an API request to send OTP
+      const response = await axios.post("http://localhost:5066/api/auth/request-otp", { id: studentId });
+
+      if (response.data.success) {
+        setSuccess("OTP has been sent to your registered email.");
+        setOtpSent(true); // Change to OTP sent state
+      } else {
+        setError("Failed to send OTP. Please try again.");
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
+  // Handle OTP verification action
   const handleVerifyOtp = async () => {
-    setError("");
-    setSuccess("");
-    const enteredOtp = otp.join("");
-
-    if (enteredOtp.length !== 6) {
-      return setError("Please enter a valid 6-digit OTP.");
-    }
-
     try {
-      const res = await axios.post("/api/auth/verify-otp", {
+      const response = await axios.post("http://localhost:5066/api/auth/verify-otp", {
         id: studentId,
-        otp: enteredOtp,
+        otp: otp.join(''), // Joining OTP array as a string
       });
-      setSuccess(res.data.message);
-      setIsOtpVerified(true);
-    } catch (err) {
-      setError(err.response?.data?.message || "Invalid OTP");
+  
+      console.log("OTP verified successfully:", response.data);
+      setIsOtpVerified(true);  // OTP is verified, show the password reset form
+      setSuccess(response.data.message); // Optionally, show a success message
+    } catch (error) {
+      console.error("OTP verification failed:", error.response.data);
+      setError(error.response.data.message); // Set the error message from the backend
     }
   };
-
+  
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
-
+  
     if (newPassword !== confirmPassword) {
-      return setError("Passwords do not match");
+      setError("Passwords do not match.");
+      return;
     }
-
+  
     try {
-      await axios.post("/api/auth/reset-password", {
+      const response = await axios.post("http://localhost:5066/api/auth/reset-password", {
         id: studentId,
-        otp: otp.join(""),
-        newPassword,
+        otp: otp.join(''), // OTP used in verification step
+        newPassword: newPassword, // New password entered by the user
       });
-      setSuccess("Password reset successful!");
-      setTimeout(() => navigate("/login"), 2000);
-    } catch (err) {
-      setError(err.response?.data?.message || "Reset failed");
+  
+      console.log("Password reset successfully:", response.data);
+      alert(response.data.message);
+      setSuccess(response.data.message);  // Show success message
+      setNewPassword("");  // Clear input fields
+      setConfirmPassword("");
+    } catch (error) {
+      console.error("Password reset failed:", error.response.data);
+      setError(error.response.data.message);  // Show error message
     }
   };
-
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value;
-    if (!/^[0-9]?$/.test(value)) return;
-
-    const updatedOtp = [...otp];
-    updatedOtp[index] = value;
-    setOtp(updatedOtp);
-
-    if (value && index < otp.length - 1) {
-      document.getElementById(`otp-${index + 1}`).focus();
-    }
-  };
-
-  const handleOtpKeyDown = (e, index) => {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      document.getElementById(`otp-${index - 1}`).focus();
-    }
-  };
-
+  
   return (
     <div className={styles.re_resetContainer}>
       <div className={styles.re_resetBox}>
@@ -119,79 +112,86 @@ const ResetPass = () => {
         <h2 className={styles.re_resetTitle}>Futility Food Fix</h2>
         <h1 className={styles.re_resetHeading}>Reset Password</h1>
 
+        {/* Show the OTP form or the initial form */}
         {!otpSent ? (
           <form onSubmit={handleSendOtp}>
-            <label htmlFor="studentId" className={styles.re_resetLabel}>
-              Student ID
-            </label>
+            <label htmlFor="studentId" className={styles.re_resetLabel}>Student ID</label>
             <input
               type="text"
               id="studentId"
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
               className={styles.re_resetInput}
-              required
               style={{ backgroundColor: "white", border: "1px solid black", color: "black" }}
+              required
             />
             {error && <p className={styles.re_resetError}>{error}</p>}
             {success && <p className={styles.re_resetSuccess}>{success}</p>}
             <button type="submit" className={styles.re_resetButton} disabled={loading}>
-              {loading ? "Sending OTP..." : "Send OTP"}
+              {loading ? "Sending..." : "Send OTP"}
             </button>
           </form>
-        ) : !isOtpVerified ? (
+        ) : (
           <>
+            {/* OTP input fields */}
             <div className={styles.re_otpContainer}>
-              {otp.map((digit, index) => (
+              {otp.map((data, index) => (
                 <input
-                  key={index}
-                  id={`otp-${index}`}
                   type="text"
                   maxLength="1"
-                  value={digit}
-                  onChange={(e) => handleOtpChange(e, index)}
-                  onKeyDown={(e) => handleOtpKeyDown(e, index)}
+                  key={index}
+                  value={data}
+                  onChange={(e) => {
+                    const newOtp = [...otp];
+                    newOtp[index] = e.target.value;
+                    setOtp(newOtp);
+                  }}
                   className={styles.re_resetOtp}
-                  autoFocus={index === 0}
                 />
               ))}
             </div>
-            <button onClick={handleVerifyOtp} className={styles.re_resetButton} disabled={otp.join("").length < 6}>
+            <button className={styles.re_resetButton} onClick={handleVerifyOtp}>
               Verify OTP
             </button>
-            {error && <p className={styles.re_resetError}>{error}</p>}
-            {success && <p className={styles.re_resetSuccess}>{success}</p>}
           </>
-        ) : (
-          <form onSubmit={handleResetPassword}>
-            <label className={styles.re_resetLabel}>New Password</label>
-            <input
-              type="password"
-              className={styles.re_resetInput}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-            <label className={styles.re_resetLabel}>Confirm Password</label>
-            <input
-              type="password"
-              className={styles.re_resetInput}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            {error && <p className={styles.re_resetError}>{error}</p>}
-            {success && <p className={styles.re_resetSuccess}>{success}</p>}
-            <button type="submit" className={styles.re_resetButton}>
-              Reset Password
-            </button>
-          </form>
         )}
+        {isOtpVerified && (
+  <div className={styles.re_resetBox}>
+    <h1 className={styles.re_resetHeading}>Reset Password</h1>
+
+    <form onSubmit={handleResetPassword}>
+      <label htmlFor="newPassword" className={styles.re_resetLabel}>New Password</label>
+      <input
+        type="password"
+        id="newPassword"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+        className={styles.re_resetInput}
+        required
+      />
+
+      <label htmlFor="confirmPassword" className={styles.re_resetLabel}>Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        className={styles.re_resetInput}
+        required
+      />
+
+      {error && <p className={styles.re_resetError}>{error}</p>}
+      {success && <p className={styles.re_resetSuccess}>{success}</p>}
+
+      <button type="submit" className={styles.re_resetButton}>
+        Reset Password
+      </button>
+    </form>
+  </div>
+)}
 
         <div className={styles.re_quoteContainer}>
-          <p key={quoteIndex} className={styles.re_quoteText}>
-            {foodQuotes[quoteIndex]}
-          </p>
+          <p key={quoteIndex} className={styles.re_quoteText}>{foodQuotes[quoteIndex]}</p>
         </div>
       </div>
     </div>

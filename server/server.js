@@ -9,12 +9,9 @@ const path = require("path");
 const { setupSocket } = require("./socket"); 
 const nodemailer = require("nodemailer");
 
-// const moment = require("moment");
-// const Student = require('./models/Student'); 
 const StudentSubmission = require("./models/StudentSubmission");
 const Attendance = require("./models/Attendance");
 
-// Route imports
 const authRoutes = require("./routes/authRoutes");
 const voteRoutes = require("./routes/voteRoutes");
 const occasionRoutes = require("./routes/occasionRoutes");
@@ -24,35 +21,29 @@ const attendanceRoutes =require("./routes/attendanceRoutes");
 const resRoutes = require("./routes/repRoutes");
 const monthlyRoutes = require("./routes/monthlyReportRoutes");
 
-// Environment variables
 const PORT = process.env.PORT || 5066;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/femine-food-fix";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
-// Create express app
 const app = express();
 const server = http.createServer(app); 
 
-// Middleware
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow frontend
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // Allow cookies/auth headers
+    credentials: true, 
   })
 );
 
-
-// Log all incoming requests
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] 📡 ${req.method} request to ${req.url}`);
   next();
 });
 
-// Ensure `uploads` directory exists
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
@@ -68,11 +59,8 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+setupSocket(server, app); 
 
-// Setup WebSocket (Socket.IO)
-setupSocket(server, app); // Pass the express app too
-
-// Mount routes
 app.use("/api/auth", authRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/occasional", occasionRoutes);
@@ -82,17 +70,15 @@ app.use("/api/attendance",attendanceRoutes);
 app.use("/api/rep",resRoutes);
 app.use("/api/monthly-report",monthlyRoutes);
 
-// Welcome route
 app.get("/", (req, res) => {
   res.send("Welcome to the Server!");
 });
 
-// Handle 404 - Route not found
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
 
-// Global error handler
+
 app.use((err, req, res, next) => {
   console.error("❌ Server Error:", err.stack);
   res.status(500).json({ success: false, message: "Something went wrong" });
@@ -111,7 +97,7 @@ app.get("/drop-index/:indexName", async (req, res) => {
     res.status(500).send("Error: " + error.message);
   }
 });
-// Connect to MongoDB and start the server
+
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -125,7 +111,6 @@ mongoose
     process.exit(1);
   });
 
-// Graceful shutdown
 process.on("SIGINT", () => {
   console.log("🔻 Shutting down server...");
   mongoose.connection.close(() => {

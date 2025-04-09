@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Eye, EyeOff } from "lucide-react"; // Importing Eye icons
+import { Eye, EyeOff } from "lucide-react"; 
 import styles from "./SignInStu.module.css";
 import logo from "./logo.png";
 
@@ -41,7 +41,7 @@ const SignInStu = () => {
 
       if (response.data.success) {
         alert("✅ Login successful!");
-        navigate("/student-dashboard");
+        navigate("/SDash");
       } else {
         setError(response.data.message || "❌ Invalid ID or Password");
       }

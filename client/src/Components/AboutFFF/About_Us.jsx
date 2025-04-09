@@ -1,6 +1,8 @@
 import React from "react";
-import styles from "./S.module.css"; // Importing CSS Module
+
+import styles from "./S.module.css"; 
 import { useNavigate } from "react-router-dom";
+
 
 const handleClose=()=>{
   navigate("/WDash");

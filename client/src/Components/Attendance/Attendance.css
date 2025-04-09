@@ -1,5 +1,4 @@
-
- html, body {
+html, body {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -21,7 +20,6 @@
     z-index: 1000; 
 }
 
-
 .Att_shape {
     position: relative;
     width: 100%;
@@ -31,13 +29,11 @@
     justify-content: center;
 }
 
-
 .svg1 {
     width: 100%;
     height: 100%;
     display: block;
 } 
-
 
 .Att_header-content {
     display: flex;
@@ -46,7 +42,6 @@
     gap: 1vw; 
     position: absolute; 
 }
-
 
 .Att_logo {
     width: 12vh;
@@ -68,12 +63,10 @@
     animation: slideFadeIn 1.5s ease-out forwards, colorWave 5s infinite alternate, textGlow 3s infinite;
 }
 
-
 @keyframes slideFadeIn {
     0% { opacity: 0; transform: translateX(-50px); }
     100% { opacity: 1; transform: translateX(0); }
 }
-
 
 @media (max-width: 768px) {
     .Att_header-text {
@@ -92,8 +85,6 @@
     }
 }
 
-
-
 .Att_container {
     display: flex;
     flex-direction: column;
@@ -111,7 +102,6 @@
     justify-content: center;
     text-align: center;
 }
-
 
 .Att_header-container {
     margin-top: 20vh;
@@ -136,7 +126,6 @@
   
 }
 
-
 .Att_table-container {
     display: flex;
     justify-content: center;
@@ -158,9 +147,6 @@
     color:white
 }
 
-
-
-
 .Att_table th, td {
     border: 1px solid rgba(255, 255, 255, 0.731);
     padding: 2vh;
@@ -168,14 +154,12 @@
     font-weight: bold;
 }
 
-
 student-id,student-name, .Att_room-cell {
     color: white;
     font-size: 2vh;
     font-weight: bold;
     background-color: black;
 }
-
 
 .Att_meal-cell {
     cursor: pointer;
@@ -195,7 +179,6 @@ student-id,student-name, .Att_room-cell {
     align-items: center;
 }
 
-
 .Att_search-input {
 
     font-size: 14%;
@@ -204,19 +187,16 @@ student-id,student-name, .Att_room-cell {
     margin-left: 1vw;
 }
 
-
 .Att_highlight {
     background-color: rgb(53, 53, 51) !important;
     transition: background-color 0.5s ease-in-out;
 }
-
 
 .Att_edit-search-container {
     display: flex;
     align-items: center;
    
 }
-
 
 @media (max-width: 768px) {
     .Att_container {
@@ -275,12 +255,6 @@ student-id,student-name, .Att_room-cell {
     }
 }
 
-
-
- 
-
-
-
  h1 {
     text-align: center;
     font-size: 2rem;
@@ -306,9 +280,6 @@ student-id,student-name, .Att_room-cell {
 
 }
 
-
-
-
   .Att_search-input {
     padding: 3%;
     font-size: 2vh;
@@ -317,10 +288,9 @@ student-id,student-name, .Att_room-cell {
     outline: none;
   }
   
-  .Att_edit-btn {
-
-    font-size: 2vh;
-   
+.Att_edit-btn 
+{
+    font-size: 2vh;  
     background-color: #085f07;
     color: rgb(0, 0, 0);
     border: 1px solid rgb(255, 255, 255);
@@ -342,28 +312,12 @@ student-id,student-name, .Att_room-cell {
     text-align: center;
   }
   
-
-
-
-
-
   .Att_edit-search-container {
     display: flex;
     justify-content: center;
     gap: 2%;
     margin-top: 2%;
   }
-
-
-
-
-
-
-  
-
-
-
-
 
 .Att_menu-overlay.open button:nth-child(1) { transition-delay: 0.1s; }
 .Att_menu-overlay.open button:nth-child(2) { transition-delay: 0.2s; }
@@ -372,8 +326,6 @@ student-id,student-name, .Att_room-cell {
 .Att_menu-overlay.open button:nth-child(5) { transition-delay: 0.5s; }
 .Att_menu-overlay.open button:nth-child(6) { transition-delay: 0.6s; }
 .Att_menu-overlay.open button:nth-child(7) { transition-delay: 0.7s; }
-
-
 
 .Att_fixed-header.hidden {
     display: none;
@@ -385,13 +337,6 @@ student-id,student-name, .Att_room-cell {
 .Att_menu-button:hover {
     background: none;
 } 
-
-
-
-
-
-
-
 
 .Att_menu-container {
     position: fixed;
@@ -413,8 +358,6 @@ student-id,student-name, .Att_room-cell {
 .Att_menu-button:hover {
     transform: rotate(90deg);
 }
-
-
 
 .Att_menu-overlay {
     position: fixed;

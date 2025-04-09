@@ -50,7 +50,6 @@ const WDash = () => {
 
     return (
         <div>
-            {/* ☰ Menu Button Always Visible */}
             <div className="WashS_menu-container">
   <button
     className="WashS_menu-button"
@@ -64,13 +63,12 @@ const WDash = () => {
   </button>
 </div>
 
-{/* Overlay Menu */}
 <div className={`WashS_menu-overlay ${menuOpen ? "WashS_active" : ""}`} id="menuOverlay">
   {[
   { name: "Dashboard", route: "/WDash" },
   { name: "Upload Occasion Form", route: "/occasion-form" },
   { name: "Monthly Report", route: "/std-list" },
-  { name: "Missed Meal Today", route: "/std-list" },
+  { name: "Attendance", route: "/Attendance" },
   { name: "My Profile", route: "/Profile" },
   { name: "Why FFF", route: "/about-us" },
   { name: "Logout", route: "/logout" },
@@ -83,8 +81,6 @@ const WDash = () => {
 }
 </div>
 
-
-            {/* Main Page Hidden When Menu is Open */}
             {!menuOpen && (
                 <>
                     <div className="WashS_fixed-header">
@@ -165,10 +161,10 @@ const WDash = () => {
                         About the Developers
                         <div className="WashS_developer-info">
                             {[
-                                { name: "Chesta", role: "Frontend Developer, Passionate about UI/UX.", img: "https://tse4.mm.bing.net/th?id=OIP.eD7MpRmuCp5oKFlcdoKmuwHaE8&pid=Api&P=0&h=180" },
-                                { name: "Gauri", role: "Backend Developer, Expert in Databases.", img: "https://tse4.mm.bing.net/th?id=OIP.cXzAqs3GQ-sAFDbD7jUgpgHaFj&pid=Api&P=0&h=180" },
-                                { name: "Juhi", role: "Full Stack Developer, Loves Coding Challenges.", img: "https://imgmedia.lbb.in/media/2019/08/5d662c8ea84656a7661be92a_1566977166741.jpg" },
-                                { name: "Khushi", role: "Software Engineer, Enjoys Problem Solving.", img: "https://tse3.mm.bing.net/th?id=OIP.W9RFknwcGfgpMFJFhQurjgHaEK&pid=Api&P=0&h=180" }
+                                { name: "Chesta", role: "Frontend Developer, Passionate about UI/UX.", img: "Chesta.jpeg" },
+                                { name: "Gauri", role: "Backend Developer, Expert in Databases.", img: "Gauri.jpeg" },
+                                { name: "Juhi", role: "Full Stack Developer, Loves Coding Challenges.", img: "Juhii.jpeg" },
+                                { name: "Khushi", role: "Software Engineer, Enjoys Problem Solving.", img: "khushi.jpeg" }
                             ].map((dev, i) => (
                                 <div className="WashS_developer" key={i}>
                                     <img src={dev.img} alt={dev.name} />

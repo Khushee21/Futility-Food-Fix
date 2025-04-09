@@ -148,21 +148,13 @@ const Attendance = () => {
     }
   };
   
+  const handleClick=()=>{
+    navigate("/WDash");
+  }
   return (
     <div className="Att_container">
       <div className="Att_menu-container">
-      <button
-  className="Att_edit-btn"
-  onClick={() => {
-    if (isEditing) {
-      // If already editing and user clicks "Save"
-      saveUpdatedDataToBackend(); // ✅ Call the save function
-    }
-    setIsEditing((prev) => !prev); // Toggle editing state
-  }}
->
-  {isEditing ? "Save" : "Edit"}
-</button>
+      <button onClick={handleClick}>close</button>
 
       </div>
 
@@ -196,9 +188,9 @@ const Attendance = () => {
           <div className="Att_edit-search-container">
             <button className="Att_edit-btn" onClick={() => {
                if (isEditing) {
-                saveUpdatedDataToBackend(); // ✅ Call the save function
+                saveUpdatedDataToBackend(); 
                 }
-                setIsEditing((prev) => !prev); // Toggle editing state
+                setIsEditing((prev) => !prev);
                }}
                 >
              {isEditing ? "Save" : "Edit"}
