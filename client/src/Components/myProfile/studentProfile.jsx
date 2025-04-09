@@ -9,7 +9,7 @@ const StudentProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const studentId = localStorage.getItem("studentId");// Replace with the logged-in student's ID
+  const studentId = localStorage.getItem("id");
 
   useEffect(() => {
     // Fetch student data from the backend

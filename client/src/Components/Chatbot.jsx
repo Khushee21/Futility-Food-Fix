@@ -3,7 +3,7 @@ import { FaRobot } from "react-icons/fa";
 
 const Chatbot = () => {
     const [messages, setMessages] = useState([
-        { text: "Hello! How can I assist you?", sender: "bot" }
+        { text: "Hello This id ChatoriBot 🤖", sender: "bot" }
     ]);
     const [input, setInput] = useState("");
     const [open, setOpen] = useState(false);
@@ -22,9 +22,10 @@ const Chatbot = () => {
     const getBotResponse = (msg) => {
         const lowerMsg = msg.toLowerCase();
 
-        if (lowerMsg.includes("hello")) return { text: "Hi there! 😊", sender: "bot" };
+        if (lowerMsg.includes("hello")) return { text: "how can i assist you?", sender: "bot" };
         if (lowerMsg.includes("how are you")) return { text: "I'm just a bot, but I'm doing great! 🚀", sender: "bot" };
-        if (lowerMsg.includes("help")) return { text: "Sure! What do you need help with? 🤖", sender: "bot" };
+        if (lowerMsg.includes("help")) return { text: "Sure! What do you need help with? ", sender: "bot" };
+        if (lowerMsg.includes("features")) return { text: "this is an amazing site , let me know who are you student or warden"}
         
 
         return { text: "I'm not sure about that, but I'm learning! 💡", sender: "bot" };

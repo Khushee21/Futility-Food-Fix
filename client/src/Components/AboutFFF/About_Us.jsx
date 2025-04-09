@@ -1,10 +1,23 @@
 import React from "react";
 import styles from "./S.module.css"; // Importing CSS Module
+import { useNavigate } from "react-router-dom";
 
+const handleClose=()=>{
+  navigate("/WDash");
+}
 const About_Us = () => {
+
+  const navigate = useNavigate();
+
+  const handleClose=()=>{
+    navigate("/WDash");
+  }
   return (
     <div className={styles.Abt_container}>
-      <div className={styles.Abt_serviceWrapper}>        
+      <div className={styles.Abt_serviceWrapper}>    
+      <button className={styles.closeButton} onClick={handleClose}>
+          close
+        </button>    
         <div className={styles.Abt_service}>
           <h1>Why FFF?</h1>
           <p>

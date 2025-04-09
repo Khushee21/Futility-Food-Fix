@@ -67,19 +67,20 @@ const WDash = () => {
 {/* Overlay Menu */}
 <div className={`WashS_menu-overlay ${menuOpen ? "WashS_active" : ""}`} id="menuOverlay">
   {[
-    "Dashboard.html",
-    "Upload_Occasion_Form.html",
-    "Monthly_Report.html",
-    "Id Of Student Who Missed Meal Today.html",
-    "My_Profile.html",
-    "Why_FFF.html",
-    "Logout.html",
-    "NGO.html"
-  ].map((page, i) => (
-    <button key={i} onClick={() => window.location.href = page}>
-      {page.replace(".html", "").replace(/_/g, " ")}
-    </button>
-  ))}
+  { name: "Dashboard", route: "/WDash" },
+  { name: "Upload Occasion Form", route: "/occasion-form" },
+  { name: "Monthly Report", route: "/std-list" },
+  { name: "Missed Meal Today", route: "/std-list" },
+  { name: "My Profile", route: "/Profile" },
+  { name: "Why FFF", route: "/about-us" },
+  { name: "Logout", route: "/logout" },
+  { name: "NGO", route: "/NGO" },
+].map((item, i) => (
+  <button key={i} onClick={() => navigate(item.route)}>
+    {item.name}
+  </button>
+))
+}
 </div>
 
 
@@ -147,7 +148,7 @@ const WDash = () => {
                     </div>
 
                     <div className="WashS_button-container">
-                        <button className="WashS_upload-form-button" onClick={() => navigate("/meal-entries")}>
+                        <button className="WashS_upload-form-button" onClick={() => navigate("/warden-daily")}>
                             <FaCloudUploadAlt size={20} style={{ marginRight: "8px" }} />
                             Upload Tomorrow Form
                         </button>

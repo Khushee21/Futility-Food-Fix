@@ -25,7 +25,7 @@ const Rep = () => {
   };
 
   const handleClose = () => {
-    navigate('/warden-dashboard'); // Change this path to your actual route
+    navigate('/WDash'); // Change this path to your actual route
   };
 
   const filteredStudents = students.filter(student =>

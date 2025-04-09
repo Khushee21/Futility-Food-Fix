@@ -40,18 +40,18 @@ exports.getAllStudents = async (req, res) => {
 };
 
 // ✅ Get today's meal submissions (Attendance Page)
-exports.getTodayMeal = async (req, res) => {
-  try {
-    const todayStart = moment().startOf("day").toDate();
-    const todayEnd = moment().endOf("day").toDate();
+// exports.getTodayMeal = async (req, res) => {
+//   try {
+//     const todayStart = moment().startOf("day").toDate();
+//     const todayEnd = moment().endOf("day").toDate();
 
-    const submissions = await StudentSubmission.find({
-      submissionDate: { $gte: todayStart, $lte: todayEnd },
-    });
+//     const submissions = await StudentSubmission.find({
+//       submissionDate: { $gte: todayStart, $lte: todayEnd },
+//     });
 
-    res.status(200).json({ success: true, data: submissions });
-  } catch (error) {
-    console.error("Error fetching today's submissions:", error);
-    res.status(500).json({ success: false, message: "Error fetching submissions" });
-  }
-};
+//     res.status(200).json({ success: true, data: submissions });
+//   } catch (error) {
+//     console.error("Error fetching today's submissions:", error);
+//     res.status(500).json({ success: false, message: "Error fetching submissions" });
+//   }
+// };
