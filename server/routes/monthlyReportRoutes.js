@@ -1,9 +1,8 @@
-// routes/monthlyReportRoutes.js
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { getMonthlyReport } = require("../controllers/MonthlyReportController");
+const { getMonthlyMealStats } = require('../controllers/monthlyReportController');
 
-// Route to get the monthly report
-router.get("/monthly-report", getMonthlyReport);
+// Route: GET /api/monthly-report/:studentId
+router.get('/:studentId', getMonthlyMealStats);
 
 module.exports = router;

@@ -3,6 +3,14 @@ import { io } from "socket.io-client";
 import "./Ward.css";
 
 const Ward = () => {
+  const mealOptions = {
+    breakfast: ["Aalu-Pratha", "Simple-Pratha", "Poha", "Sandwich", "Fried Idli"],
+    daal: ["Dal Tadka", "Dal Makhani"],
+    sabji: ["Mix Veg", "Paneer Butter Masala"],
+    chapati: ["Plain Chapati", "Butter Chapati"],
+    highTea: ["Tea & Biscuits", "Samosa"],
+  };
+
   const [formData, setFormData] = useState({
     Breakfast: "",
     Lunch_Daal: "",
@@ -14,15 +22,17 @@ const Ward = () => {
     Dinner_Chapati: "",
     myDate: "",
   });
+
   const [socket, setSocket] = useState(null);
+
   useEffect(() => {
     const newSocket = io("http://localhost:5066");
     setSocket(newSocket);
 
     newSocket.on("submissionStatus", (message) => {
-      alert(message);
+      alert(message.message); 
     });
-
+    
     return () => {
       newSocket.disconnect();
     };
@@ -32,28 +42,75 @@ const Ward = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.myDate) {
-      alert("Please select a date.");
-      return;
-    }
+  
+    const updatedFormData = {
+      id: "12345",
+      name: "SANGAM warden jiji", 
+      ...formData,
+    };
+  
 
-    if (socket) {
-      socket.emit("submitMeal", formData);
-      setFormData({
-        Breakfast: "",
-        Lunch_Daal: "",
-        Lunch_Sabji: "",
-        Lunch_Chapati: "",
-        High_Tea: "",
-        Dinner_Daal: "",
-        Dinner_Sabji: "",
-        Dinner_Chapati: "",
-        myDate: "",
-      });
+    for (const key in updatedFormData) {
+      if (!updatedFormData[key].trim()) {
+        alert(`Please fill in the ${key.replace("_", " ")} field.`);
+        return;
+      }
     }
+  
+    if (socket) {
+      socket.emit("submitMeal", updatedFormData);
+    } else {
+      try {
+        const response = await fetch("http://localhost:5066/api/meal-form", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedFormData),
+        });
+  
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || "Something went wrong!");
+        }
+  
+        alert("Meal form submitted successfully!");
+      } catch (error) {
+        console.error("Error submitting meal form:", error);
+        alert(error.message);
+      }
+    }
+  
+    setFormData({
+      Breakfast: "",
+      Lunch_Daal: "",
+      Lunch_Sabji: "",
+      Lunch_Chapati: "",
+      High_Tea: "",
+      Dinner_Daal: "",
+      Dinner_Sabji: "",
+      Dinner_Chapati: "",
+      myDate: "",
+    });
   };
+  
+
+  const resetForm = () => {
+    setFormData({
+      Breakfast: "",
+      Lunch_Daal: "",
+      Lunch_Sabji: "",
+      Lunch_Chapati: "",
+      High_Tea: "",
+      Dinner_Daal: "",
+      Dinner_Sabji: "",
+      Dinner_Chapati: "",
+      myDate: "",
+    });
+  };
+
+  const renderOptions = (options) =>
+    options.map((option, index) => <option key={index} value={option} />);
 
   return (
     <div className="Dm_container">

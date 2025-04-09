@@ -1,28 +1,62 @@
-// controllers/monthlyReportController.js
-const Attendance = require('../models/Attendance');
+const StudentSubmission = require("../models/StudentSubmission");
+const Attendance = require("../models/Attendance");
 
-// Function to fetch monthly report data
-exports.getMonthlyReport = async (req, res) => {
+const getDaysInMonth = (year, month) => {
+  return new Date(year, month, 0).getDate();
+};
+
+const getMonthlyMealStats = async (req, res) => {
   try {
-    const attendanceData = await Attendance.find();
-    if (!attendanceData || attendanceData.length === 0) {
-      return res.status(404).json({ message: "No attendance data available" });
+    const { studentId } = req.params;
+
+    if (!studentId) {
+      return res.status(400).json({
+        success: false,
+        message: "Student ID is required"
+      });
     }
 
-    // Calculate taken and non-taken days
-    const reportData = attendanceData.map((record) => {
-      // Assuming "presentCount" is the number of days present, you can adjust logic as needed
-      return {
-        studentId: record.studentId,
-        name: record.name,
-        taken: record.presentCount, // Adjust this logic if needed
-        nonTaken: 30 - record.presentCount, // Assuming a month with 30 days
-      };
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const totalDaysInMonth = getDaysInMonth(year, month);
+
+    const startDate = new Date(`${year}-${month.toString().padStart(2, "0")}-01`);
+    const endDate = new Date(`${year}-${month.toString().padStart(2, "0")}-${totalDaysInMonth}`);
+
+ 
+    const formSubmittedCount = await StudentSubmission.countDocuments({
+      studentId,
+      submissionDate: { $gte: startDate, $lte: endDate }
     });
 
-    return res.status(200).json(reportData);
+    const attendanceData = await Attendance.findOne({ studentId });
+    const presentCount = attendanceData?.presentCount || 0;
+
+
+    const mealTakenDays = formSubmittedCount - presentCount;
+    const mealNotTakenDays = totalDaysInMonth - mealTakenDays;
+
+
+    return res.status(200).json({
+      success: true,
+      studentId,
+      month,
+      year,
+      totalDaysInMonth,
+      formSubmittedCount,
+      presentCount,
+      mealTakenDays,
+      mealNotTakenDays,
+    });
+
   } catch (err) {
-    console.error("Error fetching monthly report:", err);
-    return res.status(500).json({ message: "Server error" });
+    console.error("❌ Error in getMonthlyMealStats:", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
+};
+
+module.exports = {
+  getMonthlyMealStats,
+  getDaysInMonth
 };
