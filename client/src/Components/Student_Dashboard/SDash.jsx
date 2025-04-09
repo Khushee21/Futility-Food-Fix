@@ -86,7 +86,7 @@ const SDash = () => {
       };
     
       const goToMyProfile = () => {
-        navigate("/Profile");
+        navigate("/my-profile");
       };
     
       const goToWhyFFF = () => {

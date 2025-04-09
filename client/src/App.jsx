@@ -16,8 +16,7 @@ import AboutFFF from './Components/AboutFFF/About_Us';
 import Profile from './Components/myProfile/studentProfile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
-
-
+import MyProfile from  "./Components/myProfile/studentProfile";
 
 import Rep from './Components/Rep/Rep';
 
@@ -43,7 +42,8 @@ function App() {
           //<Route path="/StudentProfile" element={<StudentProfile />} />
           <Route path="/student-occasion" element={<Studentoccasion />} />
           <Route path="/about-us" element={<AboutFFF />} />
-          <Route path="/Profile" element={<Profile />} />
+          //<Route path="/Profile" element={<Profile />} />
+          <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/Attendance" element={<Attendance />} />
 
           {/* Admin Routes */}

@@ -40,6 +40,7 @@ const SignInStu = () => {
       );
 
       if (response.data.success) {
+        localStorage.setItem("id",id);
         alert("✅ Login successful!");
         navigate("/SDash");
       } else {
