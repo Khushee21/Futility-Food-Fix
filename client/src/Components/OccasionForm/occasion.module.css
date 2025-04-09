@@ -1,4 +1,15 @@
+/* Keyframe Animations */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
 
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 @keyframes fadeInBounce {
     0% {
@@ -16,37 +27,43 @@
         transform: translateY(0);
     }
 }
-body
-{
-    background-color: rgb(0, 0, 0);
+
+/* 📌 Background Image Applied */
+body {
+    background-image: url("./bg4.jpg");
+    /* 🖼️ Replace with actual image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Fixes background while scrolling */
 }
-.occ_container {
-    background: rgba(163, 150, 150, 0.2);
+
+/* Form Container */
+.container {
+    background: rgba(255, 255, 255, 0.162);
+    /* 🔥 Semi-transparent black for readability */
     color: rgb(26, 25, 25);
     padding: 50px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 90%;
-    width: 640px;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.502);
+    max-width: 500px;
+    margin: 40px auto;
+    position: relative;
     text-align: center;
     animation: slideIn 1s ease-out;
 }
-.occ_title {
-    font-size: 30px;
+
+/* Title */
+.title {
+    font-size: 38px;
     font-weight: bold;
     text-align: center;
-    margin-top: 10px;
+    margin-bottom: 10px;
     animation: fadeInBounce 1.5s ease-in-out;
-    color: white;
-    margin-bottom: 5%;
 }
 
-.occ_closeButton {
+/* Close Button */
+.closeButton {
     background-color: red;
     color: white;
     border: none;
@@ -62,16 +79,15 @@ body
     justify-content: center;
     width: 30px;
     height: 30px;
-    
 }
-.occ_customFileLabel:hover {
-    background-color: #e4dddd;
-  }
-.occ_formGroup label {
+
+/* Labels */
+.formGroup label {
     font-size: 20px;
     font-weight: bold;
 }
 
+/* Input Fields & Dropdowns */
 select,
 input[type="date"],
 input[type="text"] {
@@ -83,20 +99,10 @@ input[type="text"] {
     border-radius: 5px;
     width: 100%;
     cursor: pointer;
-    margin-top: 1%;
-    text-align: center; 
-    text-align-last: center;
 }
-.occ_t input[type="text"]
-{
-    background-color: rgb(3, 0, 0);
-}
-.occ_formGroup option{
-    text-align: center; 
-    text-align-last: center; 
-  }
 
-.occ_otherOccasionInput {
+/* "Other" Occasion Input */
+.otherOccasionInput {
     background-color: black;
     color: white;
     border: 1px solid white;
@@ -106,31 +112,31 @@ input[type="text"] {
     width: 100%;
 }
 
-
-.occ_uploadContainer {
+/* File Upload */
+.uploadContainer {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 4%;
-    margin-bottom: 4%;
 }
 
-.occ_uploadContainer input[type="file"] {
+.uploadContainer input[type="file"] {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.occ_choiceContainer {
+/* Choices */
+.choiceContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    /* 📏 Space them evenly */
     align-items: flex-start;
     gap: 10px;
     margin: 10px 0;
 }
 
-.occ_choiceBox {
+.choiceBox {
     background-color: rgba(61, 60, 60, 0.352);
     color: rgb(224, 214, 214);
     padding: 10px;
@@ -138,12 +144,9 @@ input[type="text"] {
     width: 70%;
     text-align: left;
     font-size: 16px;
-    margin-bottom: 2%;
-    text-align: left; 
-    text-align-last: left; 
 }
 
-.occ_choiceBox input {
+.choiceBox input {
     width: 95%;
     padding: 4px;
     border-radius: 4px;
@@ -152,13 +155,14 @@ input[type="text"] {
     font-size: 12px;
 }
 
-.occ_buttonGroup {
+/* Buttons */
+.buttonGroup {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.occ_button[type="submit"] {
+button[type="submit"] {
     background-color: rgba(10, 73, 10, 0.765);
     color: white;
     padding: 10px;
@@ -168,17 +172,13 @@ input[type="text"] {
     font-weight: bold;
     width: 48%;
     font-size: 14px;
-    margin-top: 5%;
-    margin-bottom: -2%;
 }
 
-.occ_button[type="submit"]:hover {
-
+button[type="submit"]:hover {
     background-color: darkgreen;
 }
 
-.occ_button[type="button"] {
-    margin-top: 5%;
+button[type="button"] {
     background-color: red;
     color: white;
     padding: 10px;
@@ -188,27 +188,22 @@ input[type="text"] {
     font-weight: bold;
     width: 48%;
     font-size: 14px;
-    margin-bottom: -2%;
 }
 
-.occ_button[type="button"]:hover {
+button[type="button"]:hover {
     background-color: darkred;
 }
 
-.occ_error {
+/* Error Message */
+.error {
     color: red;
     font-size: 12px;
     display: block;
     margin-top: 3px;
 }
 
-
+/* Fix Calendar Icon */
 input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
     cursor: pointer;
-    color: white;
-
-}
-.H1 label strong
-{
-    text-align: center;
 }
