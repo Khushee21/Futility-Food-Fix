@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import rep from './Components/Rep/Rep';
 import SignInAdmin from './Components/WardenSignIn/SignInAdmin';
 import WDash from './Components/WardenDashBoard/WDash';
 import StudentProfile from './Components/myProfile/studentProfile';
@@ -17,6 +16,9 @@ import AboutFFF from './Components/AboutFFF/About_Us';
 import Profile from './Components/myProfile/studentProfile';
 import SDash from './Components/Student_Dashboard/SDash';
 import Stdreg from './Components/Registration/Stdreg';
+
+
+
 import Rep from './Components/Rep/Rep';
 
 function App() {
@@ -37,10 +39,8 @@ function App() {
           <Route path="/reset-password" element={<ResetPass />} />
           <Route path="/ResetPass" element={<ResetPass />} />
           <Route path="/ResetPass/:id" element={<ResetPass />} />
-
-          {/* Student Dashboard & Features */}
           <Route path="/SDash" element={<SDash />} />
-          <Route path="/StudentProfile" element={<StudentProfile />} />
+          //<Route path="/StudentProfile" element={<StudentProfile />} />
           <Route path="/student-occasion" element={<Studentoccasion />} />
           <Route path="/about-us" element={<AboutFFF />} />
           <Route path="/Profile" element={<Profile />} />
@@ -50,15 +50,14 @@ function App() {
           <Route path="/SignInAdmin" element={<SignInAdmin onLogin={handleAdminLogin} />} />
           <Route path="/WDash" element={isAdmin ? <WDash /> : <Navigate to="/SignInAdmin" />} />
           <Route path="/monthly-report/:studentId" element={<MonthlyReport />} />
+
           <Route path="/occasion-form" element={<OccasionForm />} />
           <Route path="/stud-daily" element={<Stud />} />
           <Route path="/warden-daily" element={<Ward />} />
-          <Route path="/monthly-report" element={<MonthlyReport />} />
-
-          {/* NGO Route */}
+         // <Route path="/monthly-report" element={<MonthlyReport />} />
           <Route path="/NGO" element={<NGO />} />
           <Route path="/std-list" element={<Rep/>}/>
-          {/* Catch-all */}
+        
           <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
       </main>
