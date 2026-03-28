@@ -124,8 +124,8 @@ const Stud = () => {
     const submissionData = {
       studentId,
       studentName,
-      meals: mealFlags, // ✅ Send as boolean flags now
-      myDate: date,      // ✅ Match key name expected by backend
+      meals: mealFlags, 
+      myDate: date,      
     };
   
     console.log("Sending data to backend:", submissionData);
